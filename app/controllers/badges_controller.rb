@@ -25,6 +25,7 @@ class BadgesController < ApplicationController
   # POST /badges.json
   def create
     @badge = Badge.new(badge_params)
+    @badge.status = 'Proposed'
 
     respond_to do |format|
       if @badge.save
@@ -69,6 +70,6 @@ class BadgesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def badge_params
-      params.require(:badge).permit(:name, :description, :proposer_id, :status, :proposal_date, :levels)
+      params.require(:badge).permit(:name, :description, :proposer_id, :status, :proposal_date, :levels, :level_1, :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9)
     end
 end

@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   enum role: [:user, :vip, :admin]
+  has_many :user_badges
+  has_many :badges, through: :user_badges
   after_initialize :set_default_role, :if => :new_record?
 
   def set_default_role

@@ -1,31 +1,6 @@
-%h1 Listing badges
+%h3
+  HolacracyOne Badges Library - 
+  = link_to 'Add', new_badge_path
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Description
-      %th Proposer
-      %th Status
-      %th Proposal date
-      %th Levels
-      %th
-      %th
-      %th
-
-  %tbody
-    - @badges.each do |badge|
-      %tr
-        %td= badge.name
-        %td= badge.description
-        %td= badge.proposer_id
-        %td= badge.status
-        %td= badge.proposal_date
-        %td= badge.levels
-        %td= link_to 'Show', badge
-        %td= link_to 'Edit', edit_badge_path(badge)
-        %td= link_to 'Destroy', badge, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Badge', new_badge_path
+%hr
+= render @badges

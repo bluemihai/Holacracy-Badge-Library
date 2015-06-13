@@ -1,0 +1,5 @@
+= link_to badge.name, badge
+%ul
+ %li= "Status: #{badge.status}"
+ %li= "Proposed by: #{badge.proposer.try(:name)}"
+ %li= "Description: #{badge.description}"

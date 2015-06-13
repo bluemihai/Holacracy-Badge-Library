@@ -9,4 +9,5 @@
         Menu
   .top-bar-section
     %ul
-      = render 'layouts/navigation_links'
+      %li= link_to 'Badges', badges_path
+      %li= link_to 'Add Badge', new_badge_path

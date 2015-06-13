@@ -1,0 +1,10 @@
+= simple_form_for(@badge_level) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :badge_id
+    = f.input :level_id
+    = f.input :description
+
+  .form-actions
+    = f.button :submit

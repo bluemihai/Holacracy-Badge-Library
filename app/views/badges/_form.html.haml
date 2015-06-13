@@ -2,12 +2,18 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :name
-    = f.input :description
-    = f.input :proposer_id
-    = f.input :status
-    = f.input :proposal_date
-    = f.input :levels
+    = f.association :proposer
+    = f.input :name, label: 'Badge Name'
+    = f.input :description, label: 'Basic Badge Description'
+    = f.input :level_1, label: 'Level 1 Description'
+    = f.input :level_2, label: 'Level 2 Description'
+    = f.input :level_3, label: 'Level 3 Description'
+    = f.input :level_4, label: 'Level 4 Description'
+    = f.input :level_5, label: 'Level 5 Description'
+    = f.input :level_6, label: 'Level 6 Description'
+    = f.input :level_7, label: 'Level 7 Description'
+    = f.input :level_8, label: 'Level 8 Description'
+    = f.input :level_9, label: 'Level 9 Description'
 
   .form-actions
     = f.button :submit
