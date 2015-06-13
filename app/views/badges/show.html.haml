@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @badge.name
+%p
+  %b Description:
+  = @badge.description
+%p
+  %b Proposer:
+  = @badge.proposer_id
+%p
+  %b Status:
+  = @badge.status
+%p
+  %b Proposal date:
+  = @badge.proposal_date
+%p
+  %b Levels:
+  = @badge.levels
+
+= link_to 'Edit', edit_badge_path(@badge)
+\|
+= link_to 'Back', badges_path

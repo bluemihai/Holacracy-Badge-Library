@@ -1,0 +1,13 @@
+= simple_form_for(@badge) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :description
+    = f.input :proposer_id
+    = f.input :status
+    = f.input :proposal_date
+    = f.input :levels
+
+  .form-actions
+    = f.button :submit
