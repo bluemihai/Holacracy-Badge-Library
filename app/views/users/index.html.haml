@@ -1,3 +1,13 @@
-%h3 Users
+%h3 HolacracyOne Badge Holders
 
-= render @users
+%table
+  %tr
+    %td Badge
+    - @users.each do |user|
+      %td= user.short
+  - @badges.each do |badge|
+    %tr
+      %td= badge.name
+      - @users.each do |user|
+        %td
+          = user.badge_level(badge)

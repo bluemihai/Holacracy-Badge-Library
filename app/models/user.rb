@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  enum role: [:user, :vip, :admin]
+  enum role: [:user, :vip, :admin, :librarian]
   has_many :user_badges
   has_many :badges, through: :user_badges
   after_initialize :set_default_role, :if => :new_record?
@@ -7,10 +7,18 @@ class User < ActiveRecord::Base
   def badge_count
     badges.count
   end
-  
+
+  def is_librarian?
+    role == 'librarian'
+  end
+
+  def is_admin?
+    role == 'admin'
+  end
+
   def badge_level(badge)
     ub = UserBadge.where(user: self.id, badge: badge.id).first
-    ub.try(:level) || 0
+    ub.try(:level) || '-'
   end
 
   def set_default_role

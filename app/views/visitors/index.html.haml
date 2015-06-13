@@ -1,13 +1,1 @@
-%h3 Welcome, HolacracyOne Badge Holders!
-
-%table
-  %tr
-    %td Badge Name
-    - @users.each do |user|
-      %td= user.name
-  - @badges.each do |badge|
-    %tr
-      %td= badge.name
-      - @users.each do |user|
-        %td
-          = user.badge_level(badge)
+%h3 Welcome!
