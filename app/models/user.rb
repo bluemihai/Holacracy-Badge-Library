@@ -4,6 +4,15 @@ class User < ActiveRecord::Base
   has_many :badges, through: :user_badges
   after_initialize :set_default_role, :if => :new_record?
 
+  def badge_count
+    badges.count
+  end
+  
+  def badge_level(badge)
+    ub = UserBadge.where(user: self.id, badge: badge.id).first
+    ub.try(:level) || 0
+  end
+
   def set_default_role
     if User.count == 0
       self.role ||= :admin

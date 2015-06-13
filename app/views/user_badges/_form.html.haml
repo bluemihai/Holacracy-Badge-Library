@@ -1,0 +1,10 @@
+= simple_form_for(@user_badge) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :user
+    = f.association :badge
+    = f.input :level, collection: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+  .form-actions
+    = f.button :submit
