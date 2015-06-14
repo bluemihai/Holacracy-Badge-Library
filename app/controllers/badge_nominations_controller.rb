@@ -14,7 +14,6 @@ class BadgeNominationsController < ApplicationController
   def new
     @badge_nomination = BadgeNomination.new
     @badge_nomination.status = 'proposed'
-    @badge_nomination.nominator_id = current_user.id
   end
 
   def edit
