@@ -4,7 +4,7 @@ class BadgesController < ApplicationController
 
   def index
     status = params[:status]
-    @badges = status ? Badge.where(status: status) : Badge.all
+    @badges = status ? Badge.where(status: status).order(:name) : Badge.order(:name)
   end
 
   def show
