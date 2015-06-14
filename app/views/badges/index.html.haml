@@ -1,6 +1,17 @@
 %h3
-  HolacracyOne Badges Library - 
-  = link_to 'Add', new_badge_path
+  HolacracyOne Badges Library
 
 %hr
+
+%h4 Simple
+%hr
 = render @badges
+%br
+= link_to 'Propose New Badge', new_badge_path
+
+%hr
+
+%h4 Detailed
+%hr
+- @badges.each do |badge|
+  = render 'detailed_badge', badge: badge

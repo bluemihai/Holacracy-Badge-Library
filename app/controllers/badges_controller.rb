@@ -1,5 +1,6 @@
 class BadgesController < ApplicationController
   before_action :set_badge, only: [:show, :edit, :update, :destroy]
+  before_action :check_auth, only: [:edit]
 
   # GET /badges
   # GET /badges.json
@@ -73,5 +74,12 @@ class BadgesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def badge_params
       params.require(:badge).permit(:name, :description, :proposer_id, :status, :proposal_date, :levels, :level_1, :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9)
+    end
+
+    def check_auth
+      return if current_user == @badge.proposer
+      return if current_user.try(:is_admin?)
+      return if current_user.try(:is_librarian?)
+      redirect_to @badge, warning: 'Only librarians, admins or the badge proposer can edit a badge.'
     end
 end
