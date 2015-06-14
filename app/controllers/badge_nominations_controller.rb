@@ -36,7 +36,7 @@ class BadgeNominationsController < ApplicationController
   def update
     respond_to do |format|
       if @badge_nomination.update(badge_nomination_params)
-        format.html { redirect_to badge_nominations_path, notice: 'BadgeNomination was successfully updated.' }
+        format.html { redirect_to users_path, notice: 'BadgeNomination was successfully updated.' }
         format.json { render :show, status: :ok, location: @badge_nomination }
       else
         format.html { render :edit }
