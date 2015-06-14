@@ -1,7 +1,5 @@
 class Badge < ActiveRecord::Base
-  has_many :badge_levels
-  has_many :levels, through: :badge_levels
-  has_many :user_badges
-  has_many :users, through: :user_badges
+  has_many :badge_nominations
+  has_many :users, through: :badge_nominations
   belongs_to :proposer, class_name: 'User'
 end

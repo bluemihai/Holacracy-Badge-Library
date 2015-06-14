@@ -1,11 +1,9 @@
 class BadgeNominationsController < ApplicationController
-
   before_action :set_badge_nomination, only: [:show, :edit, :update, :destroy]
   before_action :check_auth, only: [:edit]
 
   def index
-    status = params[:status]
-    @badge_nominations = status ? BadgeNomination.where(status: status).order(:name) : BadgeNomination.order(:created_at)
+    BadgeNomination.order(:created_at)
   end
 
   def show
@@ -13,8 +11,8 @@ class BadgeNominationsController < ApplicationController
 
   def new
     @badge_nomination = BadgeNomination.new
-    @badge_nomination.status = 'proposed'
-    @badge_nomination.nominator_id = current_user.id
+    @badge_nomination.status = 'pending'
+    @badge_nomination.nominator = current_user
   end
 
   def edit
@@ -25,7 +23,7 @@ class BadgeNominationsController < ApplicationController
 
     respond_to do |format|
       if @badge_nomination.save
-        format.html { redirect_to @badge_nomination, notice: 'BadgeNomination was successfully created.' }
+        format.html { redirect_to @badge_nomination, notice: 'Badge Nomination was successfully created.' }
         format.json { render :show, status: :created, location: @badge_nomination }
       else
         format.html { render :new }
@@ -37,7 +35,7 @@ class BadgeNominationsController < ApplicationController
   def update
     respond_to do |format|
       if @badge_nomination.update(badge_nomination_params)
-        format.html { redirect_to badge_nominations_path, notice: 'BadgeNomination was successfully updated.' }
+        format.html { redirect_to badge_nominations_path, notice: 'Badge Nomination was successfully updated.' }
         format.json { render :show, status: :ok, location: @badge_nomination }
       else
         format.html { render :edit }
@@ -49,7 +47,7 @@ class BadgeNominationsController < ApplicationController
   def destroy
     @badge_nomination.destroy
     respond_to do |format|
-      format.html { redirect_to badge_nominations_url, notice: 'BadgeNomination was successfully destroyed.' }
+      format.html { redirect_to badge_nominations_url, notice: 'Badge Nomination was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -60,7 +58,7 @@ class BadgeNominationsController < ApplicationController
     end
 
     def badge_nomination_params
-      params.require(:badge_nomination).permit(:name, :level, :status, :user_id, :nominator_id, :badge_id)
+      params.require(:badge_nomination).permit(:level, :nominator_id, :status)
     end
 
     def check_auth
@@ -69,5 +67,4 @@ class BadgeNominationsController < ApplicationController
       return if current_user.try(:is_librarian?)
       redirect_to @badge_nomination, warning: 'Only librarians, admins or the badge_nomination proposer can edit a badge_nomination.'
     end
-
 end

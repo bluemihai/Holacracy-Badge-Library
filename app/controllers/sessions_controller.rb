@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     user = User.find_by(name: auth.info.name)
     reset_session
     session[:user_id] = user.id
-    redirect_to :back, :notice => 'Signed in!'
+    redirect_to users_path, :notice => 'Signed in!'
   end
 
   def destroy

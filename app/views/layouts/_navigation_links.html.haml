@@ -1,7 +1,7 @@
 %li= link_to 'Badges', badges_path
 %li= link_to 'Add New', new_badge_path if user_signed_in?
 %li= link_to 'Users', users_path
-%li= link_to 'Grant', new_user_badge_path if current_user.try(:is_librarian?) || current_user.try(:is_admin?)
+%li= link_to 'Nominate', new_badge_nomination_path
 - if user_signed_in?
   %li= link_to "Sign out (#{current_user.try(:role)}) #{current_user.try(:name)}", signout_path
 - else

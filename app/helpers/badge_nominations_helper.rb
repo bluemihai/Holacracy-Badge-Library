@@ -1,2 +1,2 @@
-module UserBadgesHelper
+module BadgeNominationsHelper
 end

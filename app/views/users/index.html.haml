@@ -9,4 +9,4 @@
     %tr
       %td= link_to badge.name, badge
       - @users.each do |user|
-        %td= link_to user.badge_level(badge), badge
+        %td= user.badge_level(badge)

@@ -1,10 +1,14 @@
-= simple_form_for(@user_badge) do |f|
+= simple_form_for(@badge_nomination) do |f|
   = f.error_notification
 
   .form-inputs
-    = f.association :user
+    = f.association :user, label: 'Nominee'
     = f.association :badge
     = f.input :level, collection: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    - if current_user.try(:is_librarian?) || current_user.try(:is_admin?)
+      = f.input :status, collection: [['Pending', 'pending'], ['Accepted', 'accepted'], ['Expired', 'expired']]
+    - else
+      = f.input :status, collection: [['Pending', 'pending']]      
 
   .form-actions
-    = f.button :submit, 'Grant Badge'
+    = f.button :submit, 'Create/Update Badge Nomination'

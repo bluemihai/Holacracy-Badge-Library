@@ -1,12 +1,8 @@
 Rails.application.routes.draw do
-  resources :nomination_votes
-  get 'user_badges/new'
-  get 'user_badges/create'
-
-  resources :badges
-  resources :badge_levels
-  resources :user_badges
   resources :users
+  resources :badges
+  resources :badge_nominations
+  resources :nomination_votes
 
   root to: 'visitors#index'
   get 'about' => 'visitors#about'

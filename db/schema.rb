@@ -11,18 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150614135328) do
+ActiveRecord::Schema.define(version: 20150614142459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "badge_levels", force: :cascade do |t|
-    t.integer  "badge_id"
-    t.integer  "level_id"
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
 
   create_table "badge_nominations", force: :cascade do |t|
     t.integer  "user_id"
@@ -52,13 +44,6 @@ ActiveRecord::Schema.define(version: 20150614135328) do
     t.text     "level_9"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-  end
-
-  create_table "levels", force: :cascade do |t|
-    t.integer  "no"
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
   end
 
   create_table "nomination_votes", force: :cascade do |t|

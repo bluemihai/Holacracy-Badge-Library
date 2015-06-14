@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   enum role: [:user, :vip, :admin, :librarian]
-  has_many :user_badges
-  has_many :badges, through: :user_badges
+  has_many :badge_nominations
+  has_many :badges, through: :badge_nominations
   after_initialize :set_default_role, :if => :new_record?
 
   default_scope { order(:short) }
@@ -18,9 +18,9 @@ class User < ActiveRecord::Base
     role == 'admin'
   end
 
+  # return a BadgeNomination object with the highest badge level held by user
   def badge_level(badge)
-    ub = UserBadge.where(user: self.id, badge: badge.id).first
-    ub.try(:level) || '-'
+    badge_nominations.where(badge_id: badge.id, status: 'accepted').order('level DESC').try(:first).try(:level)
   end
 
   def set_default_role
@@ -40,5 +40,5 @@ class User < ActiveRecord::Base
       end
     end
   end
-
+  
 end

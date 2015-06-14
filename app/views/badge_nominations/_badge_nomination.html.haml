@@ -1,8 +1,8 @@
 %tr
 - @users.each do |user|
   %td
-    - if user in user_badge.badge.users
-      user_badge.level
+    - if user in badge_nomination.badge.users
+      badge_nomination.level
     - else
       N/A
 
