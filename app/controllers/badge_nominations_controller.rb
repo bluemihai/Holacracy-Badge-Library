@@ -63,7 +63,6 @@ class BadgeNominationsController < ApplicationController
     end
 
     def check_auth
-      return if current_user == @badge_nomination.proposer
       return if current_user.try(:is_admin?)
       return if current_user.try(:is_librarian?)
       redirect_to @badge_nomination, warning: 'Only librarians, admins or the badge_nomination proposer can edit a badge_nomination.'

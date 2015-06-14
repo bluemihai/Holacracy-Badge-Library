@@ -3,8 +3,8 @@
 
   .form-inputs
     = f.association :user, label: 'Nominee'
-    = f.association :badge, collection: Badge.accepted.order(:name)
-    = f.input :level, collection: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    = f.association :badge, collection: Badge.order(:name)
+    = f.input :level, collection: (1..9)
     - if current_user.try(:is_librarian?) || current_user.try(:is_admin?)
       = f.input :status, collection: [['Pending', 'pending'], ['Accepted', 'accepted'], ['Expired', 'expired']]
     - else

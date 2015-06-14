@@ -2,10 +2,10 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :badge_nomination_id
-    = f.input :voter_id
-    = f.input :level
+    = f.association :badge_nomination, label_method: :who_for_what, label: 'Badge Nomination'
+    = f.association :voter, include_blank: true
+    = f.input :level, collection: (1..9)
     = f.input :comment
 
   .form-actions
-    = f.button :submit
+    = f.button :submit, 'Vote'
