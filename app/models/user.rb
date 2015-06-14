@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_many :badges, through: :user_badges
   after_initialize :set_default_role, :if => :new_record?
 
+  default_scope { order(:short) }
+
   def badge_count
     badges.count
   end

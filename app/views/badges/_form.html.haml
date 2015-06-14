@@ -2,7 +2,7 @@
   = f.error_notification
 
   .form-inputs
-    = f.association :proposer
+    =# f.association :proposer, label_method: :short, include_blank: true
     = f.input :name, label: 'Badge Name'
     = f.input :description, label: 'Basic Badge Description'
     = f.input :level_1, label: 'Level 1 Description'
