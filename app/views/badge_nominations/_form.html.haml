@@ -4,9 +4,11 @@
   .form-inputs
     = f.association :user, label: 'Nominee'
     = f.association :badge, collection: Badge.order(:name)
-    = f.input :level, collection: (1..9)
+    = f.input :level_nominated, collection: (1..9)
     - if current_user.try(:is_librarian?) || current_user.try(:is_admin?)
-      = f.input :status, collection: [['Pending', 'pending'], ['Accepted', 'accepted'], ['Expired', 'expired']]
+      %div.admin-only
+        = f.input :status, collection: [['Pending', 'pending'], ['Accepted', 'accepted'], ['Expired', 'expired']]
+        = f.input :level_granted, collection: (1..9)
     - else
       = f.input :status, collection: [['Pending', 'pending']]      
 

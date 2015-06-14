@@ -7,6 +7,9 @@
       %td= link_to user.try(:short), user
   - @badges.each do |badge|
     %tr
-      %td= link_to badge.name, badge
+      %td
+        = link_to(badge.name, badge)
+        %strong
+          = ' (' + badge.status + ')' if badge.status != 'accepted'
       - @users.each do |user|
         %td= user.badge_level(badge)

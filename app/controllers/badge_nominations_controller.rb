@@ -59,7 +59,7 @@ class BadgeNominationsController < ApplicationController
     end
 
     def badge_nomination_params
-      params.require(:badge_nomination).permit(:name, :level, :status, :user_id, :nominator_id, :badge_id)
+      params.require(:badge_nomination).permit(:name, :level_nominated, :level_granted, :status, :user_id, :nominator_id, :badge_id)
     end
 
     def check_auth

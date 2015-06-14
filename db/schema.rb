@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150614142459) do
+ActiveRecord::Schema.define(version: 20150614183418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,11 +19,12 @@ ActiveRecord::Schema.define(version: 20150614142459) do
   create_table "badge_nominations", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "badge_id"
-    t.integer  "level"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "level_nominated"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "status"
     t.integer  "nominator_id"
+    t.string   "level_granted"
   end
 
   create_table "badges", force: :cascade do |t|

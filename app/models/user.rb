@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   after_initialize :set_default_role, :if => :new_record?
 
   default_scope { order(:short) }
+  scope :core_tenured, -> { where(core_tenured?: true) }
 
   def badge_count
     badges.count
@@ -18,9 +19,13 @@ class User < ActiveRecord::Base
     role == 'admin'
   end
 
-  # return a BadgeNomination object with the highest badge level held by user
   def badge_level(badge)
-    badge_nominations.where(badge_id: badge.id, status: 'accepted').order('level DESC').try(:first).try(:level)
+    noms = badge_nominations.where(badge_id: badge.id).order('level DESC')
+    noms.first ? noms.first.level : '-'
+  end
+
+  def has_badge(badge)
+    BadgeNomination.exists?(user_id: self.id, badge_id: badge.id, status: 'accepted')
   end
 
   def set_default_role
