@@ -2,30 +2,23 @@ class BadgesController < ApplicationController
   before_action :set_badge, only: [:show, :edit, :update, :destroy]
   before_action :check_auth, only: [:edit]
 
-  # GET /badges
-  # GET /badges.json
   def index
-    @badges = Badge.all
+    status = params[:status]
+    @badges = status ? Badge.where(status: status) : Badge.all
   end
 
-  # GET /badges/1
-  # GET /badges/1.json
   def show
   end
 
-  # GET /badges/new
   def new
     @badge = Badge.new
-    @badge.status = 'Draft'
+    @badge.status = 'draft'
     @user = current_user
   end
 
-  # GET /badges/1/edit
   def edit
   end
 
-  # POST /badges
-  # POST /badges.json
   def create
     @badge = Badge.new(badge_params)
     @badge.proposer_id ||= current_user.id
@@ -41,12 +34,10 @@ class BadgesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /badges/1
-  # PATCH/PUT /badges/1.json
   def update
     respond_to do |format|
       if @badge.update(badge_params)
-        format.html { redirect_to @badge, notice: 'Badge was successfully updated.' }
+        format.html { redirect_to :back, notice: 'Badge was successfully updated.' }
         format.json { render :show, status: :ok, location: @badge }
       else
         format.html { render :edit }
@@ -55,8 +46,6 @@ class BadgesController < ApplicationController
     end
   end
 
-  # DELETE /badges/1
-  # DELETE /badges/1.json
   def destroy
     @badge.destroy
     respond_to do |format|
@@ -66,12 +55,10 @@ class BadgesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_badge
       @badge = Badge.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def badge_params
       params.require(:badge).permit(:name, :description, :proposer_id, :status, :proposal_date, :levels, :level_1, :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9)
     end
