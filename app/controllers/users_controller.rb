@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.order('short')
-    @badges = Badge.all
+    @badges = Badge.order('name')
   end
 
   # GET /users/1
