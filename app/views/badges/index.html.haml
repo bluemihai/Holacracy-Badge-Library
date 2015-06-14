@@ -5,17 +5,13 @@
   = link_to('All', badges_path) + ' | '
   = link_to('Accepted', badges_path(status: 'accepted')) + ' | '
   = link_to('Proposed', badges_path(status: 'proposed')) + ' | '
-  = link_to('Draft', badges_path(status: 'draft'))
-
-
+  = link_to('Draft', badges_path(status: 'draft')) + ' || '
+  = link_to 'Propose New Badge', new_badge_path
 
 = render @badges
 %br
-= link_to 'Propose New Badge', new_badge_path
 
 %hr
 
-%h4 Detailed
-%hr
 - @badges.each do |badge|
   = render 'detailed_badge', badge: badge

@@ -13,7 +13,7 @@ class BadgesController < ApplicationController
   def new
     @badge = Badge.new
     @badge.status = 'draft'
-    @user = current_user
+    @badge.proposer = current_user
   end
 
   def edit
@@ -21,7 +21,6 @@ class BadgesController < ApplicationController
 
   def create
     @badge = Badge.new(badge_params)
-    @badge.proposer_id ||= current_user.id
 
     respond_to do |format|
       if @badge.save

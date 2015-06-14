@@ -2,10 +2,10 @@
   = f.error_notification
 
   .form-inputs
-    =# f.association :proposer, label_method: :short, include_blank: true
     = f.input :name, label: 'Badge Name'
     = f.input :description, label: 'Basic Badge Description'
     - if user_signed_in? && (current_user.is_librarian? || current_user.is_admin?)
+      = f.association :proposer, label_method: :short, include_blank: true
       = f.input :status, collection: [['Draft', 'draft'], ['Proposed', 'proposed'], ['Accepted', 'accepted'], ['Rejected', 'rejected']], include_blank: true
     = f.input :level_1, label: 'Level 1 Description'
     = f.input :level_2, label: 'Level 2 Description'
