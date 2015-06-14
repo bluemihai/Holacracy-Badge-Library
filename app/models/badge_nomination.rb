@@ -16,7 +16,7 @@ class BadgeNomination < ActiveRecord::Base
   end
   
   def who_for_what
-    user.short + " for \'"  + badge.name + "\' at level " + level
+    user.short + " for \'"  + badge.name + "\' at level " + level_nominated
   end
 
   def enough_badge_holders
