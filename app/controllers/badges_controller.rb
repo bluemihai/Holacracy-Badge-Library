@@ -16,6 +16,7 @@ class BadgesController < ApplicationController
   # GET /badges/new
   def new
     @badge = Badge.new
+    @badge.status = 'Draft'
     @user = current_user
   end
 
@@ -27,7 +28,6 @@ class BadgesController < ApplicationController
   # POST /badges.json
   def create
     @badge = Badge.new(badge_params)
-    @badge.status = 'Proposed'
     @badge.proposer_id ||= current_user.id
 
     respond_to do |format|

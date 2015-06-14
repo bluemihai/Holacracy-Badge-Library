@@ -5,7 +5,7 @@
     =# f.association :proposer, label_method: :short, include_blank: true
     = f.input :name, label: 'Badge Name'
     = f.input :description, label: 'Basic Badge Description'
-    = f.input :status, collection: ['Proposed', 'Accepted', 'Rejected'], include_blank: true if user_signed_in? && (current_user.is_librarian? || current_user.is_admin?)
+    = f.input :status, collection: ['Draft', 'Proposed', 'Accepted', 'Rejected'], include_blank: true if user_signed_in? && (current_user.is_librarian? || current_user.is_admin?)
     = f.input :level_1, label: 'Level 1 Description'
     = f.input :level_2, label: 'Level 2 Description'
     = f.input :level_3, label: 'Level 3 Description'
