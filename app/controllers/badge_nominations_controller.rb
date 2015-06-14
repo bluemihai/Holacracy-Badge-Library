@@ -13,7 +13,7 @@ class BadgeNominationsController < ApplicationController
 
   def new
     @badge_nomination = BadgeNomination.new
-    @badge_nomination.status = 'proposed'
+    @badge_nomination.status = 'pending'
   end
 
   def edit
