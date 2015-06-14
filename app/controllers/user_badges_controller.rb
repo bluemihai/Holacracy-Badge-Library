@@ -9,7 +9,7 @@ class UserBadgesController < ApplicationController
 
     respond_to do |format|
       if @user_badge.save
-        format.html { redirect_to root_path, notice: "Badge was successfully assigned to #{@user_badge.user.try(:name)}." }
+        format.html { redirect_to root_path, notice: "Badge '#{@user_badge.badge.name}' was successfully granted to #{@user_badge.user.try(:name)}." }
         format.json { render :show, status: :created, location: @user_badge }
       else
         format.html { render :new }
