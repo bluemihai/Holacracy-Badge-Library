@@ -20,14 +20,14 @@ class BadgeNomination < ActiveRecord::Base
   end
 
   def enough_badge_holders
-    badge.holders > 5
+    badge.holders.count > 5
   end
 
   def level_voted
     if enough_badge_holders
-      valid_votes = votes.select{ |v| v.badge.holders.include?(v.voter) }
+      valid_votes = votes.select{ |v| badge.holders.include?(v.voter) }
     else
-      valid_votes = votes.select{ |v| v.badge.holders.include?(v.voter) || v.voter.core_tenured? }
+      valid_votes = votes.select{ |v| badge.holders.include?(v.voter) || v.voter.core_tenured? }
     end
 
     if valid_votes.count < 3    # we don't have enough votes

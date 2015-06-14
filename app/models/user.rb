@@ -20,8 +20,8 @@ class User < ActiveRecord::Base
   end
 
   def badge_level(badge)
-    noms = badge_nominations.where(badge_id: badge.id).order('level DESC')
-    noms.first ? noms.first.level : '-'
+    noms = badge_nominations.where(badge_id: badge.id).order('level_granted DESC')
+    noms.first ? noms.first.level_voted : '-'
   end
 
   def has_badge(badge)
