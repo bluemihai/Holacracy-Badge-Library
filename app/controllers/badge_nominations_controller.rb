@@ -14,6 +14,8 @@ class BadgeNominationsController < ApplicationController
   def new
     @badge_nomination = BadgeNomination.new
     @badge_nomination.status = 'pending'
+    @badge_nomination.badge_id = params[:badge_id] if params[:badge_id]
+    @badge_nomination.user_id = params[:user_id] if params[:user_id]    
   end
 
   def edit

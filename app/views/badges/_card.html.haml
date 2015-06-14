@@ -1,3 +1,8 @@
-= link_to badge.name, badge
+%h5= link_to badge.name, badge
 %ul
- %li= badge.description
+  %li= badge.description
+  %li
+    - if badge.accepted? && user_signed_in? && badge.holders.include?(current_user)
+      %strong= "You hold this badge at level #{current_user.badge_level(badge)}"
+    - elsif badge.accepted? && user_signed_in?
+      %strong= link_to 'Nominate Yourself', new_badge_nomination_path(badge_id: badge.id, user_id: current_user.id) if badge.accepted?

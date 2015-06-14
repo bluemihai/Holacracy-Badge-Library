@@ -1,7 +1,7 @@
 .large-1.medium-1.columns= badge_nomination.id
-.large-2.medium-2.columns= badge_nomination.badge.name
-.large-2.medium-2.columns= badge_nomination.user.name
-.large-1.medium-1.columns= badge_nomination.level_nominated
+.large-2.medium-2.columns= badge_nomination.badge.name ||= 'n/a'
+.large-2.medium-2.columns= badge_nomination.user.name ||= 'n/a'
+.large-1.medium-1.columns= badge_nomination.level_nominated ||= 'n/a'
 .large-1.medium-1.columns= badge_nomination.status ||= 'n/a'
 .large-1.medium-1.columns= badge_nomination.level_granted ||= 'n/a'
 .large-1.medium-1.columns= badge_nomination.created_at.strftime('%b-%d')

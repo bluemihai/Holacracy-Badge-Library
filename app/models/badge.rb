@@ -8,4 +8,8 @@ class Badge < ActiveRecord::Base
 #  validates :name, presence: true, unique: true
   validates :description, presence: true
   validates :status, presence: true
+  
+  def accepted?
+    status == 'accepted'
+  end
 end
