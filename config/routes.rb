@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :nomination_votes
   get 'user_badges/new'
   get 'user_badges/create'
 

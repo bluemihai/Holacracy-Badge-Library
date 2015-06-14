@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Badge nomination:
+  = @nomination_vote.badge_nomination_id
+%p
+  %b Voter:
+  = @nomination_vote.voter_id
+%p
+  %b Level:
+  = @nomination_vote.level
+%p
+  %b Comment:
+  = @nomination_vote.comment
+
+= link_to 'Edit', edit_nomination_vote_path(@nomination_vote)
+\|
+= link_to 'Back', nomination_votes_path

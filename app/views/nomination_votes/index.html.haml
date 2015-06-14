@@ -1,0 +1,27 @@
+%h1 Listing nomination_votes
+
+%table
+  %thead
+    %tr
+      %th Badge nomination
+      %th Voter
+      %th Level
+      %th Comment
+      %th
+      %th
+      %th
+
+  %tbody
+    - @nomination_votes.each do |nomination_vote|
+      %tr
+        %td= nomination_vote.badge_nomination_id
+        %td= nomination_vote.voter_id
+        %td= nomination_vote.level
+        %td= nomination_vote.comment
+        %td= link_to 'Show', nomination_vote
+        %td= link_to 'Edit', edit_nomination_vote_path(nomination_vote)
+        %td= link_to 'Destroy', nomination_vote, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Nomination vote', new_nomination_vote_path

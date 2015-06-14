@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613221845) do
+ActiveRecord::Schema.define(version: 20150614135328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 20150613221845) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "badge_nominations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "badge_id"
+    t.integer  "level"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "status"
+    t.integer  "nominator_id"
   end
 
   create_table "badges", force: :cascade do |t|
@@ -51,22 +61,24 @@ ActiveRecord::Schema.define(version: 20150613221845) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "user_badges", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "badge_id"
+  create_table "nomination_votes", force: :cascade do |t|
+    t.integer  "badge_nomination_id"
+    t.integer  "voter_id"
     t.integer  "level"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text     "comment"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "provider"
     t.string   "uid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "role"
     t.string   "short"
+    t.boolean  "core_tenured?", default: false
   end
 
 end

@@ -1,0 +1,11 @@
+= simple_form_for(@nomination_vote) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :badge_nomination_id
+    = f.input :voter_id
+    = f.input :level
+    = f.input :comment
+
+  .form-actions
+    = f.button :submit
