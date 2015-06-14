@@ -10,6 +10,9 @@ class BadgeNomination < ActiveRecord::Base
 
   validates_uniqueness_of :user_id, scope: :badge_id, message: "User has already been nominated for this badge."
 
+  scope :pending, -> { where(status: 'pending') }
+  scope :accepted, -> { where(status: 'accepted') }
+
   def accepted?
     status == 'accepted'
   end
