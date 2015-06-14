@@ -5,7 +5,7 @@ class Badge < ActiveRecord::Base
 
   scope :accepted, -> { where(status: 'accepted') }
   
-  validates :name, presence: true, unique: true
+#  validates :name, presence: true, unique: true
   validates :description, presence: true
   validates :status, presence: true
 end
