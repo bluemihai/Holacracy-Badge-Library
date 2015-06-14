@@ -4,7 +4,7 @@
   %tr
     %td Badge
     - @users.each do |user|
-      %td= link_to user.short, user
+      %td= link_to user.try(:short), user
   - @badges.each do |badge|
     %tr
       %td= link_to badge.name, badge
