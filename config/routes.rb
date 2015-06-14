@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :badge_nominations
   resources :nomination_votes
 
-  root to: 'visitors#index'
+  root to: 'visitors#about'
   get 'about' => 'visitors#about'
 
   get '/auth/:provider/callback' => 'sessions#create'

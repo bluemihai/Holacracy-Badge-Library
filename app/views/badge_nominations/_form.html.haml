@@ -3,7 +3,7 @@
 
   .form-inputs
     = f.association :user, label: 'Nominee'
-    = f.association :badge, collection: Badge.order(:name)
+    = f.association :badge, collection: Badge.accepted.order(:name)
     = f.input :level_nominated, collection: (1..9)
     - if current_user.try(:is_librarian?) || current_user.try(:is_admin?)
       %div.admin-only

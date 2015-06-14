@@ -2,7 +2,7 @@
   = f.error_notification
 
   .form-inputs
-    = f.association :badge_nomination, collection: BadgeNomination.pending, label_method: :who_for_what, label: 'Badge Nomination'
+    = f.association :badge_nomination, collection: BadgeNomination.pending, label_method: :who_for_what, label: 'Pending Badge Nomination'
     = f.association :voter, include_blank: true
     = f.input :level, collection: (1..9)
     = f.input :comment
