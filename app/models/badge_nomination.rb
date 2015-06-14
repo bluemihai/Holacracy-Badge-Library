@@ -6,7 +6,6 @@ class BadgeNomination < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :badge_id, presence: true
-  validates :level_nominated, presence: true
   validates :status, presence: true
 
   validates_uniqueness_of :user_id, scope: :badge_id, message: "User has already been nominated for this badge."
@@ -17,6 +16,14 @@ class BadgeNomination < ActiveRecord::Base
   
   def who_for_what
     user.short + " for \'"  + badge.name + "\' at level " + level_nominated.to_s
+  end
+
+  def current_level
+    if status == 'accepted'
+      level_granted
+    else
+      level_voted
+    end
   end
 
   def enough_badge_holders
