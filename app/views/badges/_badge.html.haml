@@ -1,2 +1,2 @@
-= link_to(badge.status.capitalize, edit_badge_path(badge)) + ': ' + link_to(badge.name, badge)
+= link_to(badge.name.capitalize, badge) + ' (added by ' + badge.proposer.short + ' on ' + badge.created_at.strftime('%b-%d') + ', ' + link_to(badge.status.capitalize, edit_badge_path(badge)) + ')'
 %br

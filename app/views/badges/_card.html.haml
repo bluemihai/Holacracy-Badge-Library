@@ -1,5 +1,3 @@
-= link_to badge.name, badge
+= link_to badge.name.capitalize, badge
 %ul
- %li= "Status: #{badge.status}"
- %li= "Proposed by: #{badge.proposer.try(:name)}"
- %li= "Description: #{badge.description}"
+ %li= badge.description
