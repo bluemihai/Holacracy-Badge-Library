@@ -2,6 +2,7 @@
 %li= link_to 'Add Badge', new_badge_path if user_signed_in?
 %li= link_to 'Users', users_path
 %li= link_to 'Nominate', new_badge_nomination_path
+%li= link_to 'Vote', new_nomination_vote_path
 - if user_signed_in?
   %li= link_to "Sign out (#{current_user.try(:role)}) #{current_user.try(:name)}", signout_path
 - else

@@ -20,7 +20,7 @@ class NominationVotesController < ApplicationController
 
     respond_to do |format|
       if @nomination_vote.save
-        format.html { redirect_to @nomination_vote, notice: 'Nomination vote was successfully created.' }
+        format.html { redirect_to nomination_votes_path, notice: 'Nomination vote was successfully created.' }
         format.json { render :show, status: :created, location: @nomination_vote }
       else
         format.html { render :new }
@@ -32,7 +32,7 @@ class NominationVotesController < ApplicationController
   def update
     respond_to do |format|
       if @nomination_vote.update(nomination_vote_params)
-        format.html { redirect_to @nomination_vote, notice: 'Nomination vote was successfully updated.' }
+        format.html { redirect_to nomination_votes_path, notice: 'Nomination vote was successfully updated.' }
         format.json { render :show, status: :ok, location: @nomination_vote }
       else
         format.html { render :edit }
