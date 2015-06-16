@@ -1,6 +1,6 @@
 class BadgeNominationsController < ApplicationController
-
   before_action :set_badge_nomination, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index]
   before_action :check_auth, only: [:edit]
 
   def index

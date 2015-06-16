@@ -1,5 +1,6 @@
 class NominationVotesController < ApplicationController
   before_action :set_nomination_vote, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index]
 
   def index
     @nomination_votes = NominationVote.all
