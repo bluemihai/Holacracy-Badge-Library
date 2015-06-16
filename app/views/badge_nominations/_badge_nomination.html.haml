@@ -1,9 +1,9 @@
 .large-1.medium-1.columns= badge_nomination.id
-.large-2.medium-2.columns= badge_nomination.badge.name ||= 'n/a'
-.large-2.medium-2.columns= badge_nomination.user.name ||= 'n/a'
-.large-1.medium-1.columns= badge_nomination.level_nominated ||= 'n/a'
+.large-2.medium-2.columns= link_to badge_nomination.badge.name, badge_nomination.badge ||= 'n/a'
+.large-2.medium-2.columns= link_to badge_nomination.user.name, badge_nomination.user ||= 'n/a'
+.large-1.medium-1.columns= "Level #{badge_nomination.level_nominated}"
 .large-1.medium-1.columns= badge_nomination.status ||= 'n/a'
-.large-1.medium-1.columns= badge_nomination.level_granted ||= 'n/a'
+.large-1.medium-1.columns= "Level #{badge_nomination.level_granted}"
 .large-1.medium-1.columns= badge_nomination.created_at.strftime('%b-%d')
 .large-1.medium-1.columns= link_to 'Edit', edit_badge_nomination_path(badge_nomination)
 %br
