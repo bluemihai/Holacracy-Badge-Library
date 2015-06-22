@@ -1,1 +1,12 @@
 %h3 Badge Nomination
+
+%p
+  %strong= @badge_nomination.user.name
+  %br for
+  %strong= @badge_nomination.badge.name
+  %br at level
+  %strong= @badge_nomination.current_level || 'unspecified'
+
+%h5 Validations
+
+= render @validations

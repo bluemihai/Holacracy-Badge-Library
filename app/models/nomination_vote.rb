@@ -6,5 +6,5 @@ class NominationVote < ActiveRecord::Base
   validates :voter_id, presence: true
   validates :level, presence: true
   
-  validates_uniqueness_of :voter_id, scope: :badge_nomination_id, message: 'Sorry but you can only vote once!'
+  validates_uniqueness_of :voter_id, scope: :badge_nomination_id, message: 'Sorry but you can validate once per nomination!'
 end

@@ -9,6 +9,7 @@ class BadgeNominationsController < ApplicationController
   end
 
   def show
+    @validations = @badge_nomination.validations.order('level DESC')
   end
 
   def new
@@ -26,6 +27,10 @@ class BadgeNominationsController < ApplicationController
 
   def create
     @badge_nomination = BadgeNomination.new(badge_nomination_params)
+    if params[:badge_id]
+      @badge_nomination.badge_id = params[:badge_id] 
+      @badge = Badge.find_by_id(params[:badge_id])
+    end
 
     respond_to do |format|
       if @badge_nomination.save
@@ -69,7 +74,7 @@ class BadgeNominationsController < ApplicationController
     end
 
     def badge_nomination_params
-      params.require(:badge_nomination).permit(:name, :level_nominated, :level_granted, :status, :user_id, :nominator_id, :badge_id)
+      params.require(:badge_nomination).permit(:name, :level_nominated, :level_granted, :status, :user_id, :nominator_id, :badge_id, :evidence)
     end
 
 end

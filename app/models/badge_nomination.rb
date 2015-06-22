@@ -1,7 +1,7 @@
 class BadgeNomination < ActiveRecord::Base
   belongs_to :user
   belongs_to :badge
-  has_many :votes, class_name: 'NominationVote'
+  has_many :validations, class_name: 'NominationVote'
   has_many :voters, through: :nomination_votes
   belongs_to :nominator, class_name: 'User'
 
@@ -40,9 +40,9 @@ class BadgeNomination < ActiveRecord::Base
 
   def level_voted
     if enough_badge_holders
-      valid_votes = votes.select{ |v| badge.holders.include?(v.voter) }
+      valid_votes = validations.select{ |v| badge.holders.include?(v.voter) }
     else
-      valid_votes = votes.select{ |v| badge.holders.include?(v.voter) || v.voter.core_tenured? }
+      valid_votes = validations.select{ |v| badge.holders.include?(v.voter) || v.voter.core_tenured? }
     end
 
     if valid_votes.count < 3    # we don't have enough votes

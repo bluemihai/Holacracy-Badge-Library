@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622174450) do
+ActiveRecord::Schema.define(version: 20150622204038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20150622174450) do
     t.string   "status"
     t.integer  "nominator_id"
     t.string   "level_granted"
+    t.text     "evidence"
   end
 
   create_table "badges", force: :cascade do |t|
@@ -46,6 +47,7 @@ ActiveRecord::Schema.define(version: 20150622174450) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "focus"
+    t.text     "feedback"
   end
 
   create_table "nomination_votes", force: :cascade do |t|

@@ -2,8 +2,11 @@
   = f.error_notification
 
   .form-inputs
-    = f.association :badge_nomination, collection: BadgeNomination.pending, label_method: :who_for_what, label: 'Pending Badge Nomination'
-    = f.association :voter, include_blank: true
+    - if params[:badge_nomination_id]
+      = f.association :badge_nomination, collection: BadgeNomination.pending, label_method: :who_for_what, label: 'Pending Badge Nomination', selected: params[:badge_nomination_id]
+    - else
+      = f.association :badge_nomination, collection: BadgeNomination.pending, label_method: :who_for_what, label: 'Pending Badge Nomination'
+    = f.association :voter, include_blank: true, selected: current_user.id
     = f.input :level, collection: (1..9)
     = f.input :comment
 
