@@ -5,7 +5,7 @@ class Badge < ActiveRecord::Base
 
   scope :accepted, -> { where(status: 'accepted') }
   
-#  validates :name, presence: true, unique: true
+  validates :name, presence: true
   validates :description, presence: true
   
   def accepted?
@@ -15,8 +15,16 @@ class Badge < ActiveRecord::Base
   def detailed_levels
     (1..9).map{ |i| [i.to_s + ': ' + send('level_' + i.to_s), i] }
   end
+
+  def has_focus?
+    focus && focus != ''
+  end
   
   def name_with_focus
-    focus ? name + ' (' + focus + ')' : name
+    if name
+      has_focus? ? name + ' (' + focus + ')' : name
+    else
+      has_focus? ? 'unnamed' + ' (' + focus + ')' : name
+    end
   end
 end

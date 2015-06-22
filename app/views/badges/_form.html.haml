@@ -2,8 +2,12 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :name, label: 'Badge Name', autofocus: true
-    = f.input :focus
+    - if params[:template_id]
+      = f.input :name, label: 'Badge Name'
+      = f.input :focus, autofocus: true
+    - else
+      = f.input :name, label: 'Badge Name', autofocus: true
+      = f.input :focus
     = f.input :description, label: 'Basic Badge Description'
     - if user_signed_in? && (current_user.is_librarian? || current_user.is_admin?)
       = f.association :proposer, label_method: :short, include_blank: true

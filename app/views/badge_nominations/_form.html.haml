@@ -5,7 +5,7 @@
     #user_id= f.association :nominator, label: 'Nominator', include_blank: true, selected: @nominator.try(:id)
     #user_id= f.association :user, label: 'Nominee'
     - if params[:badge_id]
-      = f.hidden_field :badge_id, value: params[:badge_id]
+      = f.hidden_field :badge_id, value: params[:badge_id_]
     - else
       #badge_id= f.association :badge, collection: Badge.accepted.order(:name), label_method: :name_with_focus
     #level= f.input :level_nominated, collection: @badge.detailed_levels

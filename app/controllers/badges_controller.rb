@@ -13,7 +13,7 @@ class BadgesController < ApplicationController
   def new
     template = Badge.find_by_id(params[:template_id])
     @badge = template ? template.dup : Badge.new
-    @badge.status = 'draft'
+    @badge.status = template ? template.status : 'draft'
     @badge.proposer = current_user
   end
 

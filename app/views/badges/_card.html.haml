@@ -1,5 +1,6 @@
 %h5= link_to badge.name_with_focus, badge
 %ul
+  %li= badge.status.capitalize
   %li= badge.description
   %li
     - if badge.accepted? && user_signed_in? && badge.holders.include?(current_user)
