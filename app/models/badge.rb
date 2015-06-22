@@ -13,12 +13,16 @@ class Badge < ActiveRecord::Base
   end
 
   def detailed_levels
-    (1..9).map{ |i| [i.to_s + ': ' + send('level_' + i.to_s), i] }
+    (1..9).map{ |i| [i.to_s + ': ' + send('level_' + i.to_s), i] unless send('level_' + i.to_s) == '' }.compact
   end
 
   def has_focus?
     focus && focus != ''
   end
+
+  def has_no_levels?
+    detailed_levels == []
+  end    
   
   def name_with_focus
     if name
