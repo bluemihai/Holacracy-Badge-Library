@@ -1,7 +1,7 @@
 class BadgeNominationsController < ApplicationController
   before_action :set_badge_nomination, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index]
-  before_action :check_auth, only: [:edit]
+  before_action :authenticate_user!, except: [:index, :show]
+  # before_action :check_auth, only: [:edit, :destroy]
 
   def index
     status = params[:status]
@@ -15,7 +15,8 @@ class BadgeNominationsController < ApplicationController
     @badge_nomination = BadgeNomination.new
     @badge_nomination.status = 'pending'
     @badge_nomination.badge_id = params[:badge_id] if params[:badge_id]
-    @badge_nomination.user_id = params[:user_id] if params[:user_id]    
+    @badge = Badge.find_by_id(@badge_nomination.badge_id)
+    @badge_nomination.user_id = params[:user_id] if params[:user_id]
   end
 
   def edit
@@ -26,7 +27,7 @@ class BadgeNominationsController < ApplicationController
 
     respond_to do |format|
       if @badge_nomination.save
-        format.html { redirect_to @badge_nomination, notice: 'BadgeNomination was successfully created.' }
+        format.html { redirect_to badge_nominations_path, notice: 'BadgeNomination was successfully created.' }
         format.json { render :show, status: :created, location: @badge_nomination }
       else
         format.html { render :new }
@@ -62,12 +63,6 @@ class BadgeNominationsController < ApplicationController
 
     def badge_nomination_params
       params.require(:badge_nomination).permit(:name, :level_nominated, :level_granted, :status, :user_id, :nominator_id, :badge_id)
-    end
-
-    def check_auth
-      return if current_user.try(:is_admin?)
-      return if current_user.try(:is_librarian?)
-      redirect_to @badge_nomination, warning: 'Only librarians, admins or the badge_nomination proposer can edit a badge_nomination.'
     end
 
 end

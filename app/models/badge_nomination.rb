@@ -16,9 +16,13 @@ class BadgeNomination < ActiveRecord::Base
   def accepted?
     status == 'accepted'
   end
-  
+
+  def nominated_badge_name
+    badge.try(:name) || '(Since Deleted)'
+  end
+
   def who_for_what
-    user.short + " for \'"  + badge.name + "\' at level " + level_nominated.to_s
+    user.short + " for \'"  + nominated_badge_name + "\' at level " + level_nominated.to_s
   end
 
   def current_level

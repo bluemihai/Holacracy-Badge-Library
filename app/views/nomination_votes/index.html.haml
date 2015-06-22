@@ -1,4 +1,4 @@
-%h1 Nomination Votes
+%h1 Validations
 
 %table
   %thead
@@ -20,7 +20,7 @@
         %td= nomination_vote.comment
         %td= link_to 'Show', nomination_vote
         %td= link_to 'Edit', edit_nomination_vote_path(nomination_vote)
-        %td= link_to 'Destroy', nomination_vote, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= link_to 'Destroy', nomination_vote, method: :delete, data: { confirm: 'Are you sure you want to delete this Validation?' }
 
 %br
 

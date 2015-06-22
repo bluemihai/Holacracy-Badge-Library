@@ -2,9 +2,9 @@
   = f.error_notification
 
   .form-inputs
-    = f.association :user, label: 'Nominee'
-    = f.association :badge, collection: Badge.accepted.order(:name)
-    = f.input :level_nominated, collection: (1..9)
+    #user_id= f.association :user, label: 'Nominee'
+    #badge_id= f.association :badge, collection: Badge.accepted.order(:name) unless params[:badge_id]
+    #level= f.input :level_nominated, collection: @badge.detailed_levels
     - if current_user.try(:is_librarian?) || current_user.try(:is_admin?)
       %div.admin-only
         = f.input :status, collection: [['Pending', 'pending'], ['Accepted', 'accepted'], ['Expired', 'expired']]

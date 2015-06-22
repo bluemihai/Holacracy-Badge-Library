@@ -7,9 +7,12 @@ class Badge < ActiveRecord::Base
   
 #  validates :name, presence: true, unique: true
   validates :description, presence: true
-  validates :status, presence: true
   
   def accepted?
     status == 'accepted'
+  end
+
+  def detailed_levels
+    (1..9).map{ |i| [i.to_s + ': ' + send('level_' + i.to_s), i] }
   end
 end

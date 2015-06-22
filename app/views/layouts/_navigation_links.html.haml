@@ -5,8 +5,12 @@
   - else
     %li= link_to 'Propose Badge', new_badge_path 
 %li= link_to 'Badge Holders', users_path
-%li= link_to 'Nominate', new_badge_nomination_path
-%li= link_to 'Validation', new_nomination_vote_path
+%li
+  %a{"aria-controls" => "drop1", "aria-expanded" => "false", "data-dropdown" => "drop1"} Nominate
+  %ul#drop1.f-dropdown{"aria-hidden" => "true", "data-dropdown-content" => "", :tabindex => "-1"}
+    - Badge.accepted.order(:name).each do |b|
+      = render '/badges/dropdown_item', badge: b
+%li= link_to 'Validate', new_nomination_vote_path
 - if user_signed_in?
   %li= link_to "Sign out (#{current_user.try(:role)}) #{current_user.try(:name)}", signout_path
 - else

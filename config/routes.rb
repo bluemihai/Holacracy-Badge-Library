@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :users
-  resources :badges
   resources :badge_nominations
+  resources :badges
   resources :nomination_votes
 
   root to: 'visitors#about'

@@ -1,7 +1,7 @@
 %p#notice= notice
 
 %p.large-12.medium-12
-  %h2= @badge.name
+  %h2= "#{@badge.name} Badge"
   = render 'card', badge: @badge
 
 %br
@@ -50,5 +50,8 @@
 %hr
 
 = link_to 'Edit', edit_badge_path(@badge)
-\|
-= link_to 'Back', badges_path
+- if user_signed_in? && (current_user.is_admin? || current_user.is_librarian?)
+  \|
+  = link_to 'Back', badges_path
+  \|
+  = link_to 'Destroy', @badge, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this badge?' }
