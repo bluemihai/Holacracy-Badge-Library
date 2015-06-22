@@ -1,5 +1,4 @@
-.large-1.medium-1.columns= badge_nomination.id
-.large-2.medium-2.columns= badge_nomination.badge ? badge_nomination.badge.name : 'No badge'
+.large-3.medium-3.columns= badge_nomination.badge ? link_to(badge_nomination.badge.name_with_focus, badge_nomination.badge) : 'No badge'
 .large-2.medium-2.columns= link_to badge_nomination.user.try(:name), badge_nomination.user ||= 'n/a'
 .large-1.medium-1.columns= "Level #{badge_nomination.level_nominated}"
 .large-1.medium-1.columns= badge_nomination.status ||= 'n/a'

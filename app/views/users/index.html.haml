@@ -8,7 +8,7 @@
   - @badges.each do |badge|
     %tr
       %td
-        = link_to(badge.name, badge)
+        = link_to(badge.name_with_focus, badge)
         %strong
           = ' (' + badge.status + ')' if badge.status != 'accepted'
       - @users.each do |user|

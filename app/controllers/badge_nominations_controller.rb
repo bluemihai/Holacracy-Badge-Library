@@ -18,6 +18,7 @@ class BadgeNominationsController < ApplicationController
     @badge_nomination.badge_id = params[:badge_id] if params[:badge_id]
     @badge = Badge.find_by_id(@badge_nomination.badge_id)
     @badge_nomination.user_id = params[:user_id] if params[:user_id]
+    session[:badge_id] = @badge.id
   end
 
   def edit
@@ -31,7 +32,12 @@ class BadgeNominationsController < ApplicationController
         format.html { redirect_to badge_nominations_path, notice: 'BadgeNomination was successfully created.' }
         format.json { render :show, status: :created, location: @badge_nomination }
       else
-        format.html { render :new }
+        format.html do
+          @nominator = current_user
+          @badge = Badge.find(session[:badge_id])
+          @badge_nomination.badge_id = @badge.id
+          render :new
+        end
         format.json { render json: @badge_nomination.errors, status: :unprocessable_entity }
       end
     end

@@ -2,14 +2,17 @@
   = f.error_notification
 
   .form-inputs
-    #user_id= f.association :nominator, label: 'Nominator', include_blank: true, selected: @nominator.id
+    #user_id= f.association :nominator, label: 'Nominator', include_blank: true, selected: @nominator.try(:id)
     #user_id= f.association :user, label: 'Nominee'
-    #badge_id= f.association :badge, collection: Badge.accepted.order(:name) unless params[:badge_id]
+    - if params[:badge_id]
+      = f.hidden_field :badge_id, value: params[:badge_id]
+    - else
+      #badge_id= f.association :badge, collection: Badge.accepted.order(:name), label_method: :name_with_focus
     #level= f.input :level_nominated, collection: @badge.detailed_levels
     - if current_user.try(:is_librarian?) || current_user.try(:is_admin?)
       %div.admin-only
         = f.input :status, collection: [['Pending', 'pending'], ['Accepted', 'accepted'], ['Expired', 'expired']]
-        = f.input :level_granted, collection: (1..9)
+        = f.input :level_granted, collection: @badge.detailed_levels
     - else
       = f.input :status, collection: [['Pending', 'pending']]      
 
