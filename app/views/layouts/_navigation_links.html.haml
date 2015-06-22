@@ -6,8 +6,8 @@
     %li= link_to 'Propose Badge', new_badge_path 
 %li= link_to 'Badge Holders', users_path
 %li
-  %a{"aria-controls" => "drop1", "aria-expanded" => "false", "data-dropdown" => "drop1"} Nominate
-  %ul#drop1.f-dropdown{"aria-hidden" => "true", "data-dropdown-content" => "", :tabindex => "-1"}
+  %a{"data-dropdown" => "hover1", "data-options" => "is_hover:true; hover_timeout:5000", :href => "#"} Nominate For ...
+  %ul#hover1.f-dropdown.medium{"data-dropdown-content" => ""}
     - Badge.accepted.order(:name).each do |b|
       = render '/badges/dropdown_item', badge: b
 %li= link_to 'Validate', new_nomination_vote_path
