@@ -8,6 +8,13 @@
   = link_to('Draft', badges_path(status: 'draft')) + ' || '
   = link_to 'Propose New Badge', new_badge_path
 
+.large-1.columns
+  %strong Status
+.large-5.columns
+  %strong Badge Name
+.large-3.columns
+  %strong History
+%br
 = render @badges
 %br
 

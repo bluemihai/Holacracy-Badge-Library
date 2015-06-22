@@ -12,6 +12,7 @@ class BadgeNominationsController < ApplicationController
   end
 
   def new
+    @nominator = current_user
     @badge_nomination = BadgeNomination.new
     @badge_nomination.status = 'pending'
     @badge_nomination.badge_id = params[:badge_id] if params[:badge_id]

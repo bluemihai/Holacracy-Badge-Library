@@ -3,6 +3,7 @@ class BadgeNomination < ActiveRecord::Base
   belongs_to :badge
   has_many :votes, class_name: 'NominationVote'
   has_many :voters, through: :nomination_votes
+  belongs_to :nominator, class_name: 'User'
 
   validates :user_id, presence: true
   validates :badge_id, presence: true

@@ -2,6 +2,7 @@
   = f.error_notification
 
   .form-inputs
+    #user_id= f.association :nominator, label: 'Nominator', include_blank: true, selected: @nominator.id
     #user_id= f.association :user, label: 'Nominee'
     #badge_id= f.association :badge, collection: Badge.accepted.order(:name) unless params[:badge_id]
     #level= f.input :level_nominated, collection: @badge.detailed_levels

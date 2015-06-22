@@ -15,4 +15,8 @@ class Badge < ActiveRecord::Base
   def detailed_levels
     (1..9).map{ |i| [i.to_s + ': ' + send('level_' + i.to_s), i] }
   end
+  
+  def name_with_focus
+    focus ? name + ' (' + focus + ')' : name
+  end
 end

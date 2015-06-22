@@ -11,7 +11,8 @@ class BadgesController < ApplicationController
   end
 
   def new
-    @badge = Badge.new
+    template = Badge.find_by_id(params[:template_id])
+    @badge = template ? template.dup : Badge.new
     @badge.status = 'draft'
     @badge.proposer = current_user
   end
@@ -59,6 +60,6 @@ class BadgesController < ApplicationController
     end
 
     def badge_params
-      params.require(:badge).permit(:name, :description, :proposer_id, :status, :proposal_date, :levels, :level_1, :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9)
+      params.require(:badge).permit(:name, :description, :proposer_id, :status, :proposal_date, :levels, :level_1, :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9, :focus)
     end
 end

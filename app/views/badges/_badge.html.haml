@@ -1,2 +1,15 @@
-= link_to(badge.name, badge) + ' (added by ' + badge.proposer.try(:short) + ' on ' + badge.created_at.strftime('%b-%d') + ', ' + link_to(badge.status.try(:capitalize), edit_badge_path(badge)) + ')'
+.large-1.columns
+  = link_to badge.status.try(:capitalize), edit_badge_path(badge)
+.large-5.columns
+  = link_to badge.name_with_focus, badge
+  - if user_signed_in? && (current_user.is_librarian? || current_user.is_admin?)
+    —
+    = link_to 'Duplicate', new_badge_path(template_id: badge.id)
+    = link_to 'Destroy', badge, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this Badge?' }
+.large-3.columns
+  added by 
+  = badge.proposer.try(:short)
+  on
+  = badge.created_at.strftime('%b-%d')
+  
 %br
