@@ -30,9 +30,9 @@ class BadgeNomination < ActiveRecord::Base
     if status == 'expired'
       'Exp'
     elsif status == 'accepted'
-      level_granted.nil? ? '??' : level_granted
+      (level_granted.nil? || level_granted == '') ? 'LIB' : level_granted
     else
-      level_voted
+      level_voted.nil? ? 'NEV' : level_voted
     end
   end
 

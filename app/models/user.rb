@@ -21,11 +21,15 @@ class User < ActiveRecord::Base
 
   def badge_level(badge)
     noms = badge_nominations.where(badge_id: badge.id).order('level_granted DESC')
-    noms.first ? noms.first.current_level : '-'
+    noms.first ? noms.first.current_level : '—'
   end
 
   def has_badge(badge)
     BadgeNomination.exists?(user_id: self.id, badge_id: badge.id, status: 'accepted')
+  end
+
+  def nomination(badge)
+    BadgeNomination.find_by(user_id: self.id, badge_id: badge.id)
   end
 
   def set_default_role

@@ -4,17 +4,30 @@
     %strong= @badge_nomination.user.name
     %br &nbsp;&nbsp;for
     %strong= @badge_nomination.badge.name
-    %br &nbsp;&nbsp;at level
-    %strong= @badge_nomination.current_level || 'unspecified'
-  .large-8.columns
+    - if @badge_nomination.current_level && @badge_nomination.current_level != ''
+      %br &nbsp;&nbsp;at level
+      %strong= @badge_nomination.current_level
+  .large-1.columns
+    %h5 Status
+    %p
+      = @badge_nomination.status.capitalize
+      %br
+      &nbsp;&nbsp;at level 
+      = @badge_nomination.level_granted
+
+  .large-6.columns
     %h5 Evidence
-    = @badge_nomination.evidence
+    %p= @badge_nomination.evidence
+  %br
+  %br
+  %br
+  %br
+  %br
   %hr
 
-%h5 Validations
-
-= render @validations
-
-%hr
+- if user_signed_in? && (current_user.is_librarian? || current_user.is_admin?)
+  %h5.admin-only Validations
+  .admin-only= render @validations
+  %hr
 
 = link_to 'Add Your Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)

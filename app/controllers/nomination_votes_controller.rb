@@ -26,7 +26,7 @@ class NominationVotesController < ApplicationController
 
     respond_to do |format|
       if @nomination_vote.save
-        format.html { redirect_to nomination_votes_path, notice: 'Nomination vote was successfully created.' }
+        format.html { redirect_to @nomination_vote.badge_nomination, notice: 'Nomination vote was successfully created.' }
         format.json { render :show, status: :created, location: @nomination_vote }
       else
         format.html { render :new }
