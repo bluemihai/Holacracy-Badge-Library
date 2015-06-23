@@ -2,6 +2,7 @@ class BadgeNominationsController < ApplicationController
   before_action :set_badge_nomination, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
   # before_action :check_auth, only: [:edit, :destroy]
+  before_action :ensure_badge_id_param, only: [:new]
 
   def index
     status = params[:status]
@@ -23,6 +24,8 @@ class BadgeNominationsController < ApplicationController
   end
 
   def edit
+    @nominator = current_user
+    @badge = Badge.find_by_id(@badge_nomination.badge_id)
   end
 
   def create
@@ -77,4 +80,8 @@ class BadgeNominationsController < ApplicationController
       params.require(:badge_nomination).permit(:name, :level_nominated, :level_granted, :status, :user_id, :nominator_id, :badge_id, :evidence)
     end
 
+    def ensure_badge_id_param
+      return if params[:badge_id]
+      redirect_to root_path, alert: 'Please select "Nominate For..." in the navigation bar and select a specific Badge.'
+    end
 end

@@ -1,6 +1,7 @@
 class NominationVotesController < ApplicationController
   before_action :set_nomination_vote, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index]
+  before_action :ensure_badge_nomination_id_param, only: [:new]
 
   def index
     @nomination_votes = NominationVote.all
@@ -11,6 +12,10 @@ class NominationVotesController < ApplicationController
 
   def new
     @nomination_vote = NominationVote.new
+    @validators = (current_user.is_librarian? || current_user.is_admin?) ? User.all : [current_user]
+    @badge_nomination = BadgeNomination.find_by_id(params[:badge_nomination_id])
+    @badge = @badge_nomination.try(:badge)
+    @badge_nominations = @badge ? [@badge_nomination] : BadgeNomination.pending
   end
 
   def edit
@@ -57,5 +62,10 @@ class NominationVotesController < ApplicationController
 
     def nomination_vote_params
       params.require(:nomination_vote).permit(:badge_nomination_id, :voter_id, :level, :comment)
+    end
+
+    def ensure_badge_nomination_id_param
+      return if params[:badge_nomination_id]
+      redirect_to root_path, alert: 'Please select "Validate..." in the navigation bar and select a specific Badge Nomination.'
     end
 end

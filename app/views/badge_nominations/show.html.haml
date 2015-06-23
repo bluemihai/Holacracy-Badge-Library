@@ -1,12 +1,20 @@
-%h3 Badge Nomination
-
 %p
-  %strong= @badge_nomination.user.name
-  %br for
-  %strong= @badge_nomination.badge.name
-  %br at level
-  %strong= @badge_nomination.current_level || 'unspecified'
+  .large-2.columns
+    %h5 Badge Nomination
+    %strong= @badge_nomination.user.name
+    %br &nbsp;&nbsp;for
+    %strong= @badge_nomination.badge.name
+    %br &nbsp;&nbsp;at level
+    %strong= @badge_nomination.current_level || 'unspecified'
+  .large-8.columns
+    %h5 Evidence
+    = @badge_nomination.evidence
+  %hr
 
 %h5 Validations
 
 = render @validations
+
+%hr
+
+= link_to 'Add Your Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
