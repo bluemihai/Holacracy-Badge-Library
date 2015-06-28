@@ -14,9 +14,9 @@
       - @users.each do |user|
         - text = user.badge_level(badge)
         - if text
-          %td.text-center= link_to text, new_badge_nomination_path(badge_id: badge.id, user_id: user.id)
+          %td.text-center= link_to text, user.nomination(badge)
         - else
-          %td.text-center= link_to '+', user.nomination(badge), class: 'green-light'
+          %td.text-center= link_to '+', new_badge_nomination_path(badge_id: badge.id, user_id: user.id), class: 'green-light'
 
 %p
   NEV = Not Enough Votes
