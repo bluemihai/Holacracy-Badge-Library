@@ -25,7 +25,7 @@
   %br
   %hr
 
-- if user_signed_in? && (current_user.is_librarian? || current_user.is_admin?)
+- if librarian_or_admin?
   %h5.admin-only Validations
   .admin-only= render @validations
   %hr

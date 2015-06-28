@@ -12,7 +12,7 @@ class NominationVotesController < ApplicationController
 
   def new
     @nomination_vote = NominationVote.new
-    @validators = (current_user.is_librarian? || current_user.is_admin?) ? User.all : [current_user]
+    @validators = (current_user.is_librarian? || current_user.is_admin?) ? User.order(:short) : [current_user]
     @badge_nomination = BadgeNomination.find_by_id(params[:badge_nomination_id])
     @badge = @badge_nomination.try(:badge)
     @badge_nominations = @badge ? [@badge_nomination] : BadgeNomination.pending

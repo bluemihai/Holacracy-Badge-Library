@@ -4,6 +4,8 @@ class Badge < ActiveRecord::Base
   belongs_to :proposer, class_name: 'User'
 
   scope :accepted, -> { where(status: 'accepted') }
+  scope :proposed, -> { where(status: 'proposed') }
+  scope :draft, -> { where(status: 'draft') }
   
   validates :name, presence: true
   validates :description, presence: true

@@ -3,8 +3,10 @@ class BadgesController < ApplicationController
   before_action :check_auth, only: [:edit]
 
   def index
-    status = params[:status]
-    @badges = status ? Badge.where(status: status).order(:name) : Badge.order(:name)
+    @badges = Badge.order(:status).order(:name)
+    @accepted = Badge.accepted.order(:name)
+    @proposed = Badge.proposed.order(:name)
+    @draft = Badge.draft.order(:name)
   end
 
   def show

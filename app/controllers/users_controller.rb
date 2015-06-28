@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.order('short')
-    @badges = Badge.order('name')
+    @badges = Badge.accepted.order('name')
   end
 
   def show

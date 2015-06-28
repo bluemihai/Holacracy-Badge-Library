@@ -1,22 +1,24 @@
 %h3 HolacracyOne Badge Holders
 
-Click on any cell to nominate, or view existing nomination.
-%br
-NEV = Not Enough Votes
-%br
-LIB = please bring to badge LIBrarian's attention
-%br
+%p Click on any cell to nominate, or view existing nomination.
 
 %table
   %tr
-    %td Badge
+    %td
     - @users.each do |user|
       %td= link_to user.try(:short), user
   - @badges.each do |badge|
     %tr
       %td
         = link_to(badge.name_with_focus, badge)
-        %strong
-          = ' (' + badge.status + ')' if badge.status && badge.status != 'accepted'
       - @users.each do |user|
-        %td= link_to user.badge_level(badge), user.nomination(badge) || new_badge_nomination_path(badge_id: badge.id, user_id: user.id)
+        - text = user.badge_level(badge)
+        - if text
+          %td.text-center= link_to text, new_badge_nomination_path(badge_id: badge.id, user_id: user.id)
+        - else
+          %td.text-center= link_to '+', user.nomination(badge), class: 'green-light'
+
+%p
+  NEV = Not Enough Votes
+  %br
+  LIB = please bring to badge LIBrarian's attention

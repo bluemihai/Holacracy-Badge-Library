@@ -1,15 +1,23 @@
+- content_for :title, 'Validate'
+
 = simple_form_for(@nomination_vote) do |f|
   = f.error_notification
 
   .form-inputs
-    = f.association :voter, collection: @validators, selected: current_user.id
-    - if @badge
-      = f.association :badge_nomination, collection: @badge_nominations, label_method: :who_for_what, label: 'Pending Badge Nomination', selected: params[:badge_nomination_id]
-      = f.input :level, collection: @badge.detailed_levels
-    - else
-      = f.association :badge_nomination, collection: BadgeNomination.pending, label_method: :who_for_what, label: 'Pending Badge Nomination'
-      = f.input :level, collection: (1..9)
-    = f.input :comment
+    .row
+      .large-3.small-3.columns= f.association :voter, collection: @validators, label_method: :short, selected: current_user.id, label: 'Validator'
+      .large-9.small-9.columns Please note that only validations by current badge holders and (when needed) core/tenured partners will actually be tallied.
+    %hr
+    .row
+      - if @badge
+        .large-6.small-12.columns
+          = f.association :badge_nomination, collection: @badge_nominations, label_method: :who_for_what, label: 'Pending Badge Nomination', selected: params[:badge_nomination_id]
+          = f.input :level, collection: @badge.detailed_levels, label: 'Level you are validating at'
+      - else
+        .large-6.small-12.columns
+          = f.association :badge_nomination, collection: BadgeNomination.pending, label_method: :who_for_what, label: 'Pending Badge Nomination'
+          = f.input :level, collection: (1..9), label: 'Level you are validating at'
+      .large-6.small-12.columns= f.input :comment, input_html: {rows: 5}
 
-  .form-actions
-    = f.button :submit, 'Vote'
+    .form-actions
+      = f.button :submit, 'Validate'

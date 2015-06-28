@@ -19,3 +19,8 @@
     text-decoration: underline;
   }  
 }
+
+a.green-light, a.green-light:visited {
+  color: green;
+  opacity: .5;
+}

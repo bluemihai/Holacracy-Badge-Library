@@ -8,17 +8,35 @@
   = link_to('Draft', badges_path(status: 'draft')) + ' || '
   = link_to 'Propose New Badge', new_badge_path
 
-.large-1.columns
-  %strong Status
-.large-6.columns
-  %strong Badge Name
-/ .large-3.columns
-/   %strong History
-%br
-= render @badges
-%br
+.row
+  %h5.small-2.large-2.columns Status
+  %h5.small-10.large-10.columns Badge Name
+  / .large-3.columns
+  /   %strong History
+  %p= render partial: 'badges/badge', collection: @accepted if params[:status].nil? || params[:status] == 'accepted'
+  %p= render partial: 'badges/badge', collection: @proposed if params[:status].nil? || params[:status] == 'proposed'
+  %p= render partial: 'badges/badge', collection: @draft if params[:status].nil? || params[:status] == 'draft'
 
-%hr
+%p
+  - if params[:status].nil? || params[:status] == 'accepted'
+    %hr
+    %h3 Accepted Badges
+    - @accepted.each do |badge|
+      .row
+        = render 'detailed_badge', badge: badge
 
-- @badges.each do |badge|
-  = render 'detailed_badge', badge: badge
+%p
+  - if params[:status].nil? || params[:status] == 'proposed'
+    %hr
+    %h3 Proposed Badges
+    - @proposed.each do |badge|
+      .row
+        = render 'detailed_badge', badge: badge
+
+%p
+  - if params[:status].nil? || params[:status] == 'draft'
+    %hr
+    %h3 Draft Badges
+    - @draft.each do |badge|
+      .row
+        = render 'detailed_badge', badge: badge

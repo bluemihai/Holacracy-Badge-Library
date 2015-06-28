@@ -2,21 +2,25 @@
   = f.error_notification
 
   .form-inputs
-    #user_id= f.association :nominator, label: 'Nominator', include_blank: true, selected: @nominator.try(:id)
-    #user_id= f.association :user, label: 'Nominee'
-    - if params[:badge_id]
-      = f.hidden_field :badge_id, value: params[:badge_id]
-    - else
-      #badge_id= f.association :badge, collection: Badge.accepted.order(:name), label_method: :name_with_focus
-    - if @badge.try(:has_no_levels?)
-      #level= f.input :level_nominated, disabled: true, label: 'This badge has no levels.'
-    - else
-      #level= f.input :level_nominated, collection: @badge.try(:detailed_levels)
-    = f.input :evidence, label: 'Evidence and examples for this nomination'
+    .row
+      #user_id.large-3.small-3.columns= f.association :nominator, collection: User.order(:name), label_method: :short, label: 'Nominator', include_blank: true, selected: @nominator.try(:id)
+    %hr
+    .row
+      .large-3.small-3.columns
+        #user_id= f.association :user, label: 'Nominee'
+        - if params[:badge_id]
+          = f.hidden_field :badge_id, value: params[:badge_id]
+        - else
+          #badge_id= f.association :badge, collection: Badge.accepted.order(:name), label_method: :name_with_focus
+        - if @badge.try(:has_no_levels?)
+          #level= f.input :level_nominated, disabled: true, label: 'This badge has no levels.'
+        - else
+          #level= f.input :level_nominated, collection: @badge.try(:detailed_levels)
+      .large-9.small-12.columns= f.input :evidence, label: 'Evidence and examples for this nomination', input_html: {rows: 5}
     - if current_user.try(:is_librarian?) || current_user.try(:is_admin?)
-      %div.admin-only
-        = f.input :status, collection: [['Pending', 'pending'], ['Accepted', 'accepted'], ['Expired', 'expired']]
-        = f.input :level_granted, collection: @badge.try(:detailed_levels)
+      %div.admin-only.row
+        .large-6.small-6.columns= f.input :status, collection: [['Pending', 'pending'], ['Accepted', 'accepted'], ['Expired', 'expired']]
+        .large-6.small-6.columns= f.input :level_granted, collection: @badge.try(:detailed_levels)
     - else
       = f.input :status, collection: [['Pending', 'pending']]      
 

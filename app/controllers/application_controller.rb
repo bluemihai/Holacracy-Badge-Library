@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
   helper_method :user_signed_in?
+  helper_method :librarian_or_admin?
   helper_method :correct_user?
 
   private
@@ -18,6 +19,10 @@ class ApplicationController < ActionController::Base
 
     def user_signed_in?
       return true if current_user
+    end
+
+    def librarian_or_admin?
+      user_signed_in? && (current_user.is_librarian? || current_user.is_admin?)
     end
 
     def correct_user?
