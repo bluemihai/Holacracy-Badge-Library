@@ -1,5 +1,6 @@
 class BadgesController < ApplicationController
   before_action :set_badge, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :check_auth, only: [:edit]
 
   def index

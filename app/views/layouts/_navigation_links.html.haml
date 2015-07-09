@@ -4,23 +4,24 @@
     %li= link_to 'Add Badge', new_badge_path 
   - else
     %li= link_to 'Propose Badge', new_badge_path 
-%li
-  %a{"data-dropdown" => "hover1", "data-options" => "is_hover:true; hover_timeout:200", :href => "#"} Nominate For...
-  %ul#hover1.f-dropdown.small{"data-dropdown-content" => ""}
-    - Badge.accepted.order(:name).each do |b|
-      = render '/badges/dropdown_item', badge: b
-%li
-  %a{"data-dropdown" => "hover3", "data-options" => "is_hover:true; hover_timeout:200", href: new_nomination_vote_path} Validate...
-  %ul#hover3.f-dropdown.small{"data-dropdown-content" => ""}
-    - BadgeNomination.pending.each do |bn|
-      = render '/badge_nominations/dropdown_item', badge_nomination: bn
-%li
-  %a{"data-dropdown" => "hover2", "data-options" => "is_hover:true; hover_timeout:200", :href => "#"} More...
-  %ul#hover2.f-dropdown.tiny{"data-dropdown-content" => ""}
-    %li.dropdown_badge= link_to 'All Badge Holders', users_path
-    %li.dropdown_badge= link_to 'All Nominations', nominations_path
-    %li.dropdown_badge= link_to 'All Validations', validations_path
-- if user_signed_in?
+  %li
+    %a{"data-dropdown" => "hover1", "data-options" => "is_hover:true; hover_timeout:200", :href => "#"} Nominate For...
+    %ul#hover1.f-dropdown.small{"data-dropdown-content" => ""}
+      - Badge.accepted.order(:name).each do |b|
+        = render '/badges/dropdown_item', badge: b
+  %li
+    %a{"data-dropdown" => "hover3", "data-options" => "is_hover:true; hover_timeout:200", href: new_nomination_vote_path} Validate...
+    %ul#hover3.f-dropdown.small{"data-dropdown-content" => ""}
+      - BadgeNomination.pending.each do |bn|
+        = render '/badge_nominations/dropdown_item', badge_nomination: bn
+  %li
+    %a{"data-dropdown" => "hover2", "data-options" => "is_hover:true; hover_timeout:200", :href => "#"} More...
+    %ul#hover2.f-dropdown.tiny{"data-dropdown-content" => ""}
+      %li.dropdown_badge= link_to 'All Badge Holders', users_path
+      %li.dropdown_badge= link_to 'All Nominations', nominations_path
+      %li.dropdown_badge= link_to 'All Validations', validations_path
   %li= link_to "Sign out (#{current_user.try(:role)}) #{current_user.try(:name)}", signout_path
+
 - else
   %li= link_to 'Sign in with your H1 Gmail', signin_path
+

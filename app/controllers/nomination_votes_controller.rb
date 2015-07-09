@@ -1,6 +1,6 @@
 class NominationVotesController < ApplicationController
   before_action :set_nomination_vote, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!
   before_action :ensure_badge_nomination_id_param, only: [:new]
 
   def index

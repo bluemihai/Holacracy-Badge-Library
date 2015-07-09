@@ -7,9 +7,14 @@ class SessionsController < ApplicationController
   def create
     auth = request.env["omniauth.auth"]
     user = User.find_by(name: auth.info.name)
-    reset_session
-    session[:user_id] = user.id
-    redirect_to users_path, :notice => 'Signed in!'
+    if user && auth.info.email.ends_with?('@holacracyone.com')
+      reset_session
+      user.update_attributes(email: auth.info.email)
+      session[:user_id] = user.id
+      redirect_to users_path, :notice => 'Signed in!'
+    else
+      redirect_to root_path, :alert => 'Sorry, you are not an authorized H1 Partner.'
+    end
   end
 
   def destroy
