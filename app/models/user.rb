@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  enum role: [:user, :vip, :admin, :librarian]
+  enum role: [:user, :bootstrapper, :admin, :librarian]
   has_many :badge_nominations
   has_many :badges, through: :badge_nominations
   after_initialize :set_default_role, :if => :new_record?

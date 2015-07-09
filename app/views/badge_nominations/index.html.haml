@@ -1,6 +1,6 @@
 %h3 Badge Nominations
 
-- if user_signed_in? && (current_user.is_admin? || current_user.is_librarian?)
+- if librarian_or_admin?
   .large-2.medium-2.columns
     %strong Actions
 - else

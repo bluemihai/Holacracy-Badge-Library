@@ -19,8 +19,9 @@
       .large-9.small-12.columns= f.input :evidence, label: 'Evidence and examples for this nomination', input_html: {rows: 5}
     - if current_user.try(:is_librarian?) || current_user.try(:is_admin?)
       %div.admin-only.row
-        .large-6.small-6.columns= f.input :status, collection: [['Pending', 'pending'], ['Accepted', 'accepted'], ['Expired', 'expired']]
-        .large-6.small-6.columns= f.input :level_granted, collection: @badge.try(:detailed_levels)
+        .large-4.small-4.columns= f.input :status, collection: [['Pending', 'pending'], ['Accepted', 'accepted'], ['Expired', 'expired']]
+        .large-4.small-4.columns= f.input :level_granted, collection: @badge.try(:detailed_levels)
+        .large-4.small-4.columns= f.input :effective_date
     - else
       = f.input :status, collection: [['Pending', 'pending']]      
 

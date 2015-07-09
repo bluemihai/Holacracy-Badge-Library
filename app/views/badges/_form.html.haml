@@ -14,7 +14,7 @@
         .large-3.small-6.columns= f.input :focus
     .row
       .large-9.small-12.columns= f.input :description, label: 'Basic Badge Description', input_html: {rows: 5}
-      - values = [['Draft', 'draft'], ['Proposed', 'proposed'], ['Accepted', 'accepted'], ['Rejected', 'rejected']]
+      - values = [['Draft', 'draft'], ['Proposed', 'proposed'], ['Accepted', 'accepted']]
       - if librarian_or_admin?
         .row
           .large-3.small-12.columns= f.input :status, collection: values, include_blank: true

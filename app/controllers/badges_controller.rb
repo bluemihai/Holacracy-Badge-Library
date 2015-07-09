@@ -1,7 +1,7 @@
 class BadgesController < ApplicationController
-  before_action :set_badge, only: [:show, :edit, :update, :destroy]
+  before_action :set_badge, only: [:show, :edit, :update, :destroy, :propose, :accept, :reject]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :check_auth, only: [:edit]
+  before_action :check_auth, only: [:edit, :accept, :reject]
 
   def index
     @badges = Badge.order(:status).order(:name)
@@ -37,6 +37,33 @@ class BadgesController < ApplicationController
     end
   end
 
+  def propose
+    @badge.status = 'proposed'
+    if @badge.save
+      redirect_to @badge, notice: 'Badge status successfully changed to "proposed".'
+    else
+      redirect_to @badge, alert: 'Unable to change badge status to "proposed".'
+    end
+  end
+
+  def reject
+    @badge.status = 'draft'
+    if @badge.save
+      redirect_to @badge, notice: 'Badge status successfully changed back to "draft"'
+    else
+      redirect_to @badge, alert: 'Unable to change badge status back to "draft".'
+    end
+  end
+
+  def accept
+    @badge.status = 'accepted'
+    if @badge.save
+      redirect_to @badge, notice: 'Badge status successfully changed to "accepted".'
+    else
+      redirect_to @badge, alert: 'Unable to change badge status to "accepted".'
+    end
+  end
+
   def update
     respond_to do |format|
       if @badge.update(badge_params)
@@ -64,5 +91,13 @@ class BadgesController < ApplicationController
 
     def badge_params
       params.require(:badge).permit(:name, :description, :proposer_id, :status, :proposal_date, :levels, :level_1, :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9, :focus, :feedback)
+    end
+
+    def check_auth
+      return if current_user.try(:is_admin?)
+      return if current_user.try(:is_librarian?)
+      return if @badge.status == 'draft'
+      where = request.env["HTTP_REFERER"] || root_path
+      redirect_to where, alert: 'Only librarians and admins can take that action.'
     end
 end

@@ -2,7 +2,11 @@
 
 %p.large-12.medium-12
   %h2= "#{@badge.name_with_focus} Badge"
-  = render 'card', badge: @badge
+  %p
+    = "Status: #{@badge.status.try(:capitalize)}"
+    %br
+    = "Proposer: #{@badge.proposer}"
+  %p= @badge.description
 
 %br
 %hr
@@ -49,9 +53,17 @@
 %br
 %hr
 
-= link_to 'Edit', edit_badge_path(@badge)
-- if user_signed_in? && (current_user.is_admin? || current_user.is_librarian?)
+= link_to 'All Badges', badges_path
+- if librarian_or_admin?
   \|
-  = link_to 'Back', badges_path
+  = link_to 'Edit', edit_badge_path(@badge)
   \|
   = link_to 'Destroy', @badge, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this badge?' }
+  - if @badge.status == 'proposed'
+    \|
+    = link_to 'Accept', accept_badge_path(@badge)
+    \|
+    = link_to 'Reject', reject_badge_path(@badge)
+- if @badge.status == 'draft'
+  \|
+  = link_to 'Propose', propose_badge_path(@badge)

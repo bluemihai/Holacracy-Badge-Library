@@ -1,7 +1,8 @@
 class NominationVotesController < ApplicationController
-  before_action :set_nomination_vote, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :set_nomination_vote, only: [:show, :edit, :update, :destroy]
   before_action :ensure_badge_nomination_id_param, only: [:new]
+  before_action :check_auth, only: [:index, :show]
 
   def index
     @nomination_votes = NominationVote.all
@@ -19,6 +20,10 @@ class NominationVotesController < ApplicationController
   end
 
   def edit
+    @validators = (current_user.is_librarian? || current_user.is_admin?) ? User.order(:short) : [current_user]
+    @badge_nomination = BadgeNomination.find_by_id(params[:badge_nomination_id])
+    @badge = @badge_nomination.try(:badge)
+    @badge_nominations = @badge ? [@badge_nomination] : BadgeNomination.pending
   end
 
   def create
@@ -66,6 +71,11 @@ class NominationVotesController < ApplicationController
 
     def ensure_badge_nomination_id_param
       return if params[:badge_nomination_id]
-      redirect_to root_path, alert: 'Please select "Validate..." in the navigation bar and select a specific Badge Nomination.'
+      redirect_to root_path, alert: 'Please start by clicking "Validate..." in the navigation bar to select a specific Badge Nomination.'
+    end
+    
+    def check_auth
+      return if librarian_or_admin?
+      redirect_to root_path, alert: 'Only librariars and admins can view validations.'
     end
 end

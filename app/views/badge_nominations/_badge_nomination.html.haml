@@ -1,4 +1,4 @@
-- if user_signed_in? && (current_user.is_admin? || current_user.is_librarian?)
+- if librarian_or_admin?
   .large-2.medium-2.columns
     = link_to 'Show', badge_nomination
     = link_to 'Edit', edit_badge_nomination_path(badge_nomination, badge_id: badge_nomination.badge.id)
