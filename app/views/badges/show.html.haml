@@ -5,7 +5,7 @@
   %p
     = "Status: #{@badge.status.try(:capitalize)}"
     %br
-    = "Proposer: #{@badge.proposer}"
+    = "Proposer: #{@badge.proposer.try(:name)}"
   %p= @badge.description
 
 %br
@@ -54,9 +54,10 @@
 %hr
 
 = link_to 'All Badges', badges_path
-- if librarian_or_admin?
+- if librarian_or_admin? || @badge.status == 'draft'
   \|
   = link_to 'Edit', edit_badge_path(@badge)
+- if librarian_or_admin?
   \|
   = link_to 'Destroy', @badge, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this badge?' }
   - if @badge.status == 'proposed'

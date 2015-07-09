@@ -2,6 +2,7 @@ class BadgesController < ApplicationController
   before_action :set_badge, only: [:show, :edit, :update, :destroy, :propose, :accept, :reject]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :check_auth, only: [:edit, :accept, :reject]
+  before_action :warn_if_not_proposer, only: [:edit]
 
   def index
     @badges = Badge.order(:status).order(:name)
@@ -99,5 +100,11 @@ class BadgesController < ApplicationController
       return if @badge.status == 'draft'
       where = request.env["HTTP_REFERER"] || root_path
       redirect_to where, alert: 'Only librarians and admins can take that action.'
+    end
+
+    def warn_if_not_proposer
+      if @badge.proposer && @badge.proposer != current_user
+        flash.now[:alert] = "This badge was proposed by #{@badge.proposer.short}.  Do you have the proposer's permission to edit it?"
+      end
     end
 end

@@ -70,8 +70,13 @@ class NominationVotesController < ApplicationController
     end
 
     def ensure_badge_nomination_id_param
-      return if params[:badge_nomination_id]
-      redirect_to root_path, alert: 'Please start by clicking "Validate..." in the navigation bar to select a specific Badge Nomination.'
+      @badge_nomination = BadgeNomination.find_by_id(params[:badge_nomination_id])
+      if params[:badge_nomination_id]
+        redirect_to :back, alert: 'You cannot validate yourself' if @badge_nomination.user == current_user && !librarian_or_admin?          
+      else
+        flash.now[:alert] = 'Please start by clicking "Validate..." in the navigation bar to select a specific Badge Nomination.'
+        return
+      end
     end
     
     def check_auth
