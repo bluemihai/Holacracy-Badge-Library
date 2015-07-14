@@ -1,0 +1,10 @@
+= simple_form_for(@comp_tier) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :monthly_draw
+    = f.input :fixed_draw
+
+  .form-actions
+    = f.button :submit

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :comp_tiers
   resources :users
   resources :badge_nominations
   resources :badges do

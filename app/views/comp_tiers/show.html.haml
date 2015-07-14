@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @comp_tier.name
+%p
+  %b Monthly draw:
+  = @comp_tier.monthly_draw
+%p
+  %b Fixed draw:
+  = @comp_tier.fixed_draw
+
+= link_to 'Edit', edit_comp_tier_path(@comp_tier)
+\|
+= link_to 'Back', comp_tiers_path
