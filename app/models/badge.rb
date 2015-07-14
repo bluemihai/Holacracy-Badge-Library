@@ -3,6 +3,9 @@ class Badge < ActiveRecord::Base
   has_many :holders, through: :badge_nominations, source: :user
   belongs_to :proposer, class_name: 'User'
 
+  has_many :badge_set_entries
+  has_many :badge_sets, through: :badge_set_entries
+
   scope :accepted, -> { where(status: 'accepted') }
   scope :proposed, -> { where(status: 'proposed') }
   scope :draft, -> { where(status: 'draft') }

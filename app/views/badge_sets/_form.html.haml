@@ -1,0 +1,10 @@
+= simple_form_for(@badge_set) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name, label: 'Name (optional)'
+    = f.association :proposer, label_method: :short
+    = f.association :comp_tier, label_method: :name_and_monthly_draw
+
+  .form-actions
+    = f.button :submit

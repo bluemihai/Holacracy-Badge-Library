@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714081419) do
+ActiveRecord::Schema.define(version: 20150714164047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,22 @@ ActiveRecord::Schema.define(version: 20150714081419) do
     t.string   "level_granted"
     t.text     "evidence"
     t.date     "effective_date"
+  end
+
+  create_table "badge_set_entries", force: :cascade do |t|
+    t.integer  "badge_set_id"
+    t.integer  "badge_id"
+    t.integer  "level"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "badge_sets", force: :cascade do |t|
+    t.integer  "proposer_id"
+    t.string   "name"
+    t.integer  "comp_tier_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "badges", force: :cascade do |t|

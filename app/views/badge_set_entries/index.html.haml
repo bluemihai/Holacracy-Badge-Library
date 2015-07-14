@@ -1,0 +1,25 @@
+%h1 Badge Set Entries
+
+%table
+  %thead
+    %tr
+      %th Badge Set
+      %th Badge
+      %th Level
+      %th
+      %th
+      %th
+
+  %tbody
+    - @badge_set_entries.each do |badge_set_entry|
+      %tr
+        %td= badge_set_entry.badge_set.try(:name)
+        %td= badge_set_entry.badge.try(:name)
+        %td= badge_set_entry.level
+        %td= link_to 'Show', badge_set_entry
+        %td= link_to 'Edit', edit_badge_set_entry_path(badge_set_entry)
+        %td= link_to 'Destroy', badge_set_entry, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Badge Set Entry', new_badge_set_entry_path(badge_set_id: params[:badge_set_id])

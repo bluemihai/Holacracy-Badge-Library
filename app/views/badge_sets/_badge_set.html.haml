@@ -1,0 +1,7 @@
+%h5= "#{badge_set.name} (#{badge_set.comp_tier.try(:name_and_monthly_draw)})"
+
+- badge_set.badge_set_entries.each do |e|
+  = e.badge.try(:name)
+  = e.level
+  %br
+%hr

@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Proposer:
+  = @badge_set.proposer_id
+%p
+  %b Name:
+  = @badge_set.name
+%p
+  %b Comp tier:
+  = @badge_set.comp_tier_id
+
+= link_to 'Edit', edit_badge_set_path(@badge_set)
+\|
+= link_to 'Back', badge_sets_path

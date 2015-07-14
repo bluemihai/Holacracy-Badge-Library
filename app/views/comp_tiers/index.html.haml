@@ -6,9 +6,10 @@
       %th Name
       %th Monthly draw
       %th Fixed draw
-      %th
-      %th
-      %th
+      - if librarian_or_admin?
+        %th
+        %th
+        %th
 
   %tbody
     - @comp_tiers.each do |comp_tier|
@@ -16,10 +17,11 @@
         %td= comp_tier.name
         %td= "$#{comp_tier.monthly_draw}"
         %td= "#{comp_tier.fixed_draw / 10.0} %"
-        %td= link_to 'Show', comp_tier
-        %td= link_to 'Edit', edit_comp_tier_path(comp_tier)
-        %td= link_to 'Destroy', comp_tier, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        - if librarian_or_admin?
+          %td.admin-only= link_to 'Show', comp_tier
+          %td.admin-only= link_to 'Edit', edit_comp_tier_path(comp_tier)
+          %td.admin-only= link_to 'Destroy', comp_tier, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Comp tier', new_comp_tier_path
+= link_to 'New Comp tier', new_comp_tier_path if librarian_or_admin?

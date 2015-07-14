@@ -1,0 +1,10 @@
+= simple_form_for(@badge_set_entry) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :badge_set, include_blank: true, selected: @badge_set.id rescue nil
+    = f.association :badge, collection: Badge.accepted, autofocus: true
+    = f.input :level, collection: (1..9)
+
+  .form-actions
+    = f.button :submit

@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Badge set:
+  = @badge_set_entry.badge_set_id
+%p
+  %b Badge:
+  = @badge_set_entry.badge_id
+%p
+  %b Level:
+  = @badge_set_entry.level
+
+= link_to 'Edit', edit_badge_set_entry_path(@badge_set_entry)
+\|
+= link_to 'Back', badge_set_entries_path
