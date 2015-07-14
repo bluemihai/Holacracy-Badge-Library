@@ -24,4 +24,4 @@
 
 %br
 
-= link_to 'New Comp tier', new_comp_tier_path if librarian_or_admin?
+.admin-only= link_to 'New Comp tier', new_comp_tier_path if librarian_or_admin?
