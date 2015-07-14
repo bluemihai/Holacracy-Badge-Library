@@ -33,6 +33,8 @@
   .admin-only
     = link_to 'Edit', edit_badge_nomination_path(@badge_nomination)
     \|
+    = link_to 'Destroy', @badge_nomination, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this nomination?' }
+    \|
     = link_to 'Add Your Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
 - else
   = link_to 'Add Your Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
