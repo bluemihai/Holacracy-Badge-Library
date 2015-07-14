@@ -1,7 +1,7 @@
 - if librarian_or_admin?
   .large-2.medium-2.columns
     = link_to 'Show', badge_nomination
-    = link_to 'Edit', edit_badge_nomination_path(badge_nomination, badge_id: badge_nomination.badge.id)
+    = link_to 'Edit', edit_badge_nomination_path(badge_nomination, badge_id: badge_nomination.badge.try(:id))
     = link_to 'Destroy', badge_nomination, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this nomination?' }
 - else
   .large-1.medium-1.columns
