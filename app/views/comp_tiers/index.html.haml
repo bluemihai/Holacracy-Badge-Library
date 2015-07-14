@@ -1,27 +1,14 @@
-%h1 Listing Compensation Tiers
+%h1 Compensation Tiers
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Monthly draw
-      %th Fixed draw
-      - if librarian_or_admin?
-        %th
-        %th
-        %th
-
-  %tbody
-    - @comp_tiers.each do |comp_tier|
-      %tr
-        %td= comp_tier.name
-        %td= "$#{comp_tier.monthly_draw}"
-        %td= "#{comp_tier.fixed_draw / 10.0} %"
-        - if librarian_or_admin?
-          %td.admin-only= link_to 'Show', comp_tier
-          %td.admin-only= link_to 'Edit', edit_comp_tier_path(comp_tier)
-          %td.admin-only= link_to 'Destroy', comp_tier, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
+.row
+  .large-1.medium-1.small-1.columns Tier
+  .large-1.medium-1.small-1.columns Monthly
+  .large-1.medium-1.small-1.columns Fixed
+  .large-9.medium-9.small-9.columns
 %br
 
-.admin-only= link_to 'New Comp tier', new_comp_tier_path if librarian_or_admin?
+- @tiers.each do |t|
+  = render t
+  %br
+/
+/ .admin-only= link_to 'New Compensation Tier', new_comp_tier_path if librarian_or_admin?

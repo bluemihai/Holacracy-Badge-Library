@@ -1,0 +1,2 @@
+- contents = badge_set.badge_set_entries.map{ |e| "#{e.badge.try(:name)} #{e.level}" }.join(' ')
+= link_to badge_set.name ? badge_set.name : 'No name', badge_set, title: contents
