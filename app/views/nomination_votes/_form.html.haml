@@ -5,7 +5,10 @@
 
   .form-inputs
     .row
-      .large-3.small-3.columns= f.association :validator, collection: @validators, label_method: :short, selected: current_user.id, label: 'Validator'
+      - if librarian_or_admin?
+        .large-3.small-3.columns= f.association :validator, label_method: :short, selected: current_user.id, label: 'Validator'
+      - else
+        .large-3.small-3.columns= f.association :validator, collection: [current_user], label_method: :short, selected: current_user.id, label: 'Validator'
       .large-9.small-9.columns Please note that only validations by current badge holders and (when needed) core/tenured partners will actually be tallied.
     %hr
     .row

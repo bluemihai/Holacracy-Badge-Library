@@ -7,4 +7,12 @@ class NominationVote < ActiveRecord::Base
   validates :level, presence: true
   
   validates_uniqueness_of :validator_id, scope: :badge_nomination_id, message: 'Sorry but you can validate once per nomination!'
+  validate :cannot_self_validate
+  
+  def cannot_self_validate
+    if validator == badge_nomination.user
+      errors.add(:validator_id, "can't be the same as badge nominee")
+    end
+  end
+
 end

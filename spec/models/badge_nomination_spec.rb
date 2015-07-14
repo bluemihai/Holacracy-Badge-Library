@@ -6,8 +6,6 @@ RSpec.describe BadgeNomination, type: :model do
     bn = FactoryGirl.create(:badge_nomination)
     bootstrappers = (1..4).map {FactoryGirl.create(:user, bootstrapper?: true)}
     bn.validations = (1..4).map { |i| FactoryGirl.create(:nomination_vote, level: i + 3, validator_id: i)}
-
-    pp bn.validations
       
     expect(bn.level_voted).to eq(5)
   end

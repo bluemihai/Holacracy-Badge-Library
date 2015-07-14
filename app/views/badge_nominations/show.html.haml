@@ -30,4 +30,9 @@
   .admin-only= render @validations
   %hr
 
-= link_to 'Add Your Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
+  .admin-only
+    = link_to 'Edit', edit_badge_nomination_path(@badge_nomination)
+    \|
+    = link_to 'Add Your Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
+- else
+  = link_to 'Add Your Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
