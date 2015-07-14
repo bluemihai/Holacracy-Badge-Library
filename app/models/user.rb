@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
-  enum role: [:user, :bootstrapper, :admin, :librarian]
+  enum role: [:user, :comp_admin, :admin, :librarian]
   has_many :badge_nominations
   has_many :badges, through: :badge_nominations
   after_initialize :set_default_role, :if => :new_record?
 
   default_scope { order(:short) }
-  scope :core_tenured, -> { where(core_tenured?: true) }
+  scope :bootstrapper, -> { where(bootstrapper?: true) }
 
   def badge_count
     badges.count

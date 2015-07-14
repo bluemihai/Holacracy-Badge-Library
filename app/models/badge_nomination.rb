@@ -2,12 +2,12 @@ class BadgeNomination < ActiveRecord::Base
   belongs_to :user
   belongs_to :badge
   has_many :validations, class_name: 'NominationVote'
-  has_many :voters, through: :nomination_votes
+  has_many :validators, through: :validations, class_name: 'User'
   belongs_to :nominator, class_name: 'User'
 
   validates :user_id, presence: true
   validates :badge_id, presence: true
-  validates :status, presence: true
+#  validates :status, presence: true
 
   validates_uniqueness_of :user_id, scope: :badge_id, message: "User has already been nominated for this badge."
 
@@ -36,22 +36,29 @@ class BadgeNomination < ActiveRecord::Base
     end
   end
 
-  def enough_badge_holders
-    badge.holders.count > 5
+  def holder_votes
+    return [] unless badge && badge.holders
+    validations.select { |v| badge.holders.include?(v.validator) }.sort{ |v| -v.level}
+  end
+
+  def bootstrapper_votes
+    return [] unless validations && validations.count
+    validations.select { |v| v.validator && v.validator.bootstrapper? }.sort{ |v| -v.level}
+  end
+
+  def valid_votes
+    return holder_votes if holder_votes.count > 4
+    return bootstrapper_votes if holder_votes.count == 0
+    holder_votes.concat(bootstrapper_votes).uniq.take(5)
   end
 
   def level_voted
-    if enough_badge_holders
-      valid_votes = validations.select{ |v| badge.holders.include?(v.voter) }
-    else
-      valid_votes = validations.select{ |v| badge.holders.include?(v.voter) || v.voter.core_tenured? }
-    end
-
-    if valid_votes.count < 3    # we don't have enough votes
-      return nil 
-    else
-      levels = valid_votes.map(&:level).sort.reverse
-      levels[2]
-    end
+    return nil if valid_votes.count < 3    # we don't have enough votes
+    valid_votes.map(&:level).sort.reverse[2]
   end
+
+  def enough_badge_holders
+    badge.enough_holders
+  end
+
 end

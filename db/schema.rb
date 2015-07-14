@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150709051918) do
+ActiveRecord::Schema.define(version: 20150714062649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20150709051918) do
 
   create_table "nomination_votes", force: :cascade do |t|
     t.integer  "badge_nomination_id"
-    t.integer  "voter_id"
+    t.integer  "validator_id"
     t.integer  "level"
     t.text     "comment"
     t.datetime "created_at",          null: false
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20150709051918) do
     t.datetime "updated_at",                    null: false
     t.integer  "role"
     t.string   "short"
-    t.boolean  "core_tenured?", default: false
+    t.boolean  "bootstrapper?", default: false
     t.string   "email"
   end
 

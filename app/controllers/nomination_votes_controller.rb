@@ -66,7 +66,7 @@ class NominationVotesController < ApplicationController
     end
 
     def nomination_vote_params
-      params.require(:nomination_vote).permit(:badge_nomination_id, :voter_id, :level, :comment)
+      params.require(:nomination_vote).permit(:badge_nomination_id, :validator_id, :level, :comment)
     end
 
     def ensure_badge_nomination_id_param

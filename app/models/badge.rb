@@ -33,4 +33,9 @@ class Badge < ActiveRecord::Base
       has_focus? ? 'unnamed' + ' (' + focus + ')' : name
     end
   end
+
+  def enough_holders
+    holders.count >= 5
+  end
+
 end

@@ -15,7 +15,7 @@
     - @nomination_votes.each do |nomination_vote|
       %tr
         %td= link_to nomination_vote.badge_nomination.try(:who_for_what), nomination_vote.badge_nomination
-        %td= nomination_vote.voter.name
+        %td= nomination_vote.validator.name
         %td= nomination_vote.level
         %td= nomination_vote.comment
         %td= link_to 'Show', nomination_vote
