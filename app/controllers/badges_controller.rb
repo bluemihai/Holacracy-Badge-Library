@@ -15,13 +15,14 @@ class BadgesController < ApplicationController
   end
 
   def new
+    @users = librarian_or_admin? ? User.all : [current_user]
     template = Badge.find_by_id(params[:template_id])
     @badge = template ? template.dup : Badge.new
     @badge.status = template ? 'proposed' : 'draft'
-    @badge.proposer = current_user
   end
 
   def edit
+    @users = librarian_or_admin? ? User.all : [current_user]
   end
 
   def create

@@ -2,8 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 .badge33 {
   background-color: white;
+  border: 1px black solid;
+  padding: 5px;
   margin: 10px 0px 10px 0px;
   clear: both;
 }
@@ -14,6 +17,17 @@
 
 .badge19 {
   width: 20em;
+  background-color: white;
+  border: 1px black solid;
+  padding: 5px;
+  min-height: 4em;
+}
+
+.badge19-initial {
+  width: 30em;
+  background-color: white;
+  border: 1px black solid;
+  padding: 5px;
 }
 
 .dropdown_badge {

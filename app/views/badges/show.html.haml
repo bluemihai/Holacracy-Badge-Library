@@ -1,12 +1,26 @@
 %p.large-12.medium-12
   %h2= "#{@badge.name_with_focus} Badge"
-  %p
-    = "Status: #{@badge.status.try(:capitalize)}"
-    %br
-    = "Proposer: #{@badge.proposer.try(:name)}"
-    %br
-    = "Current Holders: #{@badge.current_holders}"
-  %p= @badge.description
+  .row
+    %strong.large-2.columns.text-right Status
+    .large-10.columns= @badge.status.try(:capitalize)
+    .large-4.columns
+  .row
+    %strong.large-2.columns.text-right Proposer
+    .large-6.columns= @badge.proposer.try(:name)
+    .large-4.columns
+  .row
+    %strong.large-2.columns.text-right Current Holders
+    .large-6.columns= @badge.current_holders
+    .large-4.columns
+  .row
+    %strong.large-2.columns.text-right Description
+    .large-6.columns.box= @badge.description
+    .large-4.columns
+  - unless @badge.mechanism == ''
+    .row
+      %strong.large-2.columns.text-right Mechanism
+      .large-6.columns.box= @badge.mechanism
+      .large-4.columns
 
 %br
 %hr
@@ -53,18 +67,18 @@
 %br
 %hr
 
-= link_to 'All Badges', badges_path
+%span.green= link_to 'All Badges', badges_path
 - if librarian_or_admin? || @badge.status == 'draft'
   \|
-  = link_to 'Edit', edit_badge_path(@badge)
+  %span.green= link_to 'Edit', edit_badge_path(@badge)
 - if librarian_or_admin?
   \|
-  = link_to 'Destroy', @badge, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this badge?' }
+  %span.green= link_to 'Destroy', @badge, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this badge?' }
   - if @badge.status == 'proposed'
     \|
-    = link_to 'Accept', accept_badge_path(@badge)
+    %span.green= link_to 'Accept', accept_badge_path(@badge)
     \|
-    = link_to 'Reject', reject_badge_path(@badge)
+    %span.green= link_to 'Reject', reject_badge_path(@badge)
 - if @badge.status == 'draft'
   \|
-  = link_to 'Propose', propose_badge_path(@badge)
+  %span.green= link_to 'Propose', propose_badge_path(@badge)

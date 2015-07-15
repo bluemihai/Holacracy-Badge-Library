@@ -14,6 +14,7 @@ class BadgeNominationsController < ApplicationController
   end
 
   def new
+    @users = librarian_or_admin? ? User.all : [current_user]
     @nominator = current_user
     @badge_nomination = BadgeNomination.new
     @badge_nomination.status = 'pending'
@@ -24,6 +25,7 @@ class BadgeNominationsController < ApplicationController
   end
 
   def edit
+    @users = librarian_or_admin? ? User.all : [current_user]
     @nominator = current_user
     @badge = Badge.find_by_id(@badge_nomination.badge_id)
   end
