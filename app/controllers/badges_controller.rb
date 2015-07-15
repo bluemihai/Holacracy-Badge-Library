@@ -26,6 +26,7 @@ class BadgesController < ApplicationController
 
   def create
     @badge = Badge.new(badge_params)
+    @badge.status = 'draft'
 
     respond_to do |format|
       if @badge.save

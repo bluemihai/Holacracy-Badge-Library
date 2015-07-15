@@ -8,7 +8,7 @@ level
 = '—' if nomination_vote.comment && nomination_vote.comment != ''
 = nomination_vote.comment
 = "–"
-= link_to 'Edit', edit_nomination_vote_path(nomination_vote)
+%span.green= link_to 'Edit', edit_nomination_vote_path(nomination_vote)
 \|
-= link_to 'Destroy Validation', nomination_vote, method: :delete, data: { confirm: 'Are you sure you want to delete this Validation?' }
+%span.green= link_to 'Destroy Validation', nomination_vote, method: :delete, data: { confirm: 'Are you sure you want to delete this Validation?' }
 %br

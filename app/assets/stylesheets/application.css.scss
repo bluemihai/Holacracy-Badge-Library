@@ -36,7 +36,7 @@ a.green-light, a.green-light:visited {
 }
 
 button {
-  a:visited {
+  a, a:visited {
     color: white;
   }
   padding: 10px;
@@ -66,4 +66,11 @@ button {
 
 .red {
   color: red;
+}
+
+.green {
+  a, a.visited {
+    color: green;
+  }
+  color: green;
 }
