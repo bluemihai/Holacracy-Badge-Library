@@ -1,6 +1,8 @@
 level
 = nomination_vote.level
 — by
+%span.blue= "Holder" if nomination_vote.validator.has_badge(nomination_vote.badge_nomination.badge)
+%span.red= "Bootstrapper" if nomination_vote.validator.bootstrapper?
 = nomination_vote.validator.name
 = "(on #{nomination_vote.created_at.strftime('%b-%d')})"
 = '—' if nomination_vote.comment && nomination_vote.comment != ''
