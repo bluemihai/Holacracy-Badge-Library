@@ -2,11 +2,15 @@
   = f.error_notification
 
   .form-inputs
-    .row
-      - if librarian_or_admin?
-        #user_id.large-3.small-3.columns= f.association :nominator, collection: User.order(:name), label_method: :short, label: 'Nominator', include_blank: true
-      - else
-        #user_id.large-3.small-3.columns= f.association :nominator, collection: User.order(:name), label_method: :short, label: 'Nominator', include_blank: true, selected: @nominator.try(:id)
+    - if librarian_or_admin?
+      #user_id.large-3.small-3.columns= f.association :nominator, collection: User.order(:name), label_method: :short, label: 'Nominator', include_blank: true
+    - else
+      #user_id.large-3.small-3.columns= f.association :nominator, collection: User.order(:name), label_method: :short, label: 'Nominator', include_blank: true, selected: @nominator.try(:id)
+    .large-9.small.6.columns
+      Description for
+      %strong= @badge.try(:name_with_focus)
+      %br
+      = @badge.try(:description)
     %hr
     .row
       .large-3.small-3.columns
