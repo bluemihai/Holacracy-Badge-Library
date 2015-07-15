@@ -19,9 +19,8 @@ class NominationVotesController < ApplicationController
   end
 
   def edit
-    @badge_nomination = BadgeNomination.find_by_id(params[:badge_nomination_id])
-    @badge = @badge_nomination.try(:badge)
-    @badge_nominations = @badge ? [@badge_nomination] : BadgeNomination.pending
+    @badge = @nomination_vote.badge_nomination.badge
+    @badge_nominations = @badge ? [@nomination_vote.badge_nomination] : BadgeNomination.pending
   end
 
   def create
@@ -29,7 +28,7 @@ class NominationVotesController < ApplicationController
 
     respond_to do |format|
       if @nomination_vote.save
-        format.html { redirect_to @nomination_vote.badge_nomination, notice: 'Nomination vote was successfully created.' }
+        format.html { redirect_to @nomination_vote.badge_nomination, notice: 'Validation was successfully created.' }
         format.json { render :show, status: :created, location: @nomination_vote }
       else
         format.html { render :new }
@@ -41,7 +40,7 @@ class NominationVotesController < ApplicationController
   def update
     respond_to do |format|
       if @nomination_vote.update(nomination_vote_params)
-        format.html { redirect_to nomination_votes_path, notice: 'Nomination vote was successfully updated.' }
+        format.html { redirect_to @nomination_vote.badge_nomination, notice: 'Validation was successfully updated.' }
         format.json { render :show, status: :ok, location: @nomination_vote }
       else
         format.html { render :edit }
@@ -53,7 +52,7 @@ class NominationVotesController < ApplicationController
   def destroy
     @nomination_vote.destroy
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'Nomination vote was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Validation was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -6,6 +6,8 @@
     = "Status: #{@badge.status.try(:capitalize)}"
     %br
     = "Proposer: #{@badge.proposer.try(:name)}"
+    %br
+    = "Current Holders: #{@badge.current_holders}"
   %p= @badge.description
 
 %br

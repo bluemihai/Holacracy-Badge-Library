@@ -23,7 +23,8 @@ class BadgeNomination < ActiveRecord::Base
   end
 
   def who_for_what
-    user.short + " for \'"  + nominated_badge_name + "\' at level " + level_nominated.to_s
+    base = user.short + " for "  + nominated_badge_name
+    badge.try(:has_no_levels?) ? base : base + ", Level " + level_nominated.to_s
   end
 
   def current_level
@@ -36,25 +37,26 @@ class BadgeNomination < ActiveRecord::Base
     end
   end
 
+  def level_voted
+    return level_bootstrapped if holder_votes.count < 2    # we don't have enough votes
+    holder_votes.map(&:level).sort.reverse[1]
+  end
+
   def holder_votes
     return [] unless badge && badge.holders
     validations.select { |v| badge.holders.include?(v.validator) }.sort{ |v| -v.level}
   end
 
+  def level_bootstrapped
+    return nil if bootstrapper_votes.count == 0
+    max = User.bootstrapper.count
+    majority = (max / 2.0).floor + 1
+    bootstrapper_votes[majority - 1]
+  end
+
   def bootstrapper_votes
     return [] unless validations && validations.count
     validations.select { |v| v.validator && v.validator.bootstrapper? }.sort{ |v| -v.level}
-  end
-
-  def valid_votes
-    return holder_votes if holder_votes.count > 4
-    return bootstrapper_votes if holder_votes.count == 0
-    holder_votes.concat(bootstrapper_votes).uniq.take(5)
-  end
-
-  def level_voted
-    return nil if valid_votes.count < 3    # we don't have enough votes
-    valid_votes.map(&:level).sort.reverse[2]
   end
 
   def enough_badge_holders

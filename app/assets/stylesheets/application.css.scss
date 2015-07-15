@@ -20,6 +20,12 @@
   }  
 }
 
+.underline-links {
+  a, a.visited {
+    text-decoration: underline;
+  }  
+}
+
 a.green-light, a.green-light:visited {
   color: green;
   opacity: .5;

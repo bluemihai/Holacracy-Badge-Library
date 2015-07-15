@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
   default_scope { order(:short) }
   scope :bootstrapper, -> { where(bootstrapper?: true) }
 
+  def self.bootstrappers
+    where(bootstrapper?: true).map{ |b| b.short}.join(', ')
+  end
+
   def badge_count
     badges.count
   end

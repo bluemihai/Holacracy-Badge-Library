@@ -13,6 +13,10 @@ class Badge < ActiveRecord::Base
   validates :name, presence: true
   validates :description, presence: true
   
+  def current_holders
+    badge_nominations.accepted.map{ |bn| bn.user.short + ' ' + bn.current_level }.join(', ')
+  end
+  
   def accepted?
     status == 'accepted'
   end
@@ -27,7 +31,7 @@ class Badge < ActiveRecord::Base
 
   def has_no_levels?
     detailed_levels == []
-  end    
+  end
   
   def name_with_focus
     if name
