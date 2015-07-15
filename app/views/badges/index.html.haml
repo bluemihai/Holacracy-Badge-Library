@@ -1,12 +1,12 @@
 %h3
-  HolacracyOne Badges Library
+  HolacracyOne Badge Library
 
 %h5
   = link_to('All', badges_path) + ' | '
   = link_to('Accepted', badges_path(status: 'accepted')) + ' | '
   = link_to('Proposed', badges_path(status: 'proposed')) + ' | '
-  = link_to('Draft', badges_path(status: 'draft')) + ' || '
-  = link_to 'Propose New Badge', new_badge_path
+  = link_to('Draft', badges_path(status: 'draft'))
+  %button= link_to 'Propose New Badge', new_badge_path
 
 .row
   %h5.small-2.large-2.columns Status

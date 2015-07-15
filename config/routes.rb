@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
   resources :nomination_votes
 
-  root to: 'visitors#about'
+  root to: 'badges#index'
   get 'about' => 'visitors#about'
   get 'validations' => 'nomination_votes#index'
   get 'nominations' => 'badge_nominations#index'

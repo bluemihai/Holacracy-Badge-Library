@@ -1,33 +1,7 @@
-%h1 Badge Sets
+%h1 Badge Valuation Database
 
 = render @badge_sets
 
-%table
-  %thead
-    %tr
-      %th Proposer
-      %th Name
-      %th Valuation
-      %th Badges
-      - if librarian_or_admin?
-        %th
-        %th
-        %th
-        %th
-
-  %tbody
-    - @badge_sets.each do |badge_set|
-      %tr
-        %td= badge_set.proposer.try(:name)
-        %td= badge_set.name
-        %td= badge_set.comp_tier.try(:name_and_monthly_draw)
-        %td= link_to badge_set.badges.try(:count), badge_set_entries_path(badge_set_id: badge_set.id)
-        - if librarian_or_admin?
-          %td.admin-only= link_to 'Add Badges', new_badge_set_entry_path(badge_set_id: badge_set.id)
-          %td.admin-only= link_to 'Show', badge_set
-          %td.admin-only= link_to 'Edit', edit_badge_set_path(badge_set)
-          %td.admin-only= link_to 'Destroy', badge_set, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
+%hr
 
 .admin-only= link_to 'New Badge Set', new_badge_set_path if librarian_or_admin?

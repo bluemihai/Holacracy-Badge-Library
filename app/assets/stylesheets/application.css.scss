@@ -28,3 +28,28 @@ a.green-light, a.green-light:visited {
 .date {
     width: auto;
 }
+
+button {
+  a:visited {
+    color: white;
+  }
+  padding: 10px;
+}
+
+.badge-set {
+  background-color: white;
+  border: 1px black solid;
+  padding: 5px;
+  margin: 50 0px;
+  height: 200px;
+}
+
+.valuation {
+  float: right;
+  font-weight: bold;
+  color: green;
+}
+
+.space {
+  height: 30px;
+}

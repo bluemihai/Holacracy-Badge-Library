@@ -1,5 +1,5 @@
-%li= link_to 'Badge Library', badges_path
 - if user_signed_in?
+  %li= link_to 'Badge Holders', users_path
   - if current_user.is_admin? || current_user.is_librarian?
     %li= link_to 'Add Badge', new_badge_path 
   - else
@@ -17,16 +17,15 @@
   %li
     %a{"data-dropdown" => "hover2", "data-options" => "is_hover:true; hover_timeout:200", href: "#"} More...
     %ul#hover2.f-dropdown.tiny{"data-dropdown-content" => ""}
-      %li.dropdown_badge= link_to 'All Badge Holders', users_path
       %li.dropdown_badge= link_to 'All Nominations', nominations_path
       %li.dropdown_badge= link_to 'All Validations', validations_path if librarian_or_admin?
       %li.dropdown_badge= link_to 'Badge Valuation Database', badge_sets_path
-      %li.dropdown_badge.admin-only= link_to 'New Badge Set', new_badge_set_path
+      %li.dropdown_badge.admin-only= link_to 'New Badge Set', new_badge_set_path if librarian_or_admin?
       %li.dropdown_badge= link_to 'Comp Tiers', comp_tiers_path
-
 
   %li= link_to "Sign out (#{current_user.try(:role)}) #{current_user.try(:name)}", signout_path
 
 - else
   %li= link_to 'Sign in with your H1 Gmail', signin_path
 
+%li= link_to 'About', about_path
