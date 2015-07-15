@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714164047) do
+ActiveRecord::Schema.define(version: 20150715180242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,10 +61,12 @@ ActiveRecord::Schema.define(version: 20150714164047) do
     t.text     "level_7"
     t.text     "level_8"
     t.text     "level_9"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "focus"
     t.text     "feedback"
+    t.text     "mechanism"
+    t.date     "acceptance_date"
   end
 
   create_table "comp_tiers", force: :cascade do |t|

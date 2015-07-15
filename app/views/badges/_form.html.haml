@@ -6,18 +6,25 @@
     .row
       .large-3.small-3.columns= f.association :proposer, label_method: :short, include_blank: true
     %hr
-    .row
-      - if params[:template_id]
-        .large-6.small-6.columns= f.input :name, label: 'Badge Name'
-        .large-3.small-6.columns= f.input :focus, autofocus: true
-      - else
-        .large-6.small-6.columns= f.input :name, label: 'Badge Name', autofocus: true
+    - if librarian_or_admin?
+      .row
+        .large-5.small-6.columns= f.input :name, label: 'Badge Name', autofocus: true
         .large-3.small-6.columns= f.input :focus
-      - if librarian_or_admin?
-        .large-3.small-6.columns.admin-only= f.input :status, collection: values, include_blank: true
-    .row
-      .large-9.small-12.columns= f.input :description, label: 'Basic Badge Description', input_html: {rows: 5}
-      .large-3.small-12.columns= f.input :proposal_date
+        .large-4.small-6.columns
+          .admin-only= f.input :status, collection: values, include_blank: true
+      .row
+        .large-4.small-12.columns= f.input :description, label: 'Basic Badge Description', input_html: {rows: 5}
+        .large-4.small-12.columns= f.input :mechanism, label: 'Optional Mechanism for gaining/losing', input_html: {rows: 5}
+        .large-4.small-12.columns
+          .admin-only= f.input :proposal_date, include_blank: true
+          .admin-only= f.input :acceptance_date, include_blank: true
+    - else
+      .row
+        .large-8.small-6.columns= f.input :name, label: 'Badge Name', autofocus: true
+        .large-4.small-6.columns= f.input :focus
+      .row
+        .large-6.small-12.columns= f.input :description, label: 'Basic Badge Description', input_html: {rows: 5}
+        .large-6.small-12.columns= f.input :mechanism, label: 'Optional Mechanism for gaining/losing', input_html: {rows: 5}
     .row
       .large-4.small-12.columns= f.input :level_1, label: 'Level 1 Description', input_html: {rows: 4}
       .large-4.small-12.columns= f.input :level_2, label: 'Level 2 Description', input_html: {rows: 4}
