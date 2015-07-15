@@ -4,29 +4,28 @@
   = f.error_notification
 
   .form-inputs
-    .row
-      .large-3.small-6.columns= f.association :validator, label_method: :short, include_blank: true, label: 'Validator or Bootstrapper'
-      .large-9.small-6.columns.underline-links
-        Only validations by
-        = link_to 'current badge holders', @badge, title: @badge.current_holders
-        or
-        = link_to 'bootstrappers', 'https://glassfrog.holacracy.org/roles/81842', title: User.bootstrappers
-        will be counted.
-      .large-3
+    .large-3.small-6.columns= f.association :validator, label_method: :short, include_blank: true, label: 'Validator or Bootstrapper'
+    .large-9.small-6.columns.underline-links
+      Only validations by
+      = link_to 'current badge holders', @badge, title: @badge.current_holders
+      or
+      = link_to 'bootstrappers', 'https://glassfrog.holacracy.org/roles/81842', title: User.bootstrappers
+      will be counted.
+    .large-3
     %hr
-    .row
-      - if @badge
-        .large-6.small-12.columns
-          = f.association :badge_nomination, collection: @badge_nominations, label_method: :who_for_what, label: 'Pending Badge Nomination', selected: params[:badge_nomination_id]
-          - if @badge.has_no_levels?
-            = f.input :level, disabled: true, label: 'This badge has no levels.'
-          - else
-            = f.input :level, collection: @badge.detailed_levels, label: 'Level you are validating/bootstrapping at'
-      - else
-        .large-6.small-12.columns
-          = f.association :badge_nomination, collection: BadgeNomination.pending, label_method: :who_for_what, label: 'Pending Badge Nomination'
-          = f.input :level, collection: (1..9), label: 'Level you are validating at'
-      .large-6.small-12.columns= f.input :comment, input_html: {rows: 5}
+    - if @badge
+      .large-6.small-12.columns
+        = f.association :badge_nomination, collection: @badge_nominations, label_method: :who_for_what, label: 'Pending Badge Nomination', selected: params[:badge_nomination_id]
+        - if @badge.has_no_levels?
+          = f.input :level, disabled: true, label: 'This badge has no levels.'
+        - else
+          = f.input :level, collection: @badge.detailed_levels, label: 'Level you are validating/bootstrapping at'
+    - else
+      .large-6.small-12.columns
+        = f.association :badge_nomination, collection: BadgeNomination.pending, label_method: :who_for_what, label: 'Pending Badge Nomination'
+        = f.input :level, collection: (1..9), label: 'Level you are validating at'
+    .large-6.small-12.columns= f.input :comment, input_html: {rows: 5}
 
+    %hr
     .form-actions
       = f.button :submit, 'Validate'
