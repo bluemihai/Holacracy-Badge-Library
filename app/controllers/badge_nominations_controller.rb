@@ -37,7 +37,7 @@ class BadgeNominationsController < ApplicationController
 
     respond_to do |format|
       if @badge_nomination.save
-        format.html { redirect_to badge_nominations_path, notice: 'BadgeNomination was successfully created.' }
+        format.html { redirect_to users_path, notice: 'BadgeNomination was successfully created.' }
         format.json { render :show, status: :created, location: @badge_nomination }
       else
         format.html do
@@ -66,7 +66,7 @@ class BadgeNominationsController < ApplicationController
   def destroy
     @badge_nomination.destroy
     respond_to do |format|
-      format.html { redirect_to badge_nominations_url, notice: 'BadgeNomination was successfully destroyed.' }
+      format.html { redirect_to users_path, notice: 'BadgeNomination was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
