@@ -53,7 +53,7 @@ class NominationVotesController < ApplicationController
   def destroy
     @nomination_vote.destroy
     respond_to do |format|
-      format.html { redirect_to nomination_votes_url, notice: 'Nomination vote was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Nomination vote was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

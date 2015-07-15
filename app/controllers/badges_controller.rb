@@ -41,7 +41,7 @@ class BadgesController < ApplicationController
   def propose
     @badge.status = 'proposed'
     if @badge.save
-      redirect_to @badge, notice: 'Badge status successfully changed to "proposed".'
+      redirect_to @badge, notice: 'Badge proposed.  Please notify Badge Librarian via Slack or e-mail.'
     else
       redirect_to @badge, alert: 'Unable to change badge status to "proposed".'
     end
@@ -78,9 +78,17 @@ class BadgesController < ApplicationController
   end
 
   def destroy
-    @badge.destroy
+    message = nil
+    if @badge.badge_sets.count > 0
+      message = 'This badge is part of at least one badge set.  Delete those first and try again.'
+    elsif @badge.badge_nominations.count > 0
+      message = 'There are pending nominations for this badge.  Delete those first and try again.'      
+    else
+      message = 'Badge was successfully destroyed.'
+      @badge.destroy
+    end
     respond_to do |format|
-      format.html { redirect_to badges_url, notice: 'Badge was successfully destroyed.' }
+      format.html { redirect_to :back, notice: message }
       format.json { head :no_content }
     end
   end

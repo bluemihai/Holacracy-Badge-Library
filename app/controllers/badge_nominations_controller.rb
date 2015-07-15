@@ -37,7 +37,7 @@ class BadgeNominationsController < ApplicationController
 
     respond_to do |format|
       if @badge_nomination.save
-        format.html { redirect_to users_path, notice: 'BadgeNomination was successfully created.' }
+        format.html { redirect_to users_path, notice: 'BadgeNomination was successfully created.  Please notify Comp Admin.' }
         format.json { render :show, status: :created, location: @badge_nomination }
       else
         format.html do

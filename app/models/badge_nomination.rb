@@ -11,7 +11,7 @@ class BadgeNomination < ActiveRecord::Base
 
   validates_uniqueness_of :user_id, scope: :badge_id, message: "User has already been nominated for this badge."
 
-  scope :pending, -> { where(status: 'pending') }
+  scope :pending, -> { where(status: 'pending').joins(:badge) }
   scope :accepted, -> { where(status: 'accepted') }
 
   def accepted?
@@ -30,7 +30,7 @@ class BadgeNomination < ActiveRecord::Base
     if status == 'expired'
       'Exp'
     elsif status == 'accepted'
-      (level_granted.nil? || level_granted == '') ? 'LIB' : level_granted
+      (level_granted.nil? || level_granted == '') ? 'COMP' : level_granted
     else
       level_voted.nil? ? 'NEV' : level_voted
     end
