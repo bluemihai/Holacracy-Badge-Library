@@ -17,7 +17,7 @@ class BadgeNomination < ActiveRecord::Base
   def accepted?
     return true if status == 'accepted'
     if badge.has_levels?
-      current_level > 0
+      current_level && current_level > 0
     else
       current_level == true
     end
