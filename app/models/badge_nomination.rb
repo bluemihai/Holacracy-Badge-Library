@@ -39,16 +39,15 @@ class BadgeNomination < ActiveRecord::Base
       return true if !badge.has_levels?
       (level_granted.nil? || level_granted == '' || level_granted == 0) ? 'COMP' : level_granted
     else
-      level_voted.nil? ? 'NEV' : level_voted
+      level_voted
     end
   end
 
   def level_voted
-    return level_bootstrapped if holder_votes.count < 2    # we don't have enough votes
     if badge.has_levels?
       holder_votes.map(&:level).sort.reverse[1]
     else
-      holder_votes.count > 1
+      holder_votes.count > 1 ? true : level_bootstrapped
     end
   end
 
@@ -57,14 +56,17 @@ class BadgeNomination < ActiveRecord::Base
     validations.select { |v| v.validator.has_badge(badge) }
   end
 
+  def bootstrapper_majority
+    (User.bootstrapper.count / 2.0).floor + 1
+  end
+
   def level_bootstrapped
     return nil if bootstrapper_votes.count == 0
-    max = User.bootstrapper.count
-    majority = (max / 2.0).floor + 1
+
     if badge.has_levels?
-      bootstrapper_votes.sort{ |v| -v.level }[majority - 1].level rescue nil
+      bootstrapper_votes.sort{ |v| -v.level }[bootstrapper_majority - 1].level rescue nil
     else
-      bootstrapper_votes.count >= majority
+      bootstrapper_votes.count >= bootstrapper_majority ? true : 'NEV'
     end
   end
 

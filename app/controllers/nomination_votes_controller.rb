@@ -31,6 +31,8 @@ class NominationVotesController < ApplicationController
         format.html { redirect_to @nomination_vote.badge_nomination, notice: 'Validation was successfully created.' }
         format.json { render :show, status: :created, location: @nomination_vote }
       else
+        @badge = @nomination_vote.badge_nomination.badge
+        @badge_nominations = @badge ? [@nomination_vote.badge_nomination] : BadgeNomination.pending
         format.html { render :new }
         format.json { render json: @nomination_vote.errors, status: :unprocessable_entity }
       end

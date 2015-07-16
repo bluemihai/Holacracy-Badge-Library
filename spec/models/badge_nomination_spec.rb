@@ -51,18 +51,26 @@ RSpec.describe BadgeNomination, type: :model do
     @voter1 = FactoryGirl.create(:user)
     @voter2 = FactoryGirl.create(:user)
     @voter3 = FactoryGirl.create(:user, bootstrapper?: true)
+    @voter4 = FactoryGirl.create(:user, bootstrapper?: true)
+    @voter5 = FactoryGirl.create(:user, bootstrapper?: true)
+    @voter6 = FactoryGirl.create(:user, bootstrapper?: true)
+    expect(@bn.bootstrapper_majority).to eq(3)
 
     @voter1.grant_badge(@badge, 9)
     @bn2 = FactoryGirl.create(:badge_nomination, badge: @badge, user: @voter2, status: 'pending')
-    
     expect(@bn2.accepted?).to be false
     expect(BadgeNomination.accepted.count).to eq(1)
     
     @v1 = @bn.validations.create(validator: @voter1)
     @v2 = @bn.validations.create(validator: @voter2)
     @v3 = @bn.validations.create(validator: @voter3)
-    
+
+    expect(@bn.accepted?).to be false    
     expect(@bn.current_level).to eq('NEV')
+
+    expect(@bn.level_voted).to eq('NEV')
+    expect(@bn.holder_votes.count).to eq(1)
+    expect(@bn.bootstrapper_votes.count).to eq(1)
 
   end
 
