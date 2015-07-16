@@ -51,7 +51,7 @@ class BadgeNomination < ActiveRecord::Base
     return nil if bootstrapper_votes.count == 0
     max = User.bootstrapper.count
     majority = (max / 2.0).floor + 1
-    bootstrapper_votes[majority - 1].level
+    bootstrapper_votes[majority - 1].level rescue nil
   end
 
   def bootstrapper_votes

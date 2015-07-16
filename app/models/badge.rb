@@ -14,7 +14,7 @@ class Badge < ActiveRecord::Base
   validates :description, presence: true
   
   def current_holders
-    holders = badge_nominations.accepted.map{ |bn| bn.user.short + ' ' + bn.current_level }
+    holders = badge_nominations.accepted.map{ |bn| bn.user.short + ' ' + bn.current_level.to_s }
     holders.count > 0 ? holders.join(', ') : 'There are no current badge holders'
   end
   
