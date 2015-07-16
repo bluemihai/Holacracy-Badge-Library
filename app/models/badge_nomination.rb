@@ -29,9 +29,9 @@ class BadgeNomination < ActiveRecord::Base
 
   def current_level
     if status == 'expired'
-      'Exp'
+      'EXP'
     elsif status == 'accepted'
-      (level_granted.nil? || level_granted == '') ? 'COMP' : level_granted
+      (level_granted.nil? || level_granted == '' || level_granted == 0) ? 'COMP' : level_granted
     else
       level_voted.nil? ? 'NEV' : level_voted
     end
@@ -51,7 +51,7 @@ class BadgeNomination < ActiveRecord::Base
     return nil if bootstrapper_votes.count == 0
     max = User.bootstrapper.count
     majority = (max / 2.0).floor + 1
-    bootstrapper_votes[majority - 1]
+    bootstrapper_votes[majority - 1].level
   end
 
   def bootstrapper_votes

@@ -20,11 +20,11 @@ feature 'Sign in', :omniauth do
   #   When I sign in
   #   Then I see an authentication error message
   scenario 'user cannot sign in with invalid account' do
-    OmniAuth.config.mock_auth[:twitter] = :invalid_credentials
+    OmniAuth.config.mock_auth[:google_auth] = :invalid_credentials
     visit root_path
     expect(page).to have_content("Sign in")
     click_link "Sign in"
-    expect(page).to have_content('Authentication error')
+    expect(page).to have_content('Sorry, you are not an authorized H1 Partner.')
   end
 
 end

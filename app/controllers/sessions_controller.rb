@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
   def create
     auth = request.env["omniauth.auth"]
-    user = User.find_by(name: auth.info.name)
+    user = User.find_by(name: auth['info']['name'])
     if user #&& auth.info.email.ends_with?('@holacracyone.com')
       reset_session
       user.update_attributes(email: auth.info.email)

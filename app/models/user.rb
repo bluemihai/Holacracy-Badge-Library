@@ -24,8 +24,12 @@ class User < ActiveRecord::Base
   end
 
   def badge_level(badge)
-    noms = badge_nominations.where(badge_id: badge.id).order('level_granted DESC')
-    noms.first ? noms.first.current_level : nil
+    bn = BadgeNomination.find_by(user_id: self.id, badge_id: badge.id)
+    bn.try(:current_level)
+  end
+
+  def grant_badge(badge, level)
+    badge_nominations.create(badge: badge, status: 'accepted', level_granted: level)
   end
 
   def has_badge(badge)
