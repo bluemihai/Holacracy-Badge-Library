@@ -25,9 +25,8 @@ class BadgeNominationsController < ApplicationController
   end
 
   def edit
-    @users = librarian_or_admin? ? User.all : [current_user]
     @nominator = current_user
-    @badge = Badge.find_by_id(@badge_nomination.badge_id)
+    @badge = @badge_nomination.badge
   end
 
   def create
@@ -44,7 +43,8 @@ class BadgeNominationsController < ApplicationController
       else
         format.html do
           @nominator = current_user
-          @badge = Badge.find(session[:badge_id])
+          @badge = @badge_nomination.badge
+          @users = librarian_or_admin? ? User.all : [current_user]
           @badge_nomination.badge_id = @badge.id
           render :new
         end

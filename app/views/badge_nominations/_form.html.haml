@@ -21,16 +21,19 @@
         = f.hidden_field :badge_id, value: params[:badge_id]
       - else
         #badge_id= f.association :badge, collection: Badge.accepted.order(:name), label_method: :name_with_focus
-      - if @badge.try(:has_no_levels?)
-        #level= f.input :level_nominated, disabled: true, label: 'This badge has no levels.'
-      - else
+      - if @badge.try(:has_levels?)
         #level= f.input :level_nominated, collection: @badge.try(:detailed_levels)
+      - else
+        #level= f.input :level_nominated, disabled: true, label: 'This badge has no levels.'
     .large-9.small-12.columns= f.input :evidence, label: 'Evidence and examples for this nomination', input_html: {rows: 5}
     %hr
     - if librarian_or_admin?
       %div.admin-only
         .large-3.small-6.columns.admin-only= f.input :status, collection: [['Pending', 'pending'], ['Accepted', 'accepted'], ['Expired', 'expired']]
-        .large-3.small-6.columns.admin-only= f.input :level_granted, collection: @badge.try(:detailed_levels)
+        - if @badge.try(:has_levels?)
+          .large-3.small-6.columns.admin-only= f.input :level_granted, collection: @badge.try(:detailed_levels)
+        - else
+          .large-3.small-6.columns.admin-only= f.input :level_granted, disabled: true, label: 'This badge has no levels.'
         .large-4.small-6.columns.admin-only= f.input :effective_date, include_blank: true
         .large-2.small-6.columns
     - else

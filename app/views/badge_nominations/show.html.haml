@@ -24,6 +24,10 @@
   %br
   %br
   %hr
+  %div= "@badge_nomination.accepted? is #{@badge_nomination.accepted?}"
+  %div= "@badge_nomination.current_level is #{@badge_nomination.current_level}"
+  %div= "@badge_nomination.level_voted is #{@badge_nomination.level_voted}"
+  %hr
 
 - if librarian_or_admin?
   %h5.admin-only Validations

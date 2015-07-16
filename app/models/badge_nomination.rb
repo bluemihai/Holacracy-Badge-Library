@@ -1,7 +1,7 @@
 class BadgeNomination < ActiveRecord::Base
   belongs_to :user
   belongs_to :badge
-  has_many :validations, class_name: 'NominationVote'
+  has_many :validations, class_name: 'NominationVote', dependent: :destroy
   has_many :validators, through: :validations, class_name: 'User'
   belongs_to :nominator, class_name: 'User'
 
@@ -15,7 +15,12 @@ class BadgeNomination < ActiveRecord::Base
   scope :accepted, -> { where(status: 'accepted') }
 
   def accepted?
-    status == 'accepted'
+    return true if status == 'accepted'
+    if badge.has_levels?
+      current_level > 0
+    else
+      current_level == true
+    end
   end
 
   def nominated_badge_name
@@ -24,13 +29,14 @@ class BadgeNomination < ActiveRecord::Base
 
   def who_for_what
     base = user.short + " for "  + nominated_badge_name
-    badge.try(:has_no_levels?) ? base : base + ", Level " + level_nominated.to_s
+    badge.try(:has_levels?) ? base + ", Level " + level_nominated.to_s : base
   end
 
   def current_level
     if status == 'expired'
       'EXP'
     elsif status == 'accepted'
+      return true if !badge.has_levels?
       (level_granted.nil? || level_granted == '' || level_granted == 0) ? 'COMP' : level_granted
     else
       level_voted.nil? ? 'NEV' : level_voted
@@ -39,24 +45,32 @@ class BadgeNomination < ActiveRecord::Base
 
   def level_voted
     return level_bootstrapped if holder_votes.count < 2    # we don't have enough votes
-    holder_votes.map(&:level).sort.reverse[1]
+    if badge.has_levels?
+      holder_votes.map(&:level).sort.reverse[1]
+    else
+      holder_votes.count > 1
+    end
   end
 
   def holder_votes
     return [] unless badge && badge.holders
-    validations.select { |v| badge.holders.include?(v.validator) }.sort{ |v| -v.level}
+    validations.select { |v| v.validator.has_badge(badge) }
   end
 
   def level_bootstrapped
     return nil if bootstrapper_votes.count == 0
     max = User.bootstrapper.count
     majority = (max / 2.0).floor + 1
-    bootstrapper_votes[majority - 1].level rescue nil
+    if badge.has_levels?
+      bootstrapper_votes.sort{ |v| -v.level }[majority - 1].level rescue nil
+    else
+      bootstrapper_votes.count >= majority
+    end
   end
 
   def bootstrapper_votes
     return [] unless validations && validations.count
-    validations.select { |v| v.validator && v.validator.bootstrapper? }.sort{ |v| -v.level}
+    validations.select { |v| v.validator && v.validator.bootstrapper? }
   end
 
   def enough_badge_holders

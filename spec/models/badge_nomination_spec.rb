@@ -41,7 +41,29 @@ RSpec.describe BadgeNomination, type: :model do
 
     b.destroy!
     expect(BadgeNomination.pending.count).to eq(0)    
+  end
+
+  it 'should return NEV with validation from pending badge holder for no-levels badge' do
+    expect(@badge.has_levels?).to be true
+    @badge.reset_levels
+    expect(@badge.has_levels?).to be false
+
+    @voter1 = FactoryGirl.create(:user)
+    @voter2 = FactoryGirl.create(:user)
+    @voter3 = FactoryGirl.create(:user, bootstrapper?: true)
+
+    @voter1.grant_badge(@badge, 9)
+    @bn2 = FactoryGirl.create(:badge_nomination, badge: @badge, user: @voter2, status: 'pending')
     
+    expect(@bn2.accepted?).to be false
+    expect(BadgeNomination.accepted.count).to eq(1)
+    
+    @v1 = @bn.validations.create(validator: @voter1)
+    @v2 = @bn.validations.create(validator: @voter2)
+    @v3 = @bn.validations.create(validator: @voter3)
+    
+    expect(@bn.current_level).to eq('NEV')
+
   end
 
 end

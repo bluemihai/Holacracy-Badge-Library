@@ -33,7 +33,8 @@ class User < ActiveRecord::Base
   end
 
   def has_badge(badge)
-    BadgeNomination.exists?(user_id: self.id, badge_id: badge.id, status: 'accepted')
+    bn = BadgeNomination.find_by(user_id: self.id, badge_id: badge.id)
+    bn.try(:accepted?)
   end
 
   def nomination(badge)
