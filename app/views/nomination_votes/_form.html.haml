@@ -14,7 +14,7 @@
     .large-3
     %hr
       
-    .large-4.small-6.columns= f.association :badge_nomination, collection: @badge_nominations, label_method: :who_for_what, label: 'Pending Badge Nomination', selected: params[:badge_nomination_id]
+    .large-4.small-6.columns= f.association :badge_nomination, collection: @badge_nominations, label_method: :short_name_for_badge_level, label: 'Pending Badge Nomination', selected: params[:badge_nomination_id]
     - unless @badge_nomination.evidence == ''
       .large-8.small-6.columns
         %strong Evidence submitted:

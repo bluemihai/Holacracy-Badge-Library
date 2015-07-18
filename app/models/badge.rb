@@ -46,6 +46,10 @@ class Badge < ActiveRecord::Base
     end
   end
 
+  def safe_name_with_focus
+    name ? name_with_focus : '(Badge Missing)'
+  end
+
   def enough_holders
     holders.count >= 5
   end

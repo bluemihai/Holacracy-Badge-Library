@@ -17,7 +17,7 @@ class BadgeNomination < ActiveRecord::Base
   def accepted?
     return true if status == 'accepted'
     if badge.has_levels?
-      current_level && current_level > 0
+      current_level && current_level.is_a?(Integer) && current_level > 0
     else
       current_level == true
     end
@@ -27,9 +27,17 @@ class BadgeNomination < ActiveRecord::Base
     badge.try(:name) || '(Since Deleted)'
   end
 
-  def who_for_what
-    base = user.short + " for "  + nominated_badge_name
+  def short_name_for_badge_level
+    who = user.short || 'User Missing'
+    what = badge.name || 'Badge Missing'
+    base = who + " for "  + what
     badge.try(:has_levels?) ? base + ", Level " + level_nominated.to_s : base
+  end
+
+  def name_for_badge
+    who = user.name || 'User Missing'
+    what = badge.name || 'Badge Missing'
+    who + " for "  + what
   end
 
   def current_level
@@ -38,17 +46,16 @@ class BadgeNomination < ActiveRecord::Base
     elsif status == 'accepted'
       return true if !badge.has_levels?
       (level_granted.nil? || level_granted == '' || level_granted == 0) ? 'COMP' : level_granted
-    else
+    elsif holder_votes.count > 1
       level_voted
+    else
+      level_bootstrapped
     end
   end
 
   def level_voted
-    if badge.has_levels?
-      holder_votes.map(&:level).sort.reverse[1]
-    else
-      holder_votes.count > 1 ? true : level_bootstrapped
-    end
+    return 'NEV' unless holder_votes.count > 1
+    badge.has_levels? ? holder_votes.map(&:level).sort.reverse[1] : true
   end
 
   def holder_votes
@@ -61,8 +68,7 @@ class BadgeNomination < ActiveRecord::Base
   end
 
   def level_bootstrapped
-    return nil if bootstrapper_votes.count == 0
-
+    return 'NEV' if bootstrapper_votes.count < bootstrapper_majority
     if badge.has_levels?
       bootstrapper_votes.sort{ |v| -v.level }[bootstrapper_majority - 1].level rescue nil
     else

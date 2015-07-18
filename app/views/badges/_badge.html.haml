@@ -1,5 +1,11 @@
 .small-2.large-2.columns
-  = link_to badge.status.try(:capitalize), edit_badge_path(badge)
+  - if badge.status == 'accepted'
+    .green= badge.status.try(:capitalize)
+  - elsif badge.status == 'proposed'
+    .blue= badge.status.try(:capitalize)
+  - elsif badge.status == 'draft'
+    .red= badge.status.try(:capitalize)
+  
 .small-10.large-10.columns
   = link_to badge.name_with_focus, badge
   - if librarian_or_admin?

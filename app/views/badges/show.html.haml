@@ -1,24 +1,26 @@
 %p.large-12.medium-12
   %h2= "#{@badge.name_with_focus} Badge"
-  %strong.large-2.columns.text-right Status
-  .large-10.columns= @badge.status.try(:capitalize)
-  .large-4.columns
-  %div
-  %strong.large-2.columns.text-right Proposer
-  .large-6.columns= @badge.proposer.try(:name)
-  .large-4.columns
-  %div
-  %strong.large-2.columns.text-right Current Holders
-  .large-6.columns= @badge.current_holder_names
-  .large-4.columns
-  %div
-  %strong.large-2.columns.text-right Description
-  .large-6.columns.box= @badge.description
-  .large-4.columns
-  %div
-  %strong.large-2.columns.text-right Mechanism
-  .large-6.columns.box= @badge.mechanism
-  .large-4.columns
+  .row
+    %strong.large-2.columns.text-right Status
+    .large-10.columns= @badge.status.try(:capitalize)
+    .large-4.columns
+  .row
+    %strong.large-2.medium-2.small-2.columns.text-right Proposer
+    .large-6.medium-6.small-6.columns= @badge.proposer.try(:name)
+    .large-4.medium-4.small-4.columns
+  .row
+    %strong.large-2.columns.text-right Current Holders
+    .large-6.columns= @badge.current_holder_names
+    .large-4.columns
+  .row
+    %strong.large-2.columns.text-right Description
+    .large-6.columns.box= @badge.description
+    .large-4.columns
+  - if @badge.mechanism && @badge.mechanism != ''
+    .row
+      %strong.large-2.columns.text-right Mechanism
+      .large-6.columns.box= @badge.mechanism
+      .large-4.columns
 
 %br
 %hr

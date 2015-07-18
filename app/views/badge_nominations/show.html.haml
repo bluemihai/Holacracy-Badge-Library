@@ -1,35 +1,45 @@
-%p
-  .large-2.columns
-    %h5 Badge Nomination
-    %strong= @badge_nomination.user.name
-    %br &nbsp;&nbsp;for
-    %strong= @badge_nomination.badge.name
-    - if @badge_nomination.current_level && @badge_nomination.current_level != ''
-      %br &nbsp;&nbsp;at level
-      %strong= @badge_nomination.current_level
-  .large-1.columns
-    %h5 Status
-    %p
-      = @badge_nomination.status.capitalize
-      %br
-      &nbsp;&nbsp;at level 
-      = @badge_nomination.level_granted
+%p.large-12.medium-12
+  %h3
+    Nomination:
+    = @badge_nomination.name_for_badge
+  .row
+    %strong.large-3.columns.text-right Nominated by
+    .large-6.columns
+      = @badge_nomination.nominator.try(:name)
+      = "(at level #{@badge_nomination.level_nominated})"
+    .large-3.columns
+  .row
+    %strong.large-3.columns.text-right Status
+    .large-6.columns
+      = @badge_nomination.status.try(:capitalize)
+      - if @badge_nomination.status == 'accepted'
+        = "(at level #{@badge_nomination.level_granted})"
+      .large-3.columns
 
-  .large-6.columns
-    %h5 Evidence
-    %p= @badge_nomination.evidence
-  %br
-  %br
-  %br
-  %br
-  %br
-  %hr
+    .large-3.columns
+  - if @badge_nomination.evidence && @badge_nomination.evidence != ''
+    .row
+      %strong.large-3.columns.text-right Evidence
+      .large-6.columns.box= @badge_nomination.evidence
+      .large-3.columns
 
 - if librarian_or_admin?
   .admin-only
+    .row
+      %strong.large-3.columns.text-right Level Voted
+      .large-6.columns= @badge_nomination.level_voted
+      .large-3.columns
+    .row
+      %strong.large-3.columns.text-right Level Bootstrapped
+      .large-6.columns= @badge_nomination.level_bootstrapped
+      .large-3.columns
+    .row
+      %strong.large-3.columns.text-right Current Level
+      .large-6.columns= @badge_nomination.current_level
+      .large-3.columns
     %button= link_to 'Add Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
     - if @validations.count > 0
-      %h5 Validations
+      %h4 Validations
       = render @validations
       %hr
 

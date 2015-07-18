@@ -39,9 +39,13 @@ class BadgeNominationsController < ApplicationController
 
     respond_to do |format|
       if @badge_nomination.save
-        format.html { redirect_to users_path, notice: 'BadgeNomination was successfully created.  Please notify Comp Admin.' }
+        safe_user = @badge_nomination.user.try(:name)
+        safe_user = @badge_nomination.badge.try(:name)
+        format.html { redirect_to users_path, notice: "#{safe_user} successfully nominated for #{safe_nom}.  Please notify Comp Admin." }
         format.json { render :show, status: :created, location: @badge_nomination }
       else
+        params[:badge_id] = @badge_nomination.badge.id
+        @users = librarian_or_admin? ? User.all : [current_user]
         format.html { render :new }
         format.json { render json: @badge_nomination.errors, status: :unprocessable_entity }
       end
@@ -51,7 +55,7 @@ class BadgeNominationsController < ApplicationController
   def update
     respond_to do |format|
       if @badge_nomination.update(badge_nomination_params)
-        format.html { redirect_to users_path, notice: 'BadgeNomination was successfully updated.' }
+        format.html { redirect_to @badge_nomination, notice: 'BadgeNomination was successfully updated.' }
         format.json { render :show, status: :ok, location: @badge_nomination }
       else
         format.html { render :edit }
