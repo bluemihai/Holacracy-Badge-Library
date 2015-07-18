@@ -40,7 +40,7 @@ class BadgeNominationsController < ApplicationController
     respond_to do |format|
       if @badge_nomination.save
         safe_user = @badge_nomination.user.try(:name)
-        safe_user = @badge_nomination.badge.try(:name)
+        safe_nom = @badge_nomination.badge.try(:name)
         format.html { redirect_to users_path, notice: "#{safe_user} successfully nominated for #{safe_nom}.  Please notify Comp Admin." }
         format.json { render :show, status: :created, location: @badge_nomination }
       else
