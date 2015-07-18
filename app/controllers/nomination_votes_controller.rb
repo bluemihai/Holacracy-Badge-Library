@@ -19,8 +19,9 @@ class NominationVotesController < ApplicationController
   end
 
   def edit
+    @badge_nomination = @nomination_vote.badge_nomination
     @badge = @nomination_vote.badge_nomination.badge
-    @badge_nominations = @badge ? [@nomination_vote.badge_nomination] : BadgeNomination.pending
+    @badge_nominations = @badge ? [@badge_nomination] : BadgeNomination.pending
   end
 
   def create

@@ -27,6 +27,7 @@ class BadgeNominationsController < ApplicationController
   def edit
     @nominator = current_user
     @badge = @badge_nomination.badge
+    @users = librarian_or_admin? ? User.all : [current_user]
   end
 
   def create
@@ -41,13 +42,7 @@ class BadgeNominationsController < ApplicationController
         format.html { redirect_to users_path, notice: 'BadgeNomination was successfully created.  Please notify Comp Admin.' }
         format.json { render :show, status: :created, location: @badge_nomination }
       else
-        format.html do
-          @nominator = current_user
-          @badge = @badge_nomination.badge
-          @users = librarian_or_admin? ? User.all : [current_user]
-          @badge_nomination.badge_id = @badge.id
-          render :new
-        end
+        format.html { render :new }
         format.json { render json: @badge_nomination.errors, status: :unprocessable_entity }
       end
     end

@@ -24,18 +24,18 @@
   %br
   %br
   %hr
-  %hr
 
 - if librarian_or_admin?
-  %h5.admin-only Validations
-  .admin-only= render @validations
-  %hr
-
   .admin-only
-    = link_to 'Edit', edit_badge_nomination_path(@badge_nomination)
-    \|
-    = link_to 'Destroy Nomination', @badge_nomination, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this nomination?' }
-    \|
-    = link_to 'Add Your Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
+    %button= link_to 'Add Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
+    - if @validations.count > 0
+      %h5 Validations
+      = render @validations
+      %hr
+
+  %p
+  .admin-only
+    %button= link_to 'Edit Nomination', edit_badge_nomination_path(@badge_nomination)
+    %button= link_to 'Destroy Nomination', @badge_nomination, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this nomination?' }
 - else
-  = link_to 'Add Your Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
+  %button= link_to 'Add Your Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
