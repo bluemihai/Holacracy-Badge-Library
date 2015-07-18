@@ -19,7 +19,7 @@
       .large-8.small-6.columns
         %strong Evidence submitted:
         %br
-        = @badge_nomination.evidence 
+        = @badge_nomination.evidence
     %hr
     - if @badge.has_levels?
       .large-4.small-6.columns= f.input :level, collection: @badge.detailed_levels, label: 'Level you are validating/bootstrapping at'
