@@ -5,6 +5,7 @@ class Badge < ActiveRecord::Base
 
   has_many :badge_set_entries
   has_many :badge_sets, through: :badge_set_entries
+  has_many :objections, class_name: 'BadgeObjection'
 
   scope :accepted, -> { where(status: 'accepted') }
   scope :proposed, -> { where(status: 'proposed') }
