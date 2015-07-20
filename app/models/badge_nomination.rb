@@ -1,7 +1,7 @@
 class BadgeNomination < ActiveRecord::Base
   belongs_to :user
   belongs_to :badge
-  has_many :validations, class_name: 'NominationVote', dependent: :destroy
+  has_many :validations, class_name: 'NominationVote', dependent: :delete_all
   has_many :validators, through: :validations, class_name: 'User'
   belongs_to :nominator, class_name: 'User'
 

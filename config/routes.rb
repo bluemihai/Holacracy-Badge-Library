@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   root to: 'badges#index'
   get 'about' => 'visitors#about'
+  get 'help' => 'visitors#help'
   get 'validations' => 'nomination_votes#index'
   get 'nominations' => 'badge_nominations#index'
 

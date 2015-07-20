@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   end
   
   def safe_short_name
-    short_name ? short_name : '(Short User Name Missing)'
+    short ? short : '(Short User Name Missing)'
   end
 
 end

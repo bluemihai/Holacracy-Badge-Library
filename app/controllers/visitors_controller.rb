@@ -4,4 +4,7 @@ class VisitorsController < ApplicationController
 
   def about
   end
+
+  def help
+  end
 end

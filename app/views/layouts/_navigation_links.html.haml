@@ -23,9 +23,10 @@
       %li.dropdown_badge.admin-only= link_to 'New Badge Set', new_badge_set_path if librarian_or_admin?
       %li.dropdown_badge= link_to 'Comp Tiers', comp_tiers_path
 
-  %li= link_to "Sign out (#{current_user.try(:role)}) #{current_user.try(:name)}", signout_path
+  %li= link_to "Sign out (#{current_user.try(:role)}) #{current_user.safe_short_name}", signout_path
 
 - else
   %li= link_to 'Sign in with your H1 Gmail', signin_path
 
 %li= link_to 'About', about_path
+%li= link_to 'Help', help_path
