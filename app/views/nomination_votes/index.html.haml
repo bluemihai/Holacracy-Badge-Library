@@ -15,7 +15,7 @@
     - @nomination_votes.each do |nomination_vote|
       %tr
         %td= link_to nomination_vote.badge_nomination.try(:short_name_for_badge_level), nomination_vote.badge_nomination
-        %td= nomination_vote.validator.name
+        %td= nomination_vote.validator.try(:name) || '(Validator Missing)'
         %td= nomination_vote.level
         %td= nomination_vote.comment
         %td= link_to 'Show', nomination_vote
