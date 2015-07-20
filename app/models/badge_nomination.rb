@@ -36,8 +36,8 @@ class BadgeNomination < ActiveRecord::Base
   end
 
   def name_for_badge
-    who = user.name || 'User Missing'
-    what = badge.name || 'Badge Missing'
+    who = user.try(:name) || 'User Missing'
+    what = badge.try(:name) || 'Badge Missing'
     who + " for "  + what
   end
 
