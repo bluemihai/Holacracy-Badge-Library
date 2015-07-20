@@ -1,22 +1,11 @@
 .small-3.large-3.columns
   - if badge.status == 'accepted'
-    .green
-      = badge.status.try(:capitalize)
-      = "on #{badge.acceptance_date.strftime('%b-%-d')}" if badge.acceptance_date
+    .green= badge.status_with_date
   - elsif badge.status == 'proposed'
-    .blue
-      = badge.status.try(:capitalize)
-      = "on #{badge.proposal_date.strftime('%b-%-d')}" if badge.proposal_date
+    .blue= badge.status_with_date
   - elsif badge.status == 'draft'
-    .red= badge.status.try(:capitalize)
+    .red= badge.status_with_date
   
 .small-9.large-9.columns
   = link_to badge.name_with_focus, badge
-  - if librarian_or_admin?
-    —
-    %span.green= link_to 'Edit', edit_badge_path(badge)
-    \|
-    %span.green= link_to 'Destroy', badge, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this Badge?' }
-  - if badge.has_focus?  
-    —
-    = link_to 'Duplicate With New Focus', new_badge_path(template_id: badge.id)
+  = render 'actions', badge: badge

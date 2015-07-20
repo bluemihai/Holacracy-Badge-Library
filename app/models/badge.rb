@@ -13,7 +13,18 @@ class Badge < ActiveRecord::Base
   
   validates :name, presence: true
   validates :description, presence: true
-  
+
+  def status_with_date
+    return nil if status == nil
+    if status == 'accepted'
+      acceptance_date ? status.capitalize + ' on ' + acceptance_date.strftime('%b-%-d') : status.capitalize
+    elsif status == 'proposed'
+      proposal_date ? status.capitalize + ' on ' + proposal_date.strftime('%b-%-d') : status.capitalize
+    else
+      status.capitalize
+    end    
+  end
+
   def current_holders
     badge_nominations.select{ |bn| bn.accepted? }.map{ |bn| bn.user }
   end

@@ -1,5 +1,5 @@
 - if user_signed_in?
-  %li= link_to 'Badge Holders', users_path
+  %li= link_to 'Badge Holders', holders_path
   - if current_user.is_admin? || current_user.is_librarian?
     %li= link_to 'Add Badge', new_badge_path 
   - else

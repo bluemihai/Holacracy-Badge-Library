@@ -1,14 +1,19 @@
-- if librarian_or_admin? || badge.status == 'draft'
-  \|
+—
+- if librarian_or_admin? && badge.status == 'draft'
   %span.green= link_to 'Edit', edit_badge_path(badge)
+- elsif librarian_or_admin?
+  %span.green.admin-only= link_to 'Edit', edit_badge_path(badge)
+
 - if librarian_or_admin?
   \|
-  %span.green= link_to 'Destroy', badge, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this badge?' }
+  %span.green.admin-only= link_to 'Destroy', badge, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this badge?' }
   - if badge.status == 'proposed'
     \|
-    %span.green= link_to 'Non-Object', accept_badge_path(badge)
+    %span.green.admin-only= link_to 'Non-Object as Chris', accept_badge_path(badge, librarian_id: 7)
     \|
-    %span.green= link_to 'Object', reject_badge_path(badge)
+    %span.green.admin-only= link_to 'Non-Object as Laura', accept_badge_path(badge, librarian_id: 12)
+    \|
+    %span.green.admin-only= link_to 'Object', reject_badge_path(badge)
 - if badge.status == 'draft'
   \|
   %span.green= link_to 'Propose', propose_badge_path(badge)

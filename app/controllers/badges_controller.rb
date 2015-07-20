@@ -50,6 +50,7 @@ class BadgesController < ApplicationController
   end
 
   def reject
+    @badge.objections.build(librarian: current_user, objection: true)
     @badge.status = 'draft'
     if @badge.save
       redirect_to @badge, notice: 'Badge status successfully changed back to "draft"'
@@ -59,12 +60,21 @@ class BadgesController < ApplicationController
   end
 
   def accept
-    @badge.status = 'accepted'
-    if @badge.save
-      redirect_to @badge, notice: 'Badge status successfully changed to "accepted".'
+    o = @badge.objections.build(librarian_id: params[:librarian_id], objection: false)
+    notice_or_alert = nil
+    if o.valid?      
+      if last_non_objection?
+        o.save!
+        @badge.update_attributes(status: 'accepted')
+        notice_or_alert = { notice: "Your (last remaining) non-objection was recorded.  Badge status is now 'accepted'" }
+      else
+        o.save!
+        notice_or_alert = { notice: "Your non-objection was recorded.  Badge status unchanged" }
+      end
     else
-      redirect_to @badge, alert: 'Unable to change badge status to "accepted".'
+      notice_or_alert = { alert: "Your non-objection was invalid." }
     end
+    redirect_to @badge, notice_or_alert
   end
 
   def update
@@ -90,7 +100,7 @@ class BadgesController < ApplicationController
       @badge.destroy
     end
     respond_to do |format|
-      format.html { redirect_to :back, notice: message }
+      format.html { redirect_to holders_path, notice: message }
       format.json { head :no_content }
     end
   end
@@ -118,5 +128,9 @@ class BadgesController < ApplicationController
       if @badge.proposer && @badge.proposer != current_user
         flash.now[:alert] = "This badge was proposed by #{@badge.proposer.short}.  Do you have the proposer's permission to edit it?"
       end
+    end
+
+    def last_non_objection?
+      @badge.objections.count > 0  # TODO Adjust for case where there are more than 2 Badge Librarians
     end
 end

@@ -21,6 +21,11 @@
       %strong.large-2.columns.text-right Mechanism
       .large-6.columns.box= @badge.mechanism
       .large-4.columns
+  - if @badge.objections.count > 0
+    .row
+      %strong.large-2.columns.text-right Objections
+      .large-6.columns= render 'objections'
+      .large-4.columns
 
 %br
 %hr
