@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get 'help' => 'visitors#help'
   get 'validations' => 'nomination_votes#index'
   get 'nominations' => 'badge_nominations#index'
-  get 'holders' => 'badges#index'
+  get 'holders' => 'users#index'
 
   get '/auth/:provider/callback' => 'sessions#create'
   get '/signin' => 'sessions#new', :as => :signin
