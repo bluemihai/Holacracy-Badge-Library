@@ -8,8 +8,8 @@
   = link_to('Draft', badges_path(status: 'draft'))
   %button= link_to 'Propose New Badge', new_badge_path
 
-%h5.small-2.large-2.columns Status
-%h5.small-10.large-10.columns Badge Name
+%h5.small-3.large-3.columns Status
+%h5.small-9.large-9.columns Badge Name
 
 %p= render partial: 'badges/badge', collection: @accepted if params[:status].nil? || params[:status] == 'accepted'
 
