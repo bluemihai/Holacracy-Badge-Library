@@ -42,6 +42,7 @@ class BadgesController < ApplicationController
 
   def propose
     @badge.status = 'proposed'
+    @badge.proposal_date = DateTime.now.to_date
     if @badge.save
       redirect_to @badge, notice: 'Badge proposed.  Please notify Badge Librarian via Slack or e-mail.'
     else
@@ -65,7 +66,7 @@ class BadgesController < ApplicationController
     if o.valid?      
       if last_non_objection?
         o.save!
-        @badge.update_attributes(status: 'accepted')
+        @badge.update_attributes(status: 'accepted', acceptance_date: DateTime.now.to_date)
         notice_or_alert = { notice: "Your (last remaining) non-objection was recorded.  Badge status is now 'accepted'" }
       else
         o.save!

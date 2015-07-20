@@ -42,4 +42,7 @@
   %hr
 
   .form-actions
-    = f.button :submit
+    - if params[:action] == 'new'
+      = f.button :submit, 'Crate New Badge Draft'
+    - else
+      = f.button :submit, 'Edit Badge'
