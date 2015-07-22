@@ -6,7 +6,7 @@ class BadgeNominationsController < ApplicationController
 
   def index
     status = params[:status]
-    @badge_nominations = status ? BadgeNomination.where(status: status) : BadgeNomination
+    @badge_nominations = status ? BadgeNomination.where(status: status).sort_by(&:name_for_badge) : BadgeNomination.all
     @badge_nominations = @badge_nominations.sort_by(&:name_for_badge)
   end
 

@@ -1,29 +1,11 @@
 %tr
-  %td.green= link_to 'Validate...', '#'
+  %td.green= link_to 'Validate...', new_nomination_vote_path(badge_nomination_id: badge_nomination.id)
   %td= link_to badge_nomination.user.try(:name), badge_nomination.user ||= 'n/a'
   %td= badge_nomination.level_nominated ? "for level #{badge_nomination.level_nominated}" : 'for'
   %td= badge_nomination.badge ? link_to(badge_nomination.badge.name_with_focus, badge_nomination.badge) : '(Badge Missing)'
   %td= badge_nomination.status.capitalize ||= 'n/a'
   %td
+    %span.green= link_to 'View', badge_nomination
     - if librarian_or_admin?
-      %span.green= link_to 'Show', badge_nomination
-      %span.green= link_to 'Edit', edit_badge_nomination_path(badge_nomination, badge_id: badge_nomination.badge.try(:id))
-      %span.green= link_to 'Destroy', badge_nomination, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this nomination?' }
-    - else
-      %span.green= link_to 'View', badge_nomination
-
-/ - if librarian_or_admin?
-/   .large-2.medium-2.columns
-/     = link_to 'Show', badge_nomination
-/     = link_to 'Edit', edit_badge_nomination_path(badge_nomination, badge_id: badge_nomination.badge.try(:id))
-/     = link_to 'Destroy', badge_nomination, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this nomination?' }
-/ - else
-/   .large-2.medium-2.columns
-/     = link_to 'View', badge_nomination
-/ .large-3.medium-3.columns= badge_nomination.badge ? link_to(badge_nomination.badge.name_with_focus, badge_nomination.badge) : 'No badge'
-/ .large-2.medium-2.columns= link_to badge_nomination.user.try(:name), badge_nomination.user ||= 'n/a'
-/ .large-1.medium-1.columns= "Level #{badge_nomination.level_nominated}"
-/ .large-1.medium-1.columns= badge_nomination.status ||= 'n/a'
-/ .large-1.medium-1.columns= "Level #{badge_nomination.level_granted}"
-/ .large-1.medium-1.columns= badge_nomination.created_at.strftime('%b-%d')
-/ %br
+      %span.green.admin-only= link_to 'Edit', edit_badge_nomination_path(badge_nomination, badge_id: badge_nomination.badge.try(:id))
+      %span.green.admin-only= link_to 'Destroy', badge_nomination, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this nomination?' }

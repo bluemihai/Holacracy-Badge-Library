@@ -21,7 +21,7 @@
         %br
         = @badge_nomination.evidence
     %hr
-    - if @badge.has_levels?
+    - if @badge && @badge.try(:has_levels?)
       .large-4.small-6.columns= f.input :level, collection: @badge.detailed_levels, label: 'Level you are validating/bootstrapping at'
     - else
       .large-4.small-6.columns= f.input :level, disabled: true, label: 'This badge has no levels.'

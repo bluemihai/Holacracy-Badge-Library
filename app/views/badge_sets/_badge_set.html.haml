@@ -9,9 +9,8 @@
       = e.level
       %br
   %br
-  %span.green= link_to 'All Badge Sets', badge_sets_path
+  %span.green= link_to 'All Badge Sets —', badge_sets_path unless params[:action] == 'index'
   - if librarian_or_admin?
-    —
     %span.admin-only= link_to 'Edit', edit_badge_set_path(badge_set)
     \|
     %span.admin-only= link_to 'Destroy Badge Set', badge_set, :method => :delete, :data => { :confirm => 'Are you sure?' }

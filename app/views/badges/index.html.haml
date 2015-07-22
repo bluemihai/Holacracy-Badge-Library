@@ -6,14 +6,6 @@
   = link_to('Accepted', badges_path(status: 'accepted')) + ' | '
   = link_to('Proposed', badges_path(status: 'proposed')) + ' | '
   = link_to('Draft', badges_path(status: 'draft'))
-  %button= link_to 'Propose New Badge', new_badge_path
-
-/ %h5.small-3.large-3.columns Status
-/ %h5.small-9.large-9.columns Badge Name
-/
-/ %p= render partial: 'badges/badge', collection: @accepted if params[:status].nil? || params[:status] == 'accepted'
-/ %p= render partial: 'badges/badge', collection: @proposed if params[:status].nil? || params[:status] == 'proposed'
-/ %p= render partial: 'badges/badge', collection: @draft if params[:status].nil? || params[:status] == 'draft'
 
 %table
   %tr
@@ -25,4 +17,8 @@
   = render @proposed if params[:status].nil? || params[:status] == 'proposed'
   = render @draft if params[:status].nil? || params[:status] == 'draft'
 
-%p.green= link_to 'Switch to Detailed View', detailed_badges_path
+%button= link_to 'Detailed View', detailed_badges_path
+- if librarian_or_admin?
+  %button= link_to 'Add New Badge', new_badge_path
+- else
+  %button= link_to 'Propose New Badge', new_badge_path
