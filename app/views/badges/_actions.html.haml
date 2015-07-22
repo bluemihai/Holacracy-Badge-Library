@@ -1,7 +1,7 @@
 —
 - if librarian_or_admin? && badge.status == 'draft'
   %span.green= link_to 'Edit', edit_badge_path(badge)
-- elsif librarian_or_admin?
+- elsif badge.status == 'draft'
   %span.green.admin-only= link_to 'Edit', edit_badge_path(badge)
 
 - if librarian_or_admin?
