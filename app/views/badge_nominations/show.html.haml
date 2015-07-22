@@ -9,12 +9,9 @@
       = "(at level #{@badge_nomination.level_nominated})"
     .large-3.columns
   .row
-    %strong.large-3.columns.text-right Status
-    .large-6.columns
-      = @badge_nomination.status.try(:capitalize)
-      - if @badge_nomination.status == 'accepted'
-        = "(at level #{@badge_nomination.level_granted})"
-      .large-3.columns
+    %strong.large-3.columns.text-right Current Level
+    .large-6.columns= @badge_nomination.current_level
+    .large-3.columns
 
     .large-3.columns
   - if @badge_nomination.evidence && @badge_nomination.evidence != ''
@@ -34,8 +31,11 @@
       .large-6.columns= @badge_nomination.level_bootstrapped
       .large-3.columns
     .row
-      %strong.large-3.columns.text-right Current Level
-      .large-6.columns= @badge_nomination.current_level
+      %strong.large-3.columns.text-right Grant Status
+      - if @badge_nomination.status == 'accepted'
+        .large-6.columns= "Accepted at level #{@badge_nomination.level_granted}"
+      - else
+        .large-6.columns Pending, i.e. voting takes over
       .large-3.columns
     %button= link_to 'Add Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
     - if @validations.count > 0

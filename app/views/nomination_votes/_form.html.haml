@@ -4,7 +4,10 @@
   = f.error_notification
 
   .form-inputs
-    .large-3.small-6.columns= f.association :validator, label_method: :short, include_blank: true, label: 'Validator or Bootstrapper'
+    - if librarian_or_admin? || @nomination_vote.persisted?
+      .large-3.small-6.columns= f.association :validator, label_method: :short, include_blank: true, label: 'Validator or Bootstrapper'
+    - else
+      .large-3.small-6.columns= f.association :validator, label_method: :short, selected: current_user.try(:id), label: 'Validator or Bootstrapper'
     .large-9.small-6.columns.underline-links
       Only validations by
       = link_to 'current badge holders', @badge, title: @badge.try(:current_holder_names)

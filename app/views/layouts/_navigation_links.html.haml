@@ -1,19 +1,21 @@
 - if user_signed_in?
-  %li= link_to 'Badge Holders', holders_path
   - if current_user.is_admin? || current_user.is_librarian?
-    %li= link_to 'Add Badge', new_badge_path 
+    %li= link_to 'Add...', new_badge_path 
   - else
-    %li= link_to 'Propose Badge', new_badge_path 
-  %li
-    %a{"data-dropdown" => "hover1", "data-options" => "is_hover:true; hover_timeout:200", href: '/badges?status=accepted'} Nominate For...
-    %ul#hover1.f-dropdown.small{"data-dropdown-content" => ""}
-      - Badge.accepted.order(:name).each do |b|
-        = render '/badges/dropdown_item', badge: b
-  %li
-    %a{"data-dropdown" => "hover3", "data-options" => "is_hover:true; hover_timeout:200", href: '/badge_nominations?status=pending'} Validate...
-    %ul#hover3.f-dropdown.small{"data-dropdown-content" => ""}
-      - BadgeNomination.pending.sort_by(&:name_for_badge).each do |bn|
-        = render '/badge_nominations/dropdown_item', badge_nomination: bn
+    %li= link_to 'Propose...', new_badge_path 
+  %li= link_to 'Badge Holders', holders_path
+  %li= link_to 'Nominate...', badges_path(status: 'accepted')
+  / %li
+  /   %a{"data-dropdown" => "hover1", "data-options" => "is_hover:true; hover_timeout:200", href: '/badges?status=accepted'} Nominate For...
+  /   %ul#hover1.f-dropdown.small{"data-dropdown-content" => ""}
+  /     - Badge.accepted.order(:name).each do |b|
+  /       = render '/badges/dropdown_item', badge: b
+  %li= link_to 'Validate...', badge_nominations_path(status: 'pending')
+  / %li
+  /   %a{"data-dropdown" => "hover3", "data-options" => "is_hover:true; hover_timeout:200", href: '/badge_nominations?status=pending'} Validate...
+  /   %ul#hover3.f-dropdown.small{"data-dropdown-content" => ""}
+  /     - BadgeNomination.pending.sort_by(&:name_for_badge).each do |bn|
+  /       = render '/badge_nominations/dropdown_item', badge_nomination: bn
   %li
     %a{"data-dropdown" => "hover2", "data-options" => "is_hover:true; hover_timeout:200", href: "#"} More...
     %ul#hover2.f-dropdown.tiny{"data-dropdown-content" => ""}
