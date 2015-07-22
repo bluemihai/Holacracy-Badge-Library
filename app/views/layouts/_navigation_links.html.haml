@@ -5,7 +5,7 @@
   - else
     %li= link_to 'Propose Badge', new_badge_path 
   %li
-    %a{"data-dropdown" => "hover1", "data-options" => "is_hover:true; hover_timeout:200", href: "#"} Nominate For...
+    %a{"data-dropdown" => "hover1", "data-options" => "is_hover:true; hover_timeout:200", href: '/badges?status=accepted'} Nominate For...
     %ul#hover1.f-dropdown.small{"data-dropdown-content" => ""}
       - Badge.accepted.order(:name).each do |b|
         = render '/badges/dropdown_item', badge: b

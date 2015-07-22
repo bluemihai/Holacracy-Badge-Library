@@ -1,11 +1,6 @@
-.small-3.large-3.columns
-  - if badge.status == 'accepted'
-    .green= badge.status_with_date
-  - elsif badge.status == 'proposed'
-    .blue= badge.status_with_date
-  - elsif badge.status == 'draft'
-    .red= badge.status_with_date
-  
-.small-9.large-9.columns
-  = link_to badge.name_with_focus, badge
-  = render 'badges/actions', badge: badge
+%tr
+  - nomination_link = link_to 'Nominate For...', new_badge_nomination_path(badge_id: badge.id)
+  %td.green= badge.status == 'accepted' ? nomination_link : ''
+  %td= link_to badge.name_with_focus, badge
+  %td= badge.status_with_date
+  %td= render 'badges/actions', badge: badge
