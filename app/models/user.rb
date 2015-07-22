@@ -7,6 +7,11 @@ class User < ActiveRecord::Base
   default_scope { order(:short) }
   scope :bootstrapper, -> { where(bootstrapper?: true) }
 
+  def gravatar(size=24)
+    gravatar_id = Digest::MD5.hexdigest(email.downcase) unless email.blank?
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}&d=monsterid"    
+  end
+
   def self.bootstrappers
     where(bootstrapper?: true).map{ |b| b.short}.join(', ')
   end

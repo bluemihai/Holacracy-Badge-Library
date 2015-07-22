@@ -6,7 +6,9 @@
   %tr
     %td
     - @users.each do |user|
-      %td= link_to user.try(:short), user
+      %td
+        .text-center= image_tag user.gravatar(36)
+        = link_to user.try(:short), user
   - @badges.each do |badge|
     %tr
       %td
