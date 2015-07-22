@@ -7,6 +7,11 @@ class UsersController < ApplicationController
     @badges = Badge.accepted.order('name')
   end
 
+  def holders
+    @users = User.order('short')
+    @badges = Badge.accepted.order('name')
+  end
+
   def show
   end
 

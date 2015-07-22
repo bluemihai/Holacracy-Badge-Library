@@ -1,13 +1,3 @@
-%p
-  %b Proposer:
-  = @badge_set.proposer_id
-%p
-  %b Name:
-  = @badge_set.name
-%p
-  %b Comp tier:
-  = @badge_set.comp_tier_id
+%h2= @badge_set.name
 
-= link_to 'Edit', edit_badge_set_path(@badge_set)
-\|
-= link_to 'Back', badge_sets_path
+= render 'badge_set', badge_set: @badge_set

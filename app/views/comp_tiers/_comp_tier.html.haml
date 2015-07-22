@@ -4,8 +4,9 @@
   - else
     .large-1.medium-1.small-1.columns= comp_tier.name
   .large-1.medium-1.small-1.columns= "$#{comp_tier.monthly_draw}"
+  .large-1.medium-1.small-1.columns= "$#{(comp_tier.monthly_draw * 12) / 1000}K"
   .large-1.medium-1.small-1.columns= "#{comp_tier.fixed_draw / 10.0}%"
-  .large-9.medium-9.small-9.columns
+  .large-8.medium-8.small-8.columns
     - badge_sets = comp_tier.badge_sets
     - badge_sets.each do |bs|
       = render 'badge_sets/inline', badge_set: bs

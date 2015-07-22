@@ -1,26 +1,3 @@
-%h3 HolacracyOne Badge Holders
+%h3 HolacracyOne Users
 
-%p Click on any cell to nominate, or view existing nomination.
-
-%table
-  %tr
-    %td
-    - @users.each do |user|
-      %td= link_to user.try(:short), user
-  - @badges.each do |badge|
-    %tr
-      %td
-        = link_to(badge.name_with_focus, badge)
-      - @users.each do |user|
-        - text = user.badge_level(badge)
-        - if text
-          %td.text-center= link_to text, user.nomination(badge)
-        - else
-          %td.text-center= link_to '+', new_badge_nomination_path(badge_id: badge.id, user_id: user.id), class: 'green-light'
-
-%p
-  true = Badge without levels granted
-  %br
-  NEV = Not Enough Votes
-  %br
-  COMP = please bring to badge COMPensation Administrator's attention
+= render @users

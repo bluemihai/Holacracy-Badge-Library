@@ -1,14 +1,18 @@
 .large-4.medium-6.small-12.columns
+  %b Proposer:
+  = link_to badge_set.proposer.safe_name, badge_set.proposer
   .badge-set
-    .valuation= "#{badge_set.comp_tier.try(:name_and_monthly_draw)}"
+    .valuation= link_to "#{badge_set.comp_tier.try(:name_and_monthly_draw)}/month", comp_tiers_path
     %h5= link_to badge_set.name, badge_set
     - badge_set.badge_set_entries.each do |e|
       = link_to e.badge.try(:name), e.badge || '(Missing Badge)'
       = e.level
       %br
+  %br
+  %span.green= link_to 'All Badge Sets', badge_sets_path
   - if librarian_or_admin?
-    .admin-only
-      = link_to 'Edit', edit_badge_set_path(badge_set)
-      \|
-      = link_to 'Destroy Badge Set', badge_set, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    —
+    %span.admin-only= link_to 'Edit', edit_badge_set_path(badge_set)
+    \|
+    %span.admin-only= link_to 'Destroy Badge Set', badge_set, :method => :delete, :data => { :confirm => 'Are you sure?' }
   .space

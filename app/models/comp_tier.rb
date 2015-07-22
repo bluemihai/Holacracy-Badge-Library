@@ -1,6 +1,6 @@
 class CompTier < ActiveRecord::Base
   has_many :badge_sets
-  
+
   def name_and_monthly_draw
     "#{name} - $#{monthly_draw}"
   end
