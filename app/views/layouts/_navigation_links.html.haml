@@ -10,9 +10,9 @@
       - Badge.accepted.order(:name).each do |b|
         = render '/badges/dropdown_item', badge: b
   %li
-    %a{"data-dropdown" => "hover3", "data-options" => "is_hover:true; hover_timeout:200", href: '#'} Validate...
+    %a{"data-dropdown" => "hover3", "data-options" => "is_hover:true; hover_timeout:200", href: '/badge_nominations?status=pending'} Validate...
     %ul#hover3.f-dropdown.small{"data-dropdown-content" => ""}
-      - BadgeNomination.pending.each do |bn|
+      - BadgeNomination.pending.sort_by(&:name_for_badge).each do |bn|
         = render '/badge_nominations/dropdown_item', badge_nomination: bn
   %li
     %a{"data-dropdown" => "hover2", "data-options" => "is_hover:true; hover_timeout:200", href: "#"} More...

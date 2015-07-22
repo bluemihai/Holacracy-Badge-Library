@@ -1,19 +1,18 @@
 %h3 Badge Nominations
 
-.large-2.medium-2.columns
-  %strong Actions
-.large-3.medium-3.columns
-  %strong Badge Name
-.large-2.medium-1.columns
-  %strong Nominee
-.large-1.medium-1.columns
-  %strong For
-.large-1.medium-1.columns
-  %strong Status
-.large-1.medium-1.columns
-  %strong Granted
-.large-1.medium-1.columns
-  %strong Created
-%br
+%h5
+  = link_to 'All', badge_nominations_path
+  \|
+  = link_to 'Pending', badge_nominations_path(status: 'pending')
+  \|
+  = link_to 'Accepted', badge_nominations_path(status: 'accepted')
 
-= render @badge_nominations
+%table
+  %tr
+    %th
+    %th Nominee
+    %th
+    %th Badge
+    %th Status
+    %th Actions
+  = render @badge_nominations
