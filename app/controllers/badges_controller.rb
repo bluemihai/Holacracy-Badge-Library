@@ -98,17 +98,16 @@ class BadgesController < ApplicationController
   end
 
   def destroy
-    message = nil
     if @badge.badge_sets.count > 0
-      message = 'This badge is part of at least one badge set.  Delete those first and try again.'
+      notice_or_alert = { alert: 'This badge is part of at least one badge set.  Delete those first and try again.' }
     elsif @badge.badge_nominations.count > 0
-      message = 'There are pending nominations for this badge.  Delete those first and try again.'      
+      notice_or_alert = { alert: 'There are pending nominations for this badge.  Delete those first and try again.' }
     else
-      message = 'Badge was successfully destroyed.'
+      notice_or_alert = { notice: 'Badge was successfully destroyed.'}
       @badge.destroy
     end
     respond_to do |format|
-      format.html { redirect_to holders_path, notice: message }
+      format.html { redirect_to holders_path, notice_or_alert }
       format.json { head :no_content }
     end
   end
