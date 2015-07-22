@@ -4,7 +4,7 @@
   .badge-set
     .valuation= link_to "#{badge_set.comp_tier.try(:name_and_monthly_draw)}/month", comp_tiers_path
     %h5= link_to badge_set.name, badge_set
-    - badge_set.badge_set_entries.each do |e|
+    - badge_set.badge_set_entries.sort_by(&:badge_set_id_and_badge_name).each do |e|
       = link_to e.badge.try(:name), e.badge || '(Missing Badge)'
       = e.level
       %br

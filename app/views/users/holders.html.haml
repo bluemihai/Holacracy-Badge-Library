@@ -22,9 +22,12 @@
         - else
           %td.text-center= link_to '+', new_badge_nomination_path(badge_id: badge.id, user_id: user.id), class: 'green-light'
 
-%p
-  true = Badge without levels granted
-  %br
-  NEV = Not Enough Votes
-  %br
-  COMP = please bring to badge COMPensation Administrator's attention
+.legend
+  = image_tag('checkmark.png')
+  \= No-levels badge granted
+.legend
+  = image_tag('hourglass.png')
+  \= Not enough votes
+.legend
+  = image_tag('warning.png')
+  \= Please bring to Compensation Administrator's attention
