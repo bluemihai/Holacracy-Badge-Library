@@ -45,7 +45,7 @@ class BadgeNomination < ActiveRecord::Base
     if status == 'expired'
       'EXP'
     elsif status == 'accepted'
-      return true if !badge.has_levels?
+      return true if !badge.try(:has_levels?)
       (level_granted.nil? || level_granted == '' || level_granted == 0) ? 'COMP' : level_granted
     elsif holder_votes.count > 1
       level_voted
