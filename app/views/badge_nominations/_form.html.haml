@@ -22,7 +22,8 @@
       - else
         #badge_id= f.association :badge, collection: Badge.accepted.order(:name), label_method: :name_with_focus
       - if @badge.try(:has_levels?)
-        #level= f.input :level_nominated, collection: @badge.try(:detailed_levels)
+        Level: I have repeatedly demonstrated that…
+        #level= f.input :level_nominated, collection: @badge.try(:detailed_levels), label: false
       - else
         #level= f.input :level_nominated, disabled: true, label: 'This badge has no levels.'
     .large-9.small-12.columns= f.input :evidence, label: 'Evidence and examples for this nomination', input_html: {rows: 5}
