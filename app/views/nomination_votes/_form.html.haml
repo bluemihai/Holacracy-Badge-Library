@@ -18,18 +18,20 @@
     %hr
       
     .large-4.small-6.columns= f.association :badge_nomination, collection: @badge_nominations, label_method: :short_name_for_badge_level, label: 'Pending Badge Nomination', selected: params[:badge_nomination_id]
+    .large-4.small-6.columns= f.input :comment, input_html: {rows: 3}
     - unless @badge_nomination.evidence == ''
-      .large-8.small-6.columns
+      .large-4.small-6.columns
         %strong Evidence submitted:
         %br
         = @badge_nomination.evidence
     %hr
     - if @badge && @badge.try(:has_levels?)
-      .large-4.small-6.columns= f.input :level, collection: @badge.detailed_levels, label: 'Level you are validating/bootstrapping at'
+      .box= f.input :level, collection: @badge.detailed_levels, label: 'Level you are validating/bootstrapping at', as: :radio_buttons, input_html: { class: 'radio-input' }
     - else
-      .large-4.small-6.columns= f.input :level, disabled: true, label: 'This badge has no levels.'
-    .large-8.small-6.columns= f.input :comment, input_html: {rows: 3}
+      = f.input :level, disabled: true, label: 'This badge has no levels.'
 
     %hr
     .form-actions
       = f.button :submit, 'Validate'
+
+%button= link_to 'View Nomination', @badge_nomination

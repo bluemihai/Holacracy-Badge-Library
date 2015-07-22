@@ -81,3 +81,13 @@ button {
   }
   color: green;
 }
+
+.radio {
+  label {
+    margin: 10px;
+    font-size: 80%;
+  }
+  input[type="radio"] {
+    margin: 0 1rem 0 0;
+  }
+}
