@@ -1,0 +1,33 @@
+%h3
+  HolacracyOne Badge Library
+
+%h5
+  = link_to('All', detailed_badges_path) + ' | '
+  = link_to('Accepted', detailed_badges_path(status: 'accepted')) + ' | '
+  = link_to('Proposed', detailed_badges_path(status: 'proposed')) + ' | '
+  = link_to('Draft', detailed_badges_path(status: 'draft'))
+  %button= link_to 'Propose New Badge', new_badge_path
+
+- if params[:status].nil? || params[:status] == 'accepted'
+  %p
+    %hr
+    .row
+    %h3 Accepted Badges
+    - @accepted.each do |badge|
+      = render 'detailed_badge', badge: badge
+
+- if params[:status].nil? || params[:status] == 'proposed'
+  %p
+    %hr
+    .row
+    %h3 Proposed Badges
+    - @proposed.each do |badge|
+      = render 'detailed_badge', badge: badge
+
+- if params[:status].nil? || params[:status] == 'draft'
+  %p
+    %hr
+    .row
+    %h3 Draft Badges
+    - @draft.each do |badge|
+      = render 'detailed_badge', badge: badge

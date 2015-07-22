@@ -1,10 +1,17 @@
 class BadgesController < ApplicationController
   before_action :set_badge, only: [:show, :edit, :update, :destroy, :propose, :accept, :reject]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :detailed, :show]
   before_action :check_auth, only: [:edit, :accept, :reject]
   before_action :warn_if_not_proposer, only: [:edit]
 
   def index
+    @badges = Badge.order(:status).order(:name)
+    @accepted = Badge.accepted.order(:name)
+    @proposed = Badge.proposed.order(:name)
+    @draft = Badge.draft.order(:name)
+  end
+
+  def detailed
     @badges = Badge.order(:status).order(:name)
     @accepted = Badge.accepted.order(:name)
     @proposed = Badge.proposed.order(:name)

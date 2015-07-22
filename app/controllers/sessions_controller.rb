@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       reset_session
       user.update_attributes(email: auth.info.email)
       session[:user_id] = user.id
-      redirect_to users_path, :notice => 'Signed in!'
+      redirect_to holders_path, :notice => 'Signed in!'
     else
       redirect_to root_path, :alert => 'Sorry, you are not an authorized H1 Partner.'
     end

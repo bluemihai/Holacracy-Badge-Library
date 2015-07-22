@@ -17,26 +17,8 @@
 
 %p= render partial: 'badges/badge', collection: @draft if params[:status].nil? || params[:status] == 'draft'
 
-- if params[:status].nil? || params[:status] == 'accepted'
-  %p
-    %hr
-    .row
-    %h3 Accepted Badges
-    - @accepted.each do |badge|
-      = render 'detailed_badge', badge: badge
+.space
+%hr
+%p
 
-- if params[:status].nil? || params[:status] == 'proposed'
-  %p
-    %hr
-    .row
-    %h3 Proposed Badges
-    - @proposed.each do |badge|
-      = render 'detailed_badge', badge: badge
-
-- if params[:status].nil? || params[:status] == 'draft'
-  %p
-    %hr
-    .row
-    %h3 Draft Badges
-    - @draft.each do |badge|
-      = render 'detailed_badge', badge: badge
+%pgreen= link_to 'Switch to Detailed View', detailed_badges_path
