@@ -17,7 +17,8 @@
       %li.dropdown_badge.admin-only= link_to 'New Badge Set', new_badge_set_path if librarian_or_admin?
       %li.dropdown_badge= link_to 'All Comp Tiers', comp_tiers_path
   %li
-    %a{"data-dropdown" => "hover1", "data-options" => "is_hover:true; hover_timeout:200", href: "#"}= image_tag(current_user.gravatar(42))
+    %a{"data-dropdown" => "hover1", "data-options" => "is_hover:true; hover_timeout:200", href: "#"}
+      = image_tag(current_user.gravatar(42))
     %ul#hover1.f-dropdown.tiny{"data-dropdown-content" => ""}
       %li.dropdown_badge= link_to "Sign out (#{current_user.try(:role)}) #{current_user.safe_short_name}", signout_path
 - else
