@@ -48,4 +48,5 @@
     %button= link_to 'Edit Nomination', edit_badge_nomination_path(@badge_nomination)
     %button= link_to 'Destroy Nomination', @badge_nomination, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this nomination?' }
 - else
+  %button= link_to 'All Nominations', badge_nominations_path(status: 'waiting')
   %button= link_to 'Add Your Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)

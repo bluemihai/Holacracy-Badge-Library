@@ -1,10 +1,20 @@
 %h3 Badge Nominations
 
 %h5
+  - if !params[:status]
+    %span.red-bubble= @badge_nominations.count
   = link_to 'All', badge_nominations_path
   \|
+  - if params[:status] == 'pending'
+    %span.red-bubble= @badge_nominations.count
   = link_to 'Pending', badge_nominations_path(status: 'pending')
   \|
+  - if params[:status] == 'waiting'
+    %span.red-bubble= @badge_nominations.count
+  = link_to 'Waiting On My Validation', badge_nominations_path(status: 'waiting')
+  \|
+  - if params[:status] == 'accepted'
+    %span.red-bubble= @badge_nominations.count
   = link_to 'Accepted', badge_nominations_path(status: 'accepted')
 
 %table
@@ -14,5 +24,7 @@
     %th
     %th Badge
     %th Status
+    %th Level
     %th Actions
+    %th Validated/Bootstrapped
   = render @badge_nominations

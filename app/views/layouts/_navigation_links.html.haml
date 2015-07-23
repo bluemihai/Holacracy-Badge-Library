@@ -5,7 +5,7 @@
     %li= link_to 'Propose...', new_badge_path 
   %li= link_to 'Badge Holders', holders_path
   %li= link_to 'Nominate...', badges_path(status: 'accepted')
-  %li= link_to 'Validate...', badge_nominations_path(status: 'pending')
+  %li= link_to 'Validate...', badge_nominations_path(status: 'waiting')
   %li
     %a{"data-dropdown" => "hover2", "data-options" => "is_hover:true; hover_timeout:200", href: "#"} More...
     %ul#hover2.f-dropdown.tiny{"data-dropdown-content" => ""}

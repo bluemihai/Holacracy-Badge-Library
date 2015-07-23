@@ -25,6 +25,7 @@ class Badge < ActiveRecord::Base
     end    
   end
 
+  # TODO: make sure voted badges still included
   def current_holders
     badge_nominations.select{ |bn| bn.accepted? }.map{ |bn| bn.user }
   end

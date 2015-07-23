@@ -91,3 +91,13 @@ button {
     margin: 0 1rem 0 0;
   }
 }
+
+.red-bubble {
+  background: red;
+  color: white;
+  min-width: 30px;
+  min-height: 30px;
+  padding: 0 5px;
+  border-radius: 50%;
+  text-align: center;
+}

@@ -15,6 +15,24 @@ class BadgeNomination < ActiveRecord::Base
   scope :pending, -> { where(status: 'pending').joins(:badge) }
   scope :accepted, -> { where(status: 'accepted') }
 
+  def validators
+    validations.map{ |v| v.validator }.compact
+  end
+
+  def validated_by(who)
+    validations.select { |v| v.validator_id == who.id }.count > 0
+  end
+
+  def self.not_validated_by(who)
+    BadgeNomination.pending.reject{ |bn| bn.validated_by(who) }
+  end
+
+  def self.waiting_on(who)
+    eligible = BadgeNomination.not_validated_by(who).reject{ |bn| bn.user == who }
+
+    who.bootstrapper? ? eligible : eligible.select{ |bn| who.has_badge(bn.badge) }
+  end
+
   def accepted?
     return true if status == 'accepted'
     if badge.has_levels?
