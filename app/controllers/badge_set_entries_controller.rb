@@ -1,5 +1,6 @@
 class BadgeSetEntriesController < ApplicationController
   before_action :set_badge_set_entry, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def index
     @badge_set_entries = BadgeSetEntry.all.sort_by(&:badge_set_id_and_badge_name)

@@ -1,6 +1,6 @@
 %tr
   - nomination_link = link_to 'Nominate For...', new_badge_nomination_path(badge_id: badge.id)
-  %td.green= badge.status == 'accepted' ? nomination_link : ''
+  %td.green= badge.status == 'accepted' ? nomination_link : '' if user_signed_in?
   %td= link_to badge.name_with_focus, badge
   %td= badge.status_with_date
   %td= render 'badges/actions', badge: badge

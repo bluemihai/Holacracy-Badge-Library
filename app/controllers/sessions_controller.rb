@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   def create
     auth = request.env["omniauth.auth"]
     user = User.find_by(name: auth['info']['name'])
-    if user && auth.info.email.ends_with?('@holacracyone.com')
+    if user #&& auth.info.email.ends_with?('@holacracyone.com')
       reset_session
       session[:user_id] = user.id
       redirect_to holders_path, :notice => 'Signed in!'

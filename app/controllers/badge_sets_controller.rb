@@ -1,5 +1,6 @@
 class BadgeSetsController < ApplicationController
   before_action :set_badge_set, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def index
     @badge_sets = BadgeSet.all
