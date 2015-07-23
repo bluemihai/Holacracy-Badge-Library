@@ -7,7 +7,7 @@
     %td
     - @users.each do |user|
       %td
-        .text-center= image_tag user.gravatar(36)
+        .text-center= link_to image_tag(user.gravatar(36)), user
         = link_to user.try(:short), user
   - @badges.each do |badge|
     %tr

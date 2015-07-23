@@ -5,17 +5,7 @@
     %li= link_to 'Propose...', new_badge_path 
   %li= link_to 'Badge Holders', holders_path
   %li= link_to 'Nominate...', badges_path(status: 'accepted')
-  / %li
-  /   %a{"data-dropdown" => "hover1", "data-options" => "is_hover:true; hover_timeout:200", href: '/badges?status=accepted'} Nominate For...
-  /   %ul#hover1.f-dropdown.small{"data-dropdown-content" => ""}
-  /     - Badge.accepted.order(:name).each do |b|
-  /       = render '/badges/dropdown_item', badge: b
   %li= link_to 'Validate...', badge_nominations_path(status: 'pending')
-  / %li
-  /   %a{"data-dropdown" => "hover3", "data-options" => "is_hover:true; hover_timeout:200", href: '/badge_nominations?status=pending'} Validate...
-  /   %ul#hover3.f-dropdown.small{"data-dropdown-content" => ""}
-  /     - BadgeNomination.pending.sort_by(&:name_for_badge).each do |bn|
-  /       = render '/badge_nominations/dropdown_item', badge_nomination: bn
   %li
     %a{"data-dropdown" => "hover2", "data-options" => "is_hover:true; hover_timeout:200", href: "#"} More...
     %ul#hover2.f-dropdown.tiny{"data-dropdown-content" => ""}
@@ -26,9 +16,10 @@
       %li.dropdown_badge.admin-only= link_to 'All Badge Set Entries', badge_set_entries_path if librarian_or_admin?
       %li.dropdown_badge.admin-only= link_to 'New Badge Set', new_badge_set_path if librarian_or_admin?
       %li.dropdown_badge= link_to 'All Comp Tiers', comp_tiers_path
-
-  %li= link_to "Sign out (#{current_user.try(:role)}) #{current_user.safe_short_name}", signout_path
-
+  %li
+    %a{"data-dropdown" => "hover1", "data-options" => "is_hover:true; hover_timeout:200", href: "#"}= image_tag(current_user.gravatar(42))
+    %ul#hover1.f-dropdown.tiny{"data-dropdown-content" => ""}
+      %li.dropdown_badge= link_to "Sign out (#{current_user.try(:role)}) #{current_user.safe_short_name}", signout_path
 - else
   %li= link_to 'Sign in with your H1 Gmail', signin_path
 
