@@ -8,10 +8,11 @@
     %strong.large-2.medium-2.small-2.columns.text-right Proposer
     .large-6.medium-6.small-6.columns= @badge.proposer.try(:name)
     .large-4.medium-4.small-4.columns
-  .row
-    %strong.large-2.columns.text-right Current Holders
-    .large-6.columns= @badge.current_holder_names
-    .large-4.columns
+  - if user_signed_in?
+    .row
+      %strong.large-2.columns.text-right Current Holders
+      .large-6.columns= @badge.current_holder_names
+      .large-4.columns
   .row
     %strong.large-2.columns.text-right Description
     .large-6.columns.box= @badge.description
