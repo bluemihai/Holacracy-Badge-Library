@@ -1,22 +1,29 @@
 %h3 Help Page
 
-%p
-  %h5 How-To Videos
-  (Coming soon)
+- if user_signed_in?
+  %p
+    %h5 How-To Video
+    %object{:height => "344", :width => "425"}
+      %param{:name => "movie", :value => "http://www.youtube.com/v/mR8gjDyS-SQ&hl=en&fs=1"}
+      %param{:name => "allowFullScreen", :value => "true"}
+      %embed{:allowfullscreen => "true", :height => "344", :src => "http://www.youtube.com/v/mR8gjDyS-SQ&hl=en&fs=1", :type => "application/x-shockwave-flash", :width => "425"}
 
-%p
-  %h5 Have a bug to report?
-  Please add it to
-  = link_to 'this spreadsheet', 'https://docs.google.com/spreadsheets/d/17wXmgd9VcfhPEdkQQUuT7_7udYMjMnq0xilUzQ21iyk/edit#gid=0'
+  %p
+    %h5 Have a bug to report?
+    For the quickest possible response, add it to
+    %span.underline-links= link_to 'this spreadsheet', 'https://docs.google.com/spreadsheets/d/17wXmgd9VcfhPEdkQQUuT7_7udYMjMnq0xilUzQ21iyk/edit#gid=0'
 
 %p
   %h5 Questions or comments about the app?
-  Contact Mihai
+  Contact
+  %span.underline-links= link_to 'Mihai', 'mailto:mihai@holacracyone.com'
 
 %p
   %h5 Questions or comments about Badges and Badge records?
-  Contact Badge Librarian
+  Contact
+  %span.underline-links= link_to 'Badge Librarian', 'mailto:badge.librarian@holacracyone.com'
 
 %p
   %h5 Questions or comments about Badge Nomination and Badge Holder records?
-  Contact Compensation Administrator
+  Contact
+  %span.underline-links= link_to 'Compensation Administrator', 'mailto:compensation.administrator@holacracyone.com'
