@@ -2,9 +2,10 @@
   HolacracyOne Badge Library
 
 %h5
+  = link_to('All', badges_path)
   - if !params[:status]
     %span.red-bubble= @badges.count
-  = link_to('All', badges_path) + ' | '
+  \|
   - if params[:status] == 'accepted'
     %span.red-bubble= @accepted.count
   = link_to('Accepted', badges_path(status: 'accepted')) + ' | '

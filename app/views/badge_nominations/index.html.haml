@@ -1,9 +1,9 @@
 %h3 Badge Nominations
 
 %h5
+  = link_to 'All', badge_nominations_path
   - if !params[:status]
     %span.red-bubble= @badge_nominations.count
-  = link_to 'All', badge_nominations_path
   \|
   - if params[:status] == 'pending'
     %span.red-bubble= @badge_nominations.count

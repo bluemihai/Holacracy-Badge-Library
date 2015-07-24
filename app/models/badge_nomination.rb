@@ -15,6 +15,16 @@ class BadgeNomination < ActiveRecord::Base
   scope :pending, -> { where(status: 'pending').joins(:badge) }
   scope :accepted, -> { where(status: 'accepted') }
 
+  def self.filter_by(status, user)
+    if status == 'waiting'
+      BadgeNomination.waiting_on(user)
+    elsif status
+      BadgeNomination.where(status: status)
+    else
+      BadgeNomination.all
+    end
+  end
+
   def validators
     validations.map{ |v| v.validator }.compact
   end

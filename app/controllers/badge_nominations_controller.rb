@@ -6,14 +6,7 @@ class BadgeNominationsController < ApplicationController
 
   def index
     status = params[:status]
-    if status == 'waiting'
-      @badge_nominations = BadgeNomination.waiting_on(current_user)
-    elsif status
-      @badge_nominations = BadgeNomination.where(status: status)
-    else
-      @badge_nominations = BadgeNomination.all
-    end
-    @badge_nominations = @badge_nominations.sort_by(&:name_for_badge)
+    @badge_nominations = BadgeNomination.filter_by(status, current_user).sort_by(&:name_for_badge)
   end
 
   def show

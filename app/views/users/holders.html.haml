@@ -16,9 +16,9 @@
       - @users.each do |user|
         - text = user.badge_level(badge)
         - if text && text == 'NEV'
-          %td.text-center= link_to image_tag('hourglass.png'), user.nomination(badge)
+          %td.text-center= link_to image_tag('hourglass.png'), user.nomination(badge), { class: 'no-hover' }
         - elsif text && text == true
-          %td.text-center= link_to image_tag('checkmark.png'), user.nomination(badge)
+          %td.text-center= link_to image_tag('checkmark.png'), user.nomination(badge), { class: 'no-hover' }
         - elsif text
           %td.text-center= link_to text, user.nomination(badge)
         - else

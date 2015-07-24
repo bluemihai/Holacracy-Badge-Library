@@ -93,11 +93,16 @@ button {
 }
 
 .red-bubble {
-  background: red;
+  background-color: #008CBA;
   color: white;
-  min-width: 30px;
-  min-height: 30px;
+  min-width: 20px;
+  min-height: 20px;
   padding: 0 5px;
   border-radius: 50%;
   text-align: center;
+  display: inline-block;
+}
+
+.no-hover:hover {
+  background-color: transparent;
 }
