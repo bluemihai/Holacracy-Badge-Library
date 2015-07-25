@@ -1,5 +1,9 @@
-= image_tag(user.gravatar)
-= "#{user.name}: #{user.badge_count} badges"
-= render 'actions', user: user
-
-%br
+%tr
+  %td= image_tag(user.gravatar)
+  %td= link_to user.name, "http://holacracyone.com/people/#{user.glassfrog_id}"
+  %td= link_to user.badge_report, holders_path
+  %td.text-right= number_to_currency(user.legacy_p_unit_grant, precision: 0)
+  %td.text-right= link_to number_to_currency(user.badge_set.comp_tier.monthly_draw, precision: 0), user.badge_set rescue ''
+  %td= "#{user.focus_time}%" unless user.focus_time == 100
+  %td.text-right= number_to_currency(user.monthly_draw, precision: 0) rescue 'Missing'
+  %td= render 'actions', user: user

@@ -1,6 +1,4 @@
 .large-4.medium-6.small-12.columns
-  %b Proposer:
-  = link_to badge_set.proposer.safe_name, badge_set.proposer
   .badge-set
     .valuation= link_to "#{badge_set.comp_tier.try(:name_and_monthly_draw)}/month", comp_tiers_path
     %h5= link_to badge_set.name, badge_set

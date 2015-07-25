@@ -1,11 +1,30 @@
 class User < ActiveRecord::Base
   enum role: [:user, :comp_admin, :admin, :librarian]
+
   has_many :badge_nominations
   has_many :badges, through: :badge_nominations
+  belongs_to :badge_set
+
   after_initialize :set_default_role, :if => :new_record?
 
   default_scope { order(:short) }
   scope :bootstrapper, -> { where(bootstrapper?: true) }
+
+  def badge_report
+    if badge_set
+      badge_set.name + ' (' + badge_count.to_s + ' total)'
+    else
+      badge_count.to_s + ' badges'
+    end
+  end
+  
+  def monthly_draw
+    (badge_set ? badge_set.comp_tier.monthly_draw  : legacy_p_unit_grant) * focus_time / 100
+  end
+
+  def role_names
+    ['Bootstrapper', 'Badge Librarian']
+  end
 
   def gravatar(size=24)
     gravatar_id = Digest::MD5.hexdigest(email.downcase) unless email.blank?

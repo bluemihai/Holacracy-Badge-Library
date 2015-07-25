@@ -11,5 +11,6 @@
 - @tiers.each do |t|
   = render t
   %br
-/
-/ .admin-only= link_to 'New Compensation Tier', new_comp_tier_path if librarian_or_admin?
+
+- if librarian_or_admin?
+  .admin-only= link_to 'New Compensation Tier', new_comp_tier_path 

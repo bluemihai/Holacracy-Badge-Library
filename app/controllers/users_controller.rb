@@ -44,6 +44,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:name)
+      params.require(:user).permit(:name, :badge_set_id, :glassfrog_id, :legacy_p_unit_grant, :librarian?, :comp_admin?,
+        :bootstrapper?, :focus_time)
     end
 end
