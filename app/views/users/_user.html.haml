@@ -1,6 +1,6 @@
 %tr
   %td= image_tag(user.gravatar)
-  %td= link_to user.name, "http://holacracyone.com/people/#{user.glassfrog_id}"
+  %td= link_to user.name, "http://glassfrog.holacracy.org/people/#{user.glassfrog_id}"
   %td= link_to user.badge_report, holders_path
   %td.text-right= number_to_currency(user.legacy_p_unit_grant, precision: 0)
   %td.text-right= link_to number_to_currency(user.badge_set.comp_tier.monthly_draw, precision: 0), user.badge_set rescue ''
