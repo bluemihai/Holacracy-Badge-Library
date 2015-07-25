@@ -18,6 +18,8 @@ class BadgeNomination < ActiveRecord::Base
   def self.filter_by(status, user)
     if status == 'waiting'
       BadgeNomination.waiting_on(user)
+    elsif status == 'mine'
+      user.badge_nominations
     elsif status
       BadgeNomination.where(status: status)
     else

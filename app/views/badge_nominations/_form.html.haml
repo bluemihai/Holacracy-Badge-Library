@@ -21,12 +21,13 @@
         = f.hidden_field :badge_id, value: params[:badge_id]
       - else
         #badge_id= f.association :badge, collection: Badge.accepted.order(:name), label_method: :name_with_focus
-      - if @badge.try(:has_levels?)
-        Level: I have repeatedly demonstrated that…
-        #level= f.input :level_nominated, collection: @badge.try(:detailed_levels), label: false
-      - else
-        #level= f.input :level_nominated, disabled: true, label: 'This badge has no levels.'
     .large-9.small-12.columns= f.input :evidence, label: 'Evidence and examples for this nomination', input_html: {rows: 5}
+    %hr
+    - if @badge.try(:has_levels?)
+      Level: I have repeatedly demonstrated that…
+      #level.box= f.input :level_nominated, collection: @badge.try(:detailed_levels), label: false, as: :radio_buttons, input_html: { class: 'radio-input' }
+    - else
+      #level= f.input :level_nominated, disabled: true, label: 'This badge has no levels.'
     %hr
     - if librarian_or_admin?
       %div.admin-only

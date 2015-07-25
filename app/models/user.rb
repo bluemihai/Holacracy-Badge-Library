@@ -11,11 +11,8 @@ class User < ActiveRecord::Base
   scope :bootstrapper, -> { where(bootstrapper?: true) }
 
   def badge_report
-    if badge_set
-      badge_set.name + ' (' + badge_count.to_s + ' total)'
-    else
-      badge_count.to_s + ' badges'
-    end
+    held_pending = badges_held.count.to_s + ' held, ' + badges_pending.count.to_s + ' pending'
+    badge_set ? held_pending + ' (' + badge_set.name + ')'  : held_pending
   end
   
   def monthly_draw
@@ -35,8 +32,12 @@ class User < ActiveRecord::Base
     where(bootstrapper?: true).map{ |b| b.short}.join(', ')
   end
 
-  def badge_count
-    badges.count
+  def badges_pending
+    badge_nominations.pending.map{ |bn| bn.badge unless bn.accepted? }.compact
+  end
+
+  def badges_held
+    badge_nominations.map{ |bn| bn.badge if bn.accepted? }.compact
   end
 
   def is_librarian?

@@ -5,6 +5,10 @@
   - if !params[:status]
     %span.red-bubble= @badge_nominations.count
   \|
+  - if params[:status] == 'mine'
+    %span.red-bubble= @badge_nominations.count
+  = link_to 'Mine', badge_nominations_path(status: 'mine')
+  \|
   - if params[:status] == 'pending'
     %span.red-bubble= @badge_nominations.count
   = link_to 'Pending', badge_nominations_path(status: 'pending')

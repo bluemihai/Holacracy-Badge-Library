@@ -6,7 +6,7 @@ class BadgeNominationsController < ApplicationController
 
   def index
     status = params[:status]
-    @badge_nominations = BadgeNomination.filter_by(status, current_user).sort_by(&:name_for_badge)
+    @badge_nominations = BadgeNomination.filter_by(status, current_user).sort_by(&:name_for_badge) rescue []
   end
 
   def show
