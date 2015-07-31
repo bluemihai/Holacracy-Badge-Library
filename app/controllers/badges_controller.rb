@@ -88,7 +88,7 @@ class BadgesController < ApplicationController
   def update
     respond_to do |format|
       if @badge.update(badge_params)
-        format.html { redirect_to badges_path, notice: 'Badge was successfully updated.' }
+        format.html { redirect_to @badge, notice: 'Badge was successfully updated.' }
         format.json { render :show, status: :ok, location: @badge }
       else
         format.html { render :edit }
@@ -120,7 +120,7 @@ class BadgesController < ApplicationController
     def badge_params
       params.require(:badge).permit(:name, :description, :proposer_id, :status, :proposal_date, :levels, :level_1,
         :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9, :focus, :feedback,
-        :mechanism, :acceptance_date)
+        :mechanism, :acceptance_date, :url, :comments)
     end
 
     def check_auth

@@ -12,39 +12,51 @@
         = f.association :proposer, collection: @users, label_method: :short, include_blank: true
       - else
         = f.association :proposer, collection: @users, label_method: :short, selected: current_user.try(:id)
+    - if librarian_or_admin?
+      .large-3.small-3.columns.admin-only= f.input :status, collection: values, include_blank: true
+      .large-3.small-3.columns.admin-only= f.input :proposal_date, include_blank: true
+      .large-3.small-3.columns.admin-only= f.input :acceptance_date, include_blank: true
 
     %hr
-    - if librarian_or_admin?
-      .large-8.small-6.columns
-        .large-6.columns= f.input :name, label: 'Badge Name', autofocus: true, placeholder: name_placeholder
-        .large-6.columns= f.input :focus, placeholder: focus_placeholder
-        .large-6.columns= f.input :description, label: 'Basic Badge Description', input_html: {rows: 5}, placeholder: description_placeholder
-        .large-6.columns= f.input :mechanism, label: 'Optional Mechanism for gaining/losing', input_html: {rows: 5}, placeholder: mechanism_placeholder
-      .large-4.small-6.columns.admin-only
-        = f.input :status, collection: values, include_blank: true
-        = f.input :proposal_date, include_blank: true
-        = f.input :acceptance_date, include_blank: true
-    - else
-      .large-6.columns= f.input :name, label: 'Badge Name', autofocus: true, placeholder: name_placeholder
-      .large-6.columns= f.input :focus, placeholder: focus_placeholder
-      %div
-      .large-6.small-12.columns= f.input :description, label: 'Basic Badge Description', input_html: {rows: 5}, placeholder: description_placeholder
-      .large-6.small-12.columns= f.input :mechanism, label: 'Optional Mechanism for gaining/losing', input_html: {rows: 5}, placeholder: mechanism_placeholder
+    .large-4.small-12.columns= f.input :name, label: 'Badge Name', autofocus: true, placeholder: name_placeholder
+    .large-4.small-12.columns= f.input :focus, placeholder: focus_placeholder
+    .large-4.small-12.columns= f.input :url, label: 'Supporting URL'
     %div
-    - level_1_placeholder = 'If badge included levels, write each level’s progression, completing...'
-    - level_2_placeholder = '... the sentence “I have repeatedly demonstrated that..."'
-    - level_3_placeholder = 'Not all badges need levels, nor do all levels (1 to 9) need to be included'
+    .large-4.small-12.columns= f.input :description, label: 'Basic Badge Description', input_html: {rows: 5}, placeholder: description_placeholder
+    .large-4.small-12.columns= f.input :mechanism, label: 'Optional Mechanism for gaining/losing', input_html: {rows: 5}, placeholder: mechanism_placeholder
+    .large-4.small-12.columns= f.input :comments, label: 'Supporting Comments', input_html: {rows: 5}
+    %div
+
+    %hr
+    %h4 Badge Level Descriptions
+    .large-12.columns
+      %p
+        If this badge includes levels, write each level’s progression.
+        %br
+        Complete the sentence “I have repeatedly demonstrated that..."
+        %br
+        Not all badges need levels, nor do all levels (1 to 9) need to be included.
+
+    - level_1_placeholder = ''
+    - level_2_placeholder = ''
+    - level_3_placeholder = ''
+    - level_4_placeholder = ''
+    - level_5_placeholder = ''
+    - level_6_placeholder = ''
+    - level_7_placeholder = ''
+    - level_8_placeholder = ''
+    - level_9_placeholder = ''
     .large-4.small-12.columns= f.input :level_1, label: 'Level 1 Description', input_html: {rows: 4}, placeholder: level_1_placeholder
     .large-4.small-12.columns= f.input :level_2, label: 'Level 2 Description', input_html: {rows: 4}, placeholder: level_2_placeholder
     .large-4.small-12.columns= f.input :level_3, label: 'Level 3 Description', input_html: {rows: 4}, placeholder: level_3_placeholder
     %div
-    .large-4.small-12.columns= f.input :level_4, label: 'Level 4 Description', input_html: {rows: 4}
-    .large-4.small-12.columns= f.input :level_5, label: 'Level 5 Description', input_html: {rows: 4}
-    .large-4.small-12.columns= f.input :level_6, label: 'Level 6 Description', input_html: {rows: 4}
+    .large-4.small-12.columns= f.input :level_4, label: 'Level 4 Description', input_html: {rows: 4}, placeholder: level_4_placeholder
+    .large-4.small-12.columns= f.input :level_5, label: 'Level 5 Description', input_html: {rows: 4}, placeholder: level_5_placeholder
+    .large-4.small-12.columns= f.input :level_6, label: 'Level 6 Description', input_html: {rows: 4}, placeholder: level_6_placeholder
     %div
-    .large-4.small-12.columns= f.input :level_7, label: 'Level 7 Description', input_html: {rows: 4}
-    .large-4.small-12.columns= f.input :level_8, label: 'Level 8 Description', input_html: {rows: 4}
-    .large-4.small-12.columns= f.input :level_9, label: 'Level 9 Description', input_html: {rows: 4}
+    .large-4.small-12.columns= f.input :level_7, label: 'Level 7 Description', input_html: {rows: 4}, placeholder: level_7_placeholder
+    .large-4.small-12.columns= f.input :level_8, label: 'Level 8 Description', input_html: {rows: 4}, placeholder: level_8_placeholder
+    .large-4.small-12.columns= f.input :level_9, label: 'Level 9 Description', input_html: {rows: 4}, placeholder: level_9_placeholder
 
   %hr
 

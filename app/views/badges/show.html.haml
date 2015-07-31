@@ -22,6 +22,17 @@
       %strong.large-2.columns.text-right Mechanism
       .large-6.columns.box= @badge.mechanism
       .large-4.columns
+  - if @badge.comments
+    .row
+      %strong.large-2.columns.text-right Comments
+      .large-6.columns.box= @badge.comments
+      .large-4.columns
+  - if @badge.url
+    .row
+      %strong.large-2.columns.text-right Supporting URL
+      .large-6.columns= link_to @badge.url, @badge.url
+      .large-4.columns
+  .space-20
   - if @badge.objections && @badge.objections.count > 0
     .row
       %strong.large-2.columns.text-right Objections
