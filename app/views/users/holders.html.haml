@@ -11,18 +11,17 @@
   %tbody
     - @badges.each do |badge|
       %tr.stripe
-        %td
-          .badge-name= link_to(badge.name_with_focus, badge)
+        %th.badge-name= link_to(badge.name_with_focus, badge)
         - @users.each do |user|
           - text = user.badge_level(badge)
           - if text && text == 'NEV'
-            %td.text-center= link_to image_tag('hourglass.png'), user.nomination(badge), class: 'no-hover'
+            %th.text-center= link_to image_tag('hourglass.png'), user.nomination(badge), class: 'no-hover'
           - elsif text && text == true
-            %td.text-center= link_to image_tag('checkmark.png'), user.nomination(badge), class: 'no-hover'
+            %th.text-center= link_to image_tag('checkmark.png'), user.nomination(badge), class: 'no-hover'
           - elsif text
-            %td.text-center= link_to text, user.nomination(badge)
+            %th.text-center= link_to text, user.nomination(badge)
           - else
-            %td.text-center= link_to '+', new_badge_nomination_path(badge_id: badge.id, user_id: user.id), class: 'green-light'
+            %th.text-center= link_to '+', new_badge_nomination_path(badge_id: badge.id, user_id: user.id), class: 'green-light'
 
 .legend
   = image_tag('checkmark.png')

@@ -4,16 +4,16 @@
 %h5
   = link_to('All', badges_path)
   - if !params[:status]
-    %span.red-bubble= @badges.count
+    %span.bubble= @badges.count
   \|
   - if params[:status] == 'accepted'
-    %span.red-bubble= @accepted.count
+    %span.bubble= @accepted.count
   = link_to('Accepted', badges_path(status: 'accepted')) + ' | '
   - if params[:status] == 'proposed'
-    %span.red-bubble= @proposed.count
+    %span.bubble= @proposed.count
   = link_to('Proposed', badges_path(status: 'proposed')) + ' | '
   - if params[:status] == 'draft'
-    %span.red-bubble= @draft.count
+    %span.bubble= @draft.count
   = link_to('Draft', badges_path(status: 'draft'))
 
 %table

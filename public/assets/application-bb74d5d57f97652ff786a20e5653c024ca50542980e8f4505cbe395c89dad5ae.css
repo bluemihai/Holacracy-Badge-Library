@@ -10099,7 +10099,7 @@ button a, button a:visited {
 }
 
 /* line 96, /Users/mihai/coding/h1/hbadges/app/assets/stylesheets/application.css.scss */
-.red-bubble {
+.bubble {
   background-color: #008CBA;
   color: white;
   min-width: 20px;

@@ -3,6 +3,7 @@ $(document).ready(function(){
         autoWidth: false,
         ordering: false,
         searching: false,
+        pageLength: 10,
         lengthMenu: [ [10, 15, 20, 25, 50, -1], [10, 15, 20, 25, 50, "All"] ],
         language: { lengthMenu: "Display _MENU_ Badges" }
     });
