@@ -114,17 +114,3 @@ button {
 .min-width {
   min-width: 40px;
 }
-
-#badges-grid {
-  .badge-name {
-    max-width: 20em;
-  }
-
-  th { font-weight: normal; }
-
-  tbody {
-    height: 40em;
-    overflow-y: auto;    /* Trigger vertical scroll    */
-    overflow-x: hidden;  /* Hide the horizontal scroll */
-  }
-}

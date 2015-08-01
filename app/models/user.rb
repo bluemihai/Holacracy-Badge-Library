@@ -9,11 +9,6 @@ class User < ActiveRecord::Base
 
   default_scope { order(:short) }
   scope :bootstrapper, -> { where(bootstrapper?: true) }
-
-  def badge_report
-    held_pending = badges_held.count.to_s + ' held, ' + badges_pending.count.to_s + ' pending'
-    badge_set ? held_pending + ' (' + badge_set.name + ')'  : held_pending
-  end
   
   def monthly_draw
     (badge_set ? badge_set.comp_tier.monthly_draw  : legacy_p_unit_grant) * focus_time / 100

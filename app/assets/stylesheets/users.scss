@@ -1,0 +1,39 @@
+#users-table {
+  th {
+    font-weight: normal;
+  }
+
+  td {
+  }
+
+  th.avatar {
+    max-width: 30px;
+  }
+
+  td.avatar {
+    padding: 0px;
+    margin-top: 3px;
+  }
+
+  th.text-right {
+    margin-right: 5px;
+  }
+
+  td.text-right {
+    padding-right: 18px;
+  }
+}
+
+#badges-grid {
+  .badge-name {
+    max-width: 20em;
+  }
+
+  th { font-weight: normal; }
+
+  tbody {
+    height: 40em;
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+  }
+}

@@ -1,13 +1,17 @@
 %h3 HolacracyOne Users
 
-%table
-  %tr
-    %th IMG
-    %th Name (link to GF)
-    %th Badges
-    %th Grant Comp
-    %th Badge Comp
-    %th Focus
-    %th Draw
-    %th
-  = render @users
+%table#users-table.compact
+  %thead
+    %tr
+      %th.avatar.nosort &nbsp;
+      %th User Name
+      %th Badge Set
+      %th.text-center Held
+      %th.text-center Pending
+      %th.text-right Grant Comp
+      %th.text-right Badge Comp
+      %th.text-center Focus
+      %th.text-right Draw
+      %th &nbsp;
+  %tbody
+    = render @users
