@@ -22,7 +22,7 @@
       %strong.large-2.columns.text-right Mechanism
       .large-6.columns.box= @badge.mechanism
       .large-4.columns
-  - if @badge.comments
+  - if @badge.comments && @badge.comments != ''
     .row
       %strong.large-2.columns.text-right Comments
       .large-6.columns.box= @badge.comments
