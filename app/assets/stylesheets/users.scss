@@ -1,4 +1,43 @@
+h3.data-table-top {
+  display: inline;
+  background-color: red;
+}
+
+#holders-grid {
+  th {
+    font-weight: normal;
+    width: 5em;
+    padding: 0px;
+  }
+
+  .odd {
+    background-color: #eee;
+  }
+
+  .badge-name {
+    max-width: 20em;
+    min-width: 15em;
+  }
+}
+
+#holders-grid_length {
+  float: right;
+
+  label {
+    padding-bottom: 0px;
+  }
+  select {
+    display: inline;
+    width: 4em;
+    margin-bottom: 5px;
+  }
+}
+
 #users-table {
+  .odd {
+    background-color: #eee;
+  }
+
   th {
     font-weight: normal;
   }
@@ -21,19 +60,5 @@
 
   td.text-right {
     padding-right: 18px;
-  }
-}
-
-#badges-grid {
-  .badge-name {
-    max-width: 20em;
-  }
-
-  th { font-weight: normal; }
-
-  tbody {
-    height: 40em;
-    overflow-y: auto;    /* Trigger vertical scroll    */
-    overflow-x: hidden;  /* Hide the horizontal scroll */
   }
 }

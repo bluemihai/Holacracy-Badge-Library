@@ -1,7 +1,6 @@
 %h3 HolacracyOne Badge Holders
 
-.space-20
-%table#badges-grid
+%table#holders-grid
   %thead
     %tr
       %th
@@ -11,7 +10,7 @@
           .text-center.min-width= link_to user.try(:short), user
   %tbody
     - @badges.each do |badge|
-      %tr
+      %tr.stripe
         %td
           .badge-name= link_to(badge.name_with_focus, badge)
         - @users.each do |user|

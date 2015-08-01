@@ -1,17 +1,18 @@
 %h3 HolacracyOne Users
 
+.space-20
 %table#users-table.compact
   %thead
     %tr
       %th.avatar.nosort &nbsp;
       %th User Name
-      %th Badge Set
+      %th.nosort Badge Set
       %th.text-center Held
       %th.text-center Pending
       %th.text-right Grant Comp
       %th.text-right Badge Comp
       %th.text-center Focus
-      %th.text-right Draw
-      %th &nbsp;
+      %th.text-right Monthly Draw
+      %th.nosort &nbsp;
   %tbody
     = render @users
