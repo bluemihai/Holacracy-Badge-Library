@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def holders
-    @users = User.order('short')
+    @users = User.active.order('short')
     @badges = Badge.accepted.order('name')
   end
 
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:name, :badge_set_id, :glassfrog_id, :legacy_p_unit_grant, :librarian?, :comp_admin?,
-        :bootstrapper?, :focus_time)
+      params.require(:user).permit(:name, :badge_set_id, :glassfrog_id, :legacy_p_unit_grant,
+        :librarian, :comp_admin, :bootstrapper, :focus_time, :active)
     end
 end

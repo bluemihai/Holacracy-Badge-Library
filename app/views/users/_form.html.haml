@@ -9,9 +9,10 @@
     .large-4.medium-4.small-6.columns= f.association :badge_set, label_method: :name_and_comp_tier
     .large-4.medium-4.small-6.columns= f.input :legacy_p_unit_grant, label: 'Legacy P Unit Grant'
     .large-4.medium-4.small-6.columns= f.input :focus_time, label: '% Focus Time'
-    = f.input :bootstrapper?
-    = f.input :comp_admin?
-    = f.input :librarian?
+    = f.input :bootstrapper
+    = f.input :comp_admin
+    = f.input :librarian
+    = f.input :active
 
   .form-actions
     = f.button :submit, 'Save User'

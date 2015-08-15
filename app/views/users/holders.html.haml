@@ -11,7 +11,7 @@
   %tbody
     - @badges.each do |badge|
       %tr.stripe
-        %th.badge-name= link_to(badge.name_with_focus, badge)
+        %th.badge-name= link_to badge.name_with_focus, badge, class: 'no-hover'
         - @users.each do |user|
           - text = user.badge_level(badge)
           - if text && text == 'NEV'

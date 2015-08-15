@@ -50,10 +50,10 @@ RSpec.describe BadgeNomination, type: :model do
 
     @voter1 = FactoryGirl.create(:user)
     @voter2 = FactoryGirl.create(:user)
-    @voter3 = FactoryGirl.create(:user, bootstrapper?: true)
-    @voter4 = FactoryGirl.create(:user, bootstrapper?: true)
-    @voter5 = FactoryGirl.create(:user, bootstrapper?: true)
-    @voter6 = FactoryGirl.create(:user, bootstrapper?: true)
+    @voter3 = FactoryGirl.create(:user, bootstrapper: true)
+    @voter4 = FactoryGirl.create(:user, bootstrapper: true)
+    @voter5 = FactoryGirl.create(:user, bootstrapper: true)
+    @voter6 = FactoryGirl.create(:user, bootstrapper: true)
     expect(@bn.bootstrapper_majority).to eq(3)
 
     @voter1.grant_badge(@badge, 9)

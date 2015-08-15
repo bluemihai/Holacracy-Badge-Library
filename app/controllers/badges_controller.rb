@@ -1,5 +1,5 @@
 class BadgesController < ApplicationController
-  before_action :set_badge, only: [:show, :edit, :update, :destroy, :propose, :accept, :reject]
+  before_action :set_badge, only: [:show, :edit, :update, :destroy, :propose, :accept, :reject, :request_removal]
   before_action :authenticate_user!, except: [:index, :detailed, :show]
   before_action :check_auth, only: [:edit, :accept, :reject]
   before_action :warn_if_not_proposer, only: [:edit]
@@ -47,6 +47,15 @@ class BadgesController < ApplicationController
     end
   end
 
+  def request_removal
+    @badge.removal_requested = Time.now
+    if @badge.save
+      redirect_to :back, notice: 'Badge removal request processed.  Please notify Badge Librarian via Slack or e-mail.'
+    else
+      redirect_to :back, alert: 'Badge removal request could not be processed.'
+    end
+  end
+
   def propose
     @badge.status = 'proposed'
     @badge.proposal_date = DateTime.now.to_date
@@ -74,10 +83,10 @@ class BadgesController < ApplicationController
       if last_non_objection?
         o.save!
         @badge.update_attributes(status: 'accepted', acceptance_date: DateTime.now.to_date)
-        notice_or_alert = { notice: "Your (last remaining) non-objection was recorded.  Badge status is now 'accepted'" }
+        notice_or_alert = { notice: "Your (last remaining) non-objection was recorded. Badge status is now 'accepted'" }
       else
         o.save!
-        notice_or_alert = { notice: "Your non-objection was recorded.  Badge status unchanged" }
+        notice_or_alert = { notice: "Your non-objection was recorded. Badge status unchanged" }
       end
     else
       notice_or_alert = { alert: "Your non-objection was invalid." }
@@ -120,7 +129,7 @@ class BadgesController < ApplicationController
     def badge_params
       params.require(:badge).permit(:name, :description, :proposer_id, :status, :proposal_date, :levels, :level_1,
         :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9, :focus, :feedback,
-        :mechanism, :acceptance_date, :url, :comments)
+        :mechanism, :acceptance_date, :url, :comments, :active, :removal_requested)
     end
 
     def check_auth

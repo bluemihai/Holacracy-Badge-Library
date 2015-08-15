@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
   after_initialize :set_default_role, :if => :new_record?
 
   default_scope { order(:short) }
-  scope :bootstrapper, -> { where(bootstrapper?: true) }
+  scope :bootstrapper, -> { where(bootstrapper: true) }
+  scope :active, -> { where(active: true) }
   
   def monthly_draw
     (badge_set ? badge_set.comp_tier.monthly_draw  : legacy_p_unit_grant) * focus_time / 100

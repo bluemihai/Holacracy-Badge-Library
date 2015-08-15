@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731165653) do
+ActiveRecord::Schema.define(version: 20150815003346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,14 +69,16 @@ ActiveRecord::Schema.define(version: 20150731165653) do
     t.text     "level_7"
     t.text     "level_8"
     t.text     "level_9"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "focus"
     t.text     "feedback"
     t.text     "mechanism"
     t.date     "acceptance_date"
     t.string   "url"
     t.text     "comments"
+    t.boolean  "active",            default: true
+    t.datetime "removal_requested"
   end
 
   create_table "comp_tiers", force: :cascade do |t|
@@ -104,14 +106,15 @@ ActiveRecord::Schema.define(version: 20150731165653) do
     t.datetime "updated_at",                          null: false
     t.integer  "role"
     t.string   "short"
-    t.boolean  "bootstrapper?",       default: false
+    t.boolean  "bootstrapper",        default: false
     t.string   "email"
     t.integer  "glassfrog_id"
     t.integer  "badge_set_id"
     t.integer  "legacy_p_unit_grant"
-    t.boolean  "librarian?",          default: false
-    t.boolean  "comp_admin?",         default: false
+    t.boolean  "librarian",           default: false
+    t.boolean  "comp_admin",          default: false
     t.integer  "focus_time",          default: 100
+    t.boolean  "active",              default: true
   end
 
 end

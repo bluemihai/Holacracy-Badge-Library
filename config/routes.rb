@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :users
   resources :badge_nominations
   resources :badges do
-    member { get :propose, :accept, :reject }
+    member { get :propose, :accept, :reject, :request_removal }
     collection { get :detailed }
   end
   resources :nomination_votes

@@ -26,7 +26,12 @@ h3.data-table-top {
   .badge-name:hover {
     text-overflow: inherit;
     overflow: visible;
+    background-color: white;
   }  
+
+  .badge-name:active {
+    color: black;
+  }
 }
 
 #holders-grid_length {

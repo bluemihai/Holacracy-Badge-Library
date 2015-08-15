@@ -14,6 +14,14 @@ class Badge < ActiveRecord::Base
   validates :name, presence: true
   validates :description, presence: true
 
+  def active_or_not
+    if active?
+      removal_requested? ? "active, removal requested #{removal_requested.strftime('%b-%d')}" : 'active'
+    else
+      'inactive'
+    end
+  end
+
   def status_with_date
     return nil if status == nil
     if status == 'accepted'
