@@ -17,4 +17,8 @@
   \|
   %span.green= link_to 'Propose', propose_badge_path(badge)
 - if badge.status == 'accepted'
+  \|
   %span.green= link_to 'Request Removal', request_removal_badge_path(badge)
+- if badge.has_focus?
+  \|
+  %span.green= link_to 'Duplicate', new_badge_path(template_id: badge.id), title: 'with new focus'

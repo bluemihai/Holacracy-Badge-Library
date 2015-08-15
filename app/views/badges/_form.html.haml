@@ -18,8 +18,8 @@
       .large-3.small-3.columns.admin-only= f.input :acceptance_date, include_blank: true
 
     %hr
-    .large-4.small-12.columns= f.input :name, label: 'Badge Name', autofocus: true, placeholder: name_placeholder
-    .large-4.small-12.columns= f.input :focus, placeholder: focus_placeholder
+    .large-4.small-12.columns= f.input :name, label: 'Badge Name', autofocus: !params[:template_id], placeholder: name_placeholder
+    .large-4.small-12.columns= f.input :focus, placeholder: focus_placeholder, autofocus: !!params[:template_id]
     .large-4.small-12.columns= f.input :url, label: 'Supporting URL'
     %div
     .large-4.small-12.columns= f.input :description, label: 'Basic Badge Description', input_html: {rows: 5}, placeholder: description_placeholder

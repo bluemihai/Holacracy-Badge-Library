@@ -19,4 +19,5 @@ RSpec.describe Badge, type: :model do
 
     expect(bad_badge.enough_holders).to be false
   end
+  
 end

@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   end
 
   def self.bootstrappers
-    where(bootstrapper?: true).map{ |b| b.short}.join(', ')
+    where(bootstrapper: true).map{ |b| b.short}.join(', ')
   end
 
   def badges_pending

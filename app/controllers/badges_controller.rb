@@ -25,6 +25,7 @@ class BadgesController < ApplicationController
     @users = librarian_or_admin? ? User.all : [current_user]
     template = Badge.find_by_id(params[:template_id])
     @badge = template ? template.dup : Badge.new
+    @badge.focus = ''
     @badge.status = template ? 'proposed' : 'draft'
   end
 

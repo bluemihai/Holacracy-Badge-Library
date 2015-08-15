@@ -1,4 +1,6 @@
-%h1 Add New Badge
+%h1
+  Add New Badge
+  = "(Duplicated with New Focus)" if params[:template_id]
 
 .space-20
 = render 'form'

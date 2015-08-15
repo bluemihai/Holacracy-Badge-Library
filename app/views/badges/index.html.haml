@@ -25,6 +25,7 @@
     %th Badge Name
     %th Status
     %th
+    %th
   = render @accepted if params[:status].nil? || params[:status] == 'accepted'
   = render @proposed if params[:status].nil? || params[:status] == 'proposed'
   = render @draft if params[:status].nil? || params[:status] == 'draft'
