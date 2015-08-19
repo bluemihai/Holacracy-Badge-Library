@@ -2,7 +2,7 @@
   = f.error_notification
 
   - name_placeholder = 'See badge library for examples (e.g. Energy Management)'
-  - focus_placeholder = 'Add Focus if applicable (e.g. Making: Tools; Legal Writing)'
+  - focus_placeholder = 'If applicable e.g. Making: Tools/Legal Writing'
   - description_placeholder = 'Summary of Badge. (e.g. Energy Management: Ability to move rhythmically between spending and renewing energy to fuel sustainable engagement and high performance.)'
   - mechanism_placeholder = 'If mechanism for gaining/losing a badge exists, add here. (e.g. Level 6 or higher: Take and submit Energy Audit https://drive.google.com/open?id=0BxNFxfz-fjYhQXpVUjB3dTVheHc)'
   .form-inputs
@@ -18,9 +18,15 @@
       .large-3.small-3.columns.admin-only= f.input :acceptance_date, include_blank: true
 
     %hr
-    .large-4.small-12.columns= f.input :name, label: 'Badge Name', autofocus: !params[:template_id], placeholder: name_placeholder
-    .large-4.small-12.columns= f.input :focus, placeholder: focus_placeholder, autofocus: !!params[:template_id]
-    .large-4.small-12.columns= f.input :url, label: 'Supporting URL'
+    - if librarian_or_admin?
+      .large-3.small-12.columns= f.input :name, label: 'Badge Name', autofocus: !params[:template_id], placeholder: name_placeholder
+      .large-3.small-12.columns= f.input :focus, placeholder: focus_placeholder, autofocus: !!params[:template_id]
+      .large-3.small-12.columns.admin-only= f.input :group
+      .large-3.small-12.columns= f.input :url, label: 'Supporting URL'
+    - else
+      .large-4.small-12.columns= f.input :name, label: 'Badge Name', autofocus: !params[:template_id], placeholder: name_placeholder
+      .large-4.small-12.columns= f.input :focus, placeholder: focus_placeholder, autofocus: !!params[:template_id]
+      .large-4.small-12.columns= f.input :url, label: 'Supporting URL'
     %div
     .large-4.small-12.columns= f.input :description, label: 'Basic Badge Description', input_html: {rows: 5}, placeholder: description_placeholder
     .large-4.small-12.columns= f.input :mechanism, label: 'Optional Mechanism for gaining/losing', input_html: {rows: 5}, placeholder: mechanism_placeholder

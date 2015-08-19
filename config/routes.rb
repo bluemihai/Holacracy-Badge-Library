@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :assignments
+  resources :roles
+  resources :assignments
+  resources :roles
   resources :badge_set_entries
   resources :badge_sets
   resources :comp_tiers
@@ -10,6 +14,7 @@ Rails.application.routes.draw do
   end
   resources :nomination_votes
 
+  get ':controller/:action/:category'
   root to: 'badges#index'
   get 'about' => 'visitors#about'
   get 'help' => 'visitors#help'

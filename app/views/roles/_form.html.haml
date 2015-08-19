@@ -1,0 +1,10 @@
+= simple_form_for(@role) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :points
+    = f.input :circle_id
+
+  .form-actions
+    = f.button :submit

@@ -18,7 +18,7 @@
   %span.green= link_to 'Propose', propose_badge_path(badge)
 - if badge.status == 'accepted'
   \|
-  %span.green= link_to 'Request Removal', request_removal_badge_path(badge)
+  %span.green= link_to 'Remove', request_removal_badge_path(badge), title: 'Request removal, actually.  This takes effect when all Badge Librarians non-object, or if they take no action within 7 days'
 - if badge.has_focus?
   \|
-  %span.green= link_to 'Duplicate', new_badge_path(template_id: badge.id), title: 'with new focus'
+  %span.green= link_to 'Duplicate', new_badge_path(template_id: badge.id), title: 'Open up new badge form, with new focus but all other fields exactly the same.'

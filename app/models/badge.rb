@@ -14,6 +14,18 @@ class Badge < ActiveRecord::Base
   validates :name, presence: true
   validates :description, presence: true
 
+  def self.filter_by(group=nil, status=nil)
+    if group && status
+      Badge.where(group: group, status: status)
+    else
+      !status ? Badge.where(group: group) : Badge.where(status: status)
+    end
+  end
+
+  def self.groups
+    Badge.pluck(:group).compact.uniq
+  end
+
   def active_or_not
     if active?
       removal_requested? ? "active, removal requested #{removal_requested.strftime('%b-%d')}" : 'active'

@@ -5,17 +5,11 @@ class BadgesController < ApplicationController
   before_action :warn_if_not_proposer, only: [:edit]
 
   def index
-    @badges = Badge.order(:status).order(:name)
-    @accepted = Badge.accepted.order(:name)
-    @proposed = Badge.proposed.order(:name)
-    @draft = Badge.draft.order(:name)
+    @badges = Badge.filter_by(params[:group]).order(:status).order(:name)
   end
 
   def detailed
-    @badges = Badge.order(:status).order(:name)
-    @accepted = Badge.accepted.order(:name)
-    @proposed = Badge.proposed.order(:name)
-    @draft = Badge.draft.order(:name)
+    index
   end
 
   def show
@@ -42,6 +36,7 @@ class BadgesController < ApplicationController
         format.html { redirect_to @badge, notice: 'Badge was successfully created.' }
         format.json { render :show, status: :created, location: @badge }
       else
+        @users = librarian_or_admin? ? User.all : [current_user]
         format.html { render :new }
         format.json { render json: @badge.errors, status: :unprocessable_entity }
       end
@@ -110,14 +105,17 @@ class BadgesController < ApplicationController
   def destroy
     if @badge.badge_sets.count > 0
       notice_or_alert = { alert: 'This badge is part of at least one badge set.  Delete those first and try again.' }
+      redirect_path = :back
     elsif @badge.badge_nominations.count > 0
       notice_or_alert = { alert: 'There are pending nominations for this badge.  Delete those first and try again.' }
+      redirect_path = :back
     else
       notice_or_alert = { notice: 'Badge was successfully destroyed.'}
+      redirect_path = URI(request.referer).path == '/badges' ? :back : holders_path
       @badge.destroy
     end
     respond_to do |format|
-      format.html { redirect_to holders_path, notice_or_alert }
+      format.html { redirect_to redirect_path, notice_or_alert }
       format.json { head :no_content }
     end
   end
@@ -130,7 +128,7 @@ class BadgesController < ApplicationController
     def badge_params
       params.require(:badge).permit(:name, :description, :proposer_id, :status, :proposal_date, :levels, :level_1,
         :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9, :focus, :feedback,
-        :mechanism, :acceptance_date, :url, :comments, :active, :removal_requested)
+        :mechanism, :acceptance_date, :url, :comments, :active, :removal_requested, :group)
     end
 
     def check_auth

@@ -1,0 +1,26 @@
+%h1 Listing roles
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Points
+      %th Delegated
+      %th Circle
+      %th Roles
+      %th
+      %th
+      %th
+
+  %tbody
+    - @roles.each do |role|
+      %tr
+        %td= link_torole.name
+        %td= role.points
+        %td= role.delegated
+        %td= role.circle.try(:name)
+        %td= role.sub_roles.count
+        %td= link_to 'Show', role
+        %td= link_to 'Edit', edit_role_path(role)
+        %td= link_to 'Destroy', role, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
