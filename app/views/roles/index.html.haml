@@ -1,5 +1,9 @@
 %h1 Roles and Attention Points
 
+1 AP = 30 minutes/week
+%br
+100% focus = 80 APs/week
+
 .adjacent-tables-wrapper
   .adjacent-table
     %table#roles-table.compact.large-7.small-12.columns
@@ -11,8 +15,7 @@
           %th Alloc
           %th Left
           %th Super Circle
-          / %th
-          / %th
+          %th
           %th
           %th
       %tbody
@@ -24,10 +27,10 @@
             %td= role.delegated
             %td= role.controlled
             %td= role.circle.try(:name)
-            / %td= link_to 'Show', role
-            %td= link_to 'Edit', edit_role_path(role)
-            / %td= link_to 'Destroy', role, :method => :delete, :data => { :confirm => 'Are you sure?' }
             %td= link_to 'Fill', assign_role_path(role, User.random), title: 'Assign Randomly to one of 5 users'
+            %td= link_to 'Edit', edit_role_path(role)
+            %td= link_to 'Destroy', role, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    %button= link_to 'Create New Role', new_role_path
   .width-30
   .adjacent-table
     %table#fillers-table.compact.large-5.small-12.columns
@@ -41,7 +44,7 @@
         - if @users
           - @users.each do |user|
             %tr
-              %td= user.name
+              %td= user.short
               %td= user.roles.map(&:name).join(', ')
               %td= user.attention_points
               %td.text-right= number_to_percentage(user.percent_focus * 100, precision: 1)

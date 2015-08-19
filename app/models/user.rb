@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 
   def self.random
 #    offset(rand(User.count)).first
-    offset(rand(5)).first
+    offset(rand(6)).first
   end
 
   def monthly_draw

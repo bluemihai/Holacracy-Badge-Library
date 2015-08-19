@@ -7,7 +7,6 @@ class BadgeNomination < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :badge_id, presence: true
-  validates_with 
 #  validates :status, presence: true
 
   validates_uniqueness_of :user_id, scope: :badge_id, message: "User has already been nominated for this badge."
@@ -115,5 +114,4 @@ class BadgeNomination < ActiveRecord::Base
   def enough_badge_holders
     badge.enough_holders
   end
-
 end
