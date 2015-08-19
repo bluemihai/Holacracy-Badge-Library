@@ -10,11 +10,11 @@
       %thead
         %tr
           %th Role Name
-          %th Filler
+          %th In Circle
           %th Pts
           %th Alloc
           %th Left
-          %th Super Circle
+          %th Filler
           %th
           %th
           %th
@@ -22,12 +22,12 @@
         - @roles.each do |role|
           %tr
             %td= link_to role.name, role
-            %td= role.filler.try(:short)
+            %td= role.circle.try(:name)
             %td= role.points
             %td= role.delegated
             %td= role.controlled
-            %td= role.circle.try(:name)
-            %td= link_to 'Fill', assign_role_path(role, User.random), title: 'Assign Randomly to one of 5 users'
+            %td= role.filler.try(:short)
+            %td= link_to 'Refill', assign_role_path(role, User.random), title: 'Assign Randomly to one of 5 users'
             %td= link_to 'Edit', edit_role_path(role)
             %td= link_to 'Destroy', role, :method => :delete, :data => { :confirm => 'Are you sure?' }
     %button= link_to 'Create New Role', new_role_path
