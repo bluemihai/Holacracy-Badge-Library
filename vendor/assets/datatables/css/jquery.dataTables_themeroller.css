@@ -4,7 +4,6 @@
 table.dataTable {
   width: 100%;
   margin: 0 auto;
-  clear: both;
   border-collapse: separate;
   border-spacing: 0;
   /*
@@ -301,7 +300,6 @@ table.dataTable td {
  */
 .dataTables_wrapper {
   position: relative;
-  clear: both;
   *zoom: 1;
   zoom: 1;
 }
@@ -316,7 +314,6 @@ table.dataTable td {
   margin-left: 0.5em;
 }
 .dataTables_wrapper .dataTables_info {
-  clear: both;
   float: left;
   padding-top: 0.55em;
 }
@@ -381,7 +378,6 @@ table.dataTable td {
   color: #333;
 }
 .dataTables_wrapper .dataTables_scroll {
-  clear: both;
 }
 .dataTables_wrapper .dataTables_scrollBody {
   *margin-top: -1px;
@@ -395,9 +391,7 @@ table.dataTable td {
 }
 .dataTables_wrapper:after {
   visibility: hidden;
-  display: block;
   content: "";
-  clear: both;
   height: 0;
 }
 

@@ -22,8 +22,8 @@ class User < ActiveRecord::Base
   end
 
   def self.role_fillers
-    roles = Role.pluck(:filler_id)
-    roles ? User.find(Role.pluck(:filler_id)) : nil
+    roles = Role.pluck(:filler_id).uniq.compact
+    roles == [] ? nil : User.find(Role.pluck(:filler_id))
   end
 
   def self.random
