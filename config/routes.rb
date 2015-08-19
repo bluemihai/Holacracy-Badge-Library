@@ -1,18 +1,15 @@
 Rails.application.routes.draw do
-  resources :assignments
-  resources :roles
-  resources :assignments
-  resources :roles
-  resources :badge_set_entries
-  resources :badge_sets
-  resources :comp_tiers
-  resources :users
-  resources :badge_nominations
+  resources :users, :badge_set_entries, :badge_sets, :comp_tiers, :badge_nominations, :nomination_votes
   resources :badges do
     member { get :propose, :accept, :reject, :request_removal }
     collection { get :detailed }
   end
-  resources :nomination_votes
+
+  # for attention points app
+  resources :assignments
+  resources :roles do
+    member { get :assign }
+  end
 
   get ':controller/:action/:category'
   root to: 'badges#index'

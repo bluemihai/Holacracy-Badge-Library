@@ -2,29 +2,29 @@ gcc:
   name: 'GCC'
   points: 500
   circle: nil
-a:
-  name: 'Role A'
-  points: 10
-  circle: 'gcc'
-b:
-  name: 'Role B'
-  points: 25
+marketing:
+  name: 'Marketing'
+  points: 150
   circle: 'gcc'
 operations:
   name: 'Operations'
   points: 250
   circle: 'gcc'
-marketing:
-  name: 'Marketing'
-  points: 150
+a:
+  name: 'Role A'
+  points: 40
+  circle: 'gcc'
+b:
+  name: 'Role B'
+  points: 25
   circle: 'gcc'
 c:
   name: 'Role C'
-  points: 20
+  points: 90
   circle: 'operations'
 d:
   name: 'Role D'
-  points: 15
+  points: 125
   circle: 'operations'
 e:
   name: 'Role E'
@@ -32,9 +32,9 @@ e:
   circle: 'operations'
 f:
   name: 'Role F'
-  points: 5
+  points: 77
   circle: 'marketing'
 g:
   name: 'Role G'
-  points: 25
+  points: 40
   circle: 'marketing'

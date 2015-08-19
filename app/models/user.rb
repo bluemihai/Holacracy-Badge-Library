@@ -10,7 +10,26 @@ class User < ActiveRecord::Base
   default_scope { order(:short) }
   scope :bootstrapper, -> { where(bootstrapper: true) }
   scope :active, -> { where(active: true) }
-  
+
+  has_many :roles, foreign_key: :filler_id
+
+  def attention_points
+    roles.map(&:controlled).sum
+  end
+
+  def percent_focus
+    attention_points / 80.0
+  end
+
+  def self.role_fillers
+    User.find(Role.pluck(:filler_id))
+  end
+
+  def self.random
+#    offset(rand(User.count)).first
+    offset(rand(5)).first
+  end
+
   def monthly_draw
     (badge_set ? badge_set.comp_tier.monthly_draw  : legacy_p_unit_grant) * focus_time / 100
   end

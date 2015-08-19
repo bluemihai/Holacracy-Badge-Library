@@ -1,8 +1,9 @@
 class RolesController < ApplicationController
-  before_action :set_role, only: [:show, :edit, :update, :destroy]
+  before_action :set_role, only: [:show, :edit, :update, :destroy, :assign]
 
   def index
-    @roles = Role.all
+    @roles = Role.order(:name)
+    @users = User.role_fillers
   end
 
   def show
@@ -48,6 +49,11 @@ class RolesController < ApplicationController
       format.html { redirect_to roles_url, notice: 'Role was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def assign
+    @role.update_attributes(filler_id: User.random.id)
+    redirect_to :back
   end
 
   private
