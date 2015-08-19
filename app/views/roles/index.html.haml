@@ -10,10 +10,10 @@
       %th Delegated
       %th Unallocated
       %th Super Circle
+      / %th
+      / %th
       %th
       %th
-      %th
-      %th Assign Random
 
   %tbody
     - @roles.each do |role|
@@ -24,9 +24,9 @@
         %td= role.delegated
         %td= role.controlled
         %td= role.circle.try(:name)
-        %td= link_to 'Show', role
+        / %td= link_to 'Show', role
         %td= link_to 'Edit', edit_role_path(role)
-        %td= link_to 'Destroy', role, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        / %td= link_to 'Destroy', role, :method => :delete, :data => { :confirm => 'Are you sure?' }
         %td= link_to 'Assign Random', assign_role_path(role, User.random)
 
 
