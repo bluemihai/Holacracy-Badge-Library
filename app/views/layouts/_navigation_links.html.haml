@@ -1,5 +1,5 @@
 - if user_signed_in?
-  - if current_user.is_admin? || current_user.is_librarian?
+  - if librarian_or_admin?
     %li= link_to 'Add...', new_badge_path 
   - else
     %li= link_to 'Propose...', new_badge_path 

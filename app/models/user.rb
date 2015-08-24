@@ -56,10 +56,6 @@ class User < ActiveRecord::Base
     badge_nominations.map{ |bn| bn.badge if bn.accepted? }.compact
   end
 
-  def is_librarian?
-    role == 'librarian'
-  end
-
   def is_admin?
     role == 'admin'
   end

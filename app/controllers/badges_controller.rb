@@ -33,7 +33,6 @@ class BadgesController < ApplicationController
   def create
     @badge = Badge.new(badge_params)
     @badge.status = 'draft'
-
     respond_to do |format|
       if @badge.save
         format.html { redirect_to @badge, notice: 'Badge was successfully created.' }
@@ -66,9 +65,8 @@ class BadgesController < ApplicationController
   end
 
   def reject
-    @badge.objections.build(librarian: current_user, objection: true)
-    @badge.status = 'draft'
-    if @badge.save
+    o = @badge.objections.build(librarian: current_user, objection: true)
+    if o.save && @badge.update_attributes(status: 'draft')
       redirect_to @badge, notice: 'Badge status successfully changed back to "draft"'
     else
       redirect_to @badge, alert: 'Unable to change badge status back to "draft".'

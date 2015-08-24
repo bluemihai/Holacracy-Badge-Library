@@ -6,7 +6,7 @@ class BadgeObjection < ActiveRecord::Base
   validates :librarian_id, presence: true
   validates_uniqueness_of :librarian_id, scope: :badge_id, message: "User has already objected to this badge."  
 
-  validate :objector_must_be_librarian, :badge_must_be_proposed, :objection_must_not_be_nil
+  validate :badge_must_be_proposed, :objection_must_not_be_nil#, :objector_must_be_librarian
 
   def objection_name_date
     o = objection ? 'Objection' : 'No Objection'
@@ -14,12 +14,6 @@ class BadgeObjection < ActiveRecord::Base
   end
 
   private
-    def objector_must_be_librarian
-      if !librarian.is_librarian?
-        errors.add(:librarian_id, "is not a Badge Librarian and therefore may not object")
-      end
-    end
-
     def badge_must_be_proposed
       if badge.status != 'proposed'
         errors.add(:badge, "is not in 'proposed' status, so you may not object to it")
@@ -32,4 +26,10 @@ class BadgeObjection < ActiveRecord::Base
       end
     end
 
+    # def objector_must_be_librarian
+    #   if !librarian.librarian?
+    #     raise
+    #     errors.add(:librarian_id, "is not a Badge Librarian and therefore may not object")
+    #   end
+    # end
 end

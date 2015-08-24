@@ -21,6 +21,19 @@
       .large-6.columns.box= @badge_nomination.evidence
       .large-3.columns
 
+%hr
+
+- holders_count = @bn.badge.current_holders.count
+- if holders_count > 1
+  - body = "Your validation as badge holder is requested for #{badge_nomination_url(@bn)}\n\nEvidence submitted:\n\n #{@bn.evidence}"
+  - subject = "[Badges App => Badge Holder] Please validate #{@bn.user.short} for #{@bn.badge.name} Badge at Level #{@bn.level_nominated}"
+  - options = { target: 'external', subject: subject, body: body, title: @bn.badge.try(:current_holder_names) }
+  %button= mail_to @bn.badge.current_holder_emails, "Request validations from #{holders_count} current Badge Holders", options
+%br
+- if holders_count < 4
+  - boostrapper_emails = User.bootstrapper.map(&:mailto).join(' ')
+  %button= mail_to boostrapper_emails, "Request grant from #{User.bootstrapper.count} Badge Bootstrappers", title: User.bootstrappers
+
 - if librarian_or_admin?
   .admin-only
     .row
@@ -52,7 +65,3 @@
   %button= link_to 'All Nominations', badge_nominations_path(status: 'waiting')
   %button= link_to 'Add Your Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
 
-- body = "Your validation as badge holder is requested for #{badge_nomination_url(@badge_nomination)}\n\nEvidence submitted:\n\n #{@badge_nomination.evidence}"
-- subject = "[Badges App => Badge Holder] Please validate #{@bn.user.short} for #{@bn.badge.name} Badge at Level #{@bn.level_nominated}"
-- options = { target: 'external', subject: subject, body: body }
-%button.large-6.columns= mail_to @badge_nomination.badge.current_holder_emails, 'Request validations from current badge holders', options
