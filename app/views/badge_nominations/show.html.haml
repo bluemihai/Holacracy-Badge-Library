@@ -51,6 +51,7 @@
   %button= link_to 'All Nominations', badge_nominations_path(status: 'waiting')
   %button= link_to 'Add Your Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
 
-- body = "Your validation as badge holder is requested for #{badge_nomination_url(@badge_nomination)}.\n\nEvidence submitted:\n\n #{@badge_nomination.evidence}".html_safe
-- options = { subject: 'Please Validate', target: 'external', body: body }
+- body = "Your validation as badge holder is requested for #{badge_nomination_url(@badge_nomination)}\n\nEvidence submitted:\n\n #{@badge_nomination.evidence}"
+- subject = "[Badges App => Badge Holder] Please validate #{@badge_nomination.user.short} for #{@badge_nomination.badge.name} Badge"
+- options = { target: 'external', subject: subject, body: body }
 %button.large-6.columns= mail_to @badge_nomination.badge.current_holder_emails, 'Request validations from current badge holders', options
