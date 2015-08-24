@@ -8,17 +8,7 @@
   %span.green.admin-only= link_to 'Destroy', badge, method: :delete, data: { confirm: 'Are you sure you want to permanently delete this badge?' }
   - if badge.status == 'proposed'
     \|
-    - if bo = BadgeObjection.find_by(badge_id: badge.id, librarian: 7)
-      = bo.objection ? 'Chris objected' : 'Chris non-objected'
-    - else
-      %span.green.admin-only= link_to 'Non-Object as Chris', accept_badge_path(badge, librarian_id: 7)
-    \|
-    - if bo = BadgeObjection.find_by(badge_id: badge.id, librarian: 12)
-      = bo.objection ? 'Laura objected' : 'Laura non-objected'
-    - else
-      %span.green.admin-only= link_to 'Non-Object as Laura', accept_badge_path(badge, librarian_id: 12)    
-    \|
-    %span.green.admin-only= link_to 'Object', reject_badge_path(badge)
+    %span.green.admin-only= link_to 'Object or not...', badge
 - if badge.status == 'draft'
   \|
   %span.green= link_to 'Propose', propose_badge_path(badge)

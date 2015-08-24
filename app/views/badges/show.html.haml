@@ -35,11 +35,10 @@
       .large-6.columns= link_to @badge.url, @badge.url
       .large-4.columns
   .space-20
-  - if @badge.objections && @badge.objections.count > 0
-    .row
-      %strong.large-2.columns.text-right Objections
-      .large-6.columns= render 'objections'
-      .large-4.columns
+  .row
+    %strong.large-2.columns.text-right Objections
+    .large-6.columns= render 'objections'
+    .large-4.columns
 
 %br
 %hr

@@ -147,6 +147,6 @@ class BadgesController < ApplicationController
     end
 
     def last_non_objection?
-      @badge.objections.count > 0  # TODO Adjust for case where there are more than 2 Badge Librarians
+      @badge.objections.count == User.librarians.count - 1
     end
 end

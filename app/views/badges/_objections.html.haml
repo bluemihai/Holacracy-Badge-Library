@@ -1,1 +1,6 @@
-= @badge.objections.map { |o| o.objection_name_date }.join(', ')
+%span.green.admin-only= link_to 'Object', reject_badge_path(@badge)
+- User.librarians.each do |lib|
+  \|
+  %span.admin-only= link_to "Non-Object as #{lib.short}", accept_badge_path(librarian_id: lib.id)
+%br
+= render @badge.objections

@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   default_scope { order(:short) }
   scope :bootstrapper, -> { where(bootstrapper: true) }
   scope :active, -> { where(active: true) }
+  scope :librarians, -> { where(librarian: true) }
 
   has_many :roles, foreign_key: :filler_id
 
