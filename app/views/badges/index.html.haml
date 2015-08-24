@@ -3,8 +3,6 @@
     HolacracyOne Badge Library
   - else
     HolacracyOne Badges
-= params
-= "Accepted: #{@accepted.count}, Proposed: #{@proposed.count}, Draft: #{@draft.count}"
 
 %h5
   - if params[:group]
@@ -16,15 +14,23 @@
   = link_to('All', badges_path(group: params[:group]))
   - if !params[:status]
     %span.bubble= @badges.count
+  - else
+    = link_to @badges.count, badges_path(status: nil, group: params[:group])
   \|
   - if params[:status] == 'accepted'
     %span.bubble= @accepted.count
+  - else
+    = link_to @accepted.count, badges_path(status: 'accepted', group: params[:group])
   = link_to('Accepted', badges_path(status: 'accepted', group: params[:group])) + ' | '
   - if params[:status] == 'proposed'
     %span.bubble= @proposed.count
+  - else
+    = link_to @proposed.count, badges_path(status: 'proposed', group: params[:group])
   = link_to('Proposed', badges_path(status: 'proposed', group: params[:group])) + ' | '
   - if params[:status] == 'draft'
-    %span.bubble= @draft.count
+    %span.bubble= link_to @draft.count, badges_path(status: 'draft', group: params[:group])
+  - else
+    = link_to @draft.count, badges_path(status: 'draft', group: params[:group])
   = link_to('Draft', badges_path(status: 'draft', group: params[:group]))
 
 %table
