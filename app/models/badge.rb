@@ -14,12 +14,13 @@ class Badge < ActiveRecord::Base
   validates :name, presence: true
   validates :description, presence: true
 
-  def self.filter_by(group=nil, status=nil)
-    if group && status
-      Badge.where(group: group, status: status)
-    else
-      !status ? Badge.where(group: group) : Badge.where(status: status)
-    end
+  def self.filter_by(group, status)
+    has_group = Badge.where(group: group)
+    has_status = Badge.where(status: status)
+
+    return has_status if has_group == []
+    return has_group if has_status == []
+    has_group & has_status
   end
 
   def self.groups

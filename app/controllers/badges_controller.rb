@@ -5,7 +5,7 @@ class BadgesController < ApplicationController
   before_action :warn_if_not_proposer, only: [:edit]
 
   def index
-    @badges = Badge.filter_by(params[:group]).order(:status).order(:name)
+    @badges = Badge.order(:status).order(:name).filter_by(params[:group], params[:status])
   end
 
   def detailed
