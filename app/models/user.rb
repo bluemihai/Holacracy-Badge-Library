@@ -108,4 +108,8 @@ class User < ActiveRecord::Base
     short ? short : '(Short User Name Missing)'
   end
 
+  def mailto
+    name + ' <' + email + '>'
+  end
+
 end

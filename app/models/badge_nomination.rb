@@ -70,6 +70,10 @@ class BadgeNomination < ActiveRecord::Base
     who + " for "  + what
   end
 
+  def grant
+    update_attributes(status: 'accepted', effective_date: DateTime.now.to_date)
+  end
+
   def current_level
     if status == 'expired'
       'EXP'

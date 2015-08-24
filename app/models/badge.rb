@@ -50,6 +50,10 @@ class Badge < ActiveRecord::Base
     badge_nominations.select{ |bn| bn.accepted? }.map{ |bn| bn.user }
   end
 
+  def current_holder_emails
+    current_holders.map(&:mailto).join(', ')
+  end
+
   def current_holder_names
     holders = badge_nominations.select{ |bn| bn.accepted? }.map{ |bn| bn.user.short + ' ' + bn.current_level.to_s }
     holders.count > 0 ? holders.join(', ') : 'There are no current badge holders'

@@ -10,7 +10,9 @@
     .large-4.medium-4.small-4.columns
   - if user_signed_in?
     .row
-      %strong.large-2.columns.text-right Current Holders
+      %strong.large-2.columns.text-right
+        = @badge.current_holders.count
+        Current Holders
       .large-6.columns= @badge.current_holder_names
       .large-4.columns
   .row

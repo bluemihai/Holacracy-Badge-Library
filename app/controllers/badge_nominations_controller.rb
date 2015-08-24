@@ -41,7 +41,7 @@ class BadgeNominationsController < ApplicationController
       if @badge_nomination.save
         safe_user = @badge_nomination.user.try(:name)
         safe_nom = @badge_nomination.badge.try(:name)
-        format.html { redirect_to holders_path, notice: "#{safe_user} successfully nominated for #{safe_nom}.  Please notify Comp Admin." }
+        format.html { redirect_to @badge_nomination, notice: "#{safe_user} successfully nominated for #{safe_nom}.  Consider requesting some validations." }
         format.json { render :show, status: :created, location: @badge_nomination }
       else
         params[:badge_id] = @badge_nomination.badge.id
