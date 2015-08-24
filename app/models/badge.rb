@@ -15,6 +15,7 @@ class Badge < ActiveRecord::Base
   validates :description, presence: true
 
   def self.filter_by(group, status)
+    return Badge.all if group == nil && status == nil
     has_group = Badge.where(group: group)
     has_status = Badge.where(status: status)
 
