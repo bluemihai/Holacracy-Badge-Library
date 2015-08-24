@@ -1,3 +1,4 @@
+- @bn = @badge_nomination
 %p.large-12.medium-12
   %h3
     Nomination:
@@ -52,6 +53,6 @@
   %button= link_to 'Add Your Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
 
 - body = "Your validation as badge holder is requested for #{badge_nomination_url(@badge_nomination)}\n\nEvidence submitted:\n\n #{@badge_nomination.evidence}"
-- subject = "[Badges App => Badge Holder] Please validate #{@badge_nomination.user.short} for #{@badge_nomination.badge.name} Badge"
+- subject = "[Badges App => Badge Holder] Please validate #{@bn.user.short} for #{@bn.badge.name} Badge at Level #{@bn.level_nominated}"
 - options = { target: 'external', subject: subject, body: body }
 %button.large-6.columns= mail_to @badge_nomination.badge.current_holder_emails, 'Request validations from current badge holders', options
