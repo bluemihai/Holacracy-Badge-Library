@@ -2,6 +2,12 @@
   - nomination_link = link_to 'Nominate For...', new_badge_nomination_path(badge_id: badge.id)
   %td.green= badge.status == 'accepted' ? nomination_link : '' if user_signed_in?
   %td= link_to badge.name_with_focus, badge
-  %td= badge.status_with_date
-  %td= badge.active_or_not
+  %td= badge.status.capitalize
+  %td
+    = image_tag badge.proposer.gravatar(20) rescue nil
+    = badge.proposer.try(:short)
+  %td= badge.relevant_date
+  - if librarian_or_admin?
+    %td= badge.group
+  / %td= badge.active_or_not
   %td= render 'badges/actions', badge: badge

@@ -33,17 +33,23 @@
     = link_to @draft.count, badges_path(status: 'draft', group: params[:group])
   = link_to('Draft', badges_path(status: 'draft', group: params[:group]))
 
-%table
-  %tr
-    %th
-    %th Badge Name
-    %th Status
-    %th
-    %th
-  = render @badges if !params[:status]
-  = render @accepted if params[:status] == 'accepted'
-  = render @proposed if params[:status] == 'proposed'
-  = render @draft if params[:status] == 'draft'
+%table#badges-table.compact
+  %thead
+    %tr
+      %th.nosort
+      %th Badge Name
+      %th Status
+      %th Proposer
+      %th Date
+      / %th
+      - if librarian_or_admin?
+        %th Group
+      %th.nosort
+  %tbody
+    = render @badges if !params[:status]
+    = render @accepted if params[:status] == 'accepted'
+    = render @proposed if params[:status] == 'proposed'
+    = render @draft if params[:status] == 'draft'
 
 %button= link_to 'Detailed View', detailed_badges_path
 / - if params[:group]

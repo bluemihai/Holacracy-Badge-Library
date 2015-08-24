@@ -14,6 +14,16 @@ class Badge < ActiveRecord::Base
   validates :name, presence: true
   validates :description, presence: true
 
+  def relevant_date
+    if status == 'accepted'
+      acceptance_date || created_at.to_date
+    elsif status == 'proposed'
+      proposal_date || created_at.to_date
+    else
+      created_at.to_date
+    end
+  end
+
   def self.filter_by(group, status)
     return Badge.all if group == nil && status == nil
     has_group = Badge.where(group: group)
