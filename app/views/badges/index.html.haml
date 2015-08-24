@@ -43,7 +43,8 @@
       %th Date
       / %th
       - if librarian_or_admin?
-        %th Group
+        %th 
+          %span.admin-only Group
       %th.nosort
   %tbody
     = render @badges if !params[:status]

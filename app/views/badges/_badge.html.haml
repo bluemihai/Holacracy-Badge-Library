@@ -8,6 +8,7 @@
     = badge.proposer.try(:short)
   %td= badge.relevant_date
   - if librarian_or_admin?
-    %td= badge.group
+    %td
+      %span.admin-only= badge.group
   / %td= badge.active_or_not
   %td= render 'badges/actions', badge: badge
