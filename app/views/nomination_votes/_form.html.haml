@@ -24,7 +24,7 @@
         %strong Evidence submitted:
         %br
         = @badge_nomination.evidence
-    %hr
+    %hri
     - if @badge && @badge.try(:has_levels?)
       .box= f.input :level, collection: [['0: None', 0]] + @badge.detailed_levels, label: 'Level: I have repeatedly demonstrated that…', as: :radio_buttons, input_html: { class: 'radio-input' }
     - else

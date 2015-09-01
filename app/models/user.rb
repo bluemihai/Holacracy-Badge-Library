@@ -28,16 +28,11 @@ class User < ActiveRecord::Base
   end
 
   def self.random
-#    offset(rand(User.count)).first
     offset(rand(6)).first
   end
 
   def monthly_draw
     (badge_set ? badge_set.comp_tier.monthly_draw  : legacy_p_unit_grant) * focus_time / 100
-  end
-
-  def role_names
-    ['Bootstrapper', 'Badge Librarian']
   end
 
   def gravatar(size=24)

@@ -9,6 +9,12 @@ describe User do
 
   it { should respond_to(:name) }
 
+  it "#librarian? works" do
+    expect(@user.librarian).to be false
+    @user.update_attributes(librarian: true)
+    expect(@user.librarian).to be true
+  end
+
   it "#name returns a string" do
     expect(@user.name).to match 'Test User'
   end
@@ -35,7 +41,5 @@ describe User do
     
     expect(@user.badge_level(@badge)).to eq(6)
   end
-
-
 
 end

@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
 
     def check_auth
       return if current_user.try(:is_admin?)
-      return if current_user.try(:librarian)
+      return if current_user.try(:librarian?)
       where = request.env["HTTP_REFERER"] || root_path
       redirect_to where, alert: 'Only librarians and admins can take that action.'
     end
