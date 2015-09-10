@@ -9,6 +9,9 @@
     - else
       .large-3.small-6.columns= f.association :validator, label_method: :short, selected: current_user.try(:id), label: 'Validator or Bootstrapper'
     .large-9.small-6.columns.underline-links
+      - whom = @badge_nomination.nominator.name.titlecase rescue 'Admin/Nobody'
+      = "Nominated by #{whom} for Level #{@badge_nomination.level_nominated}"
+      %br
       Only validations by
       = link_to 'current badge holders', @badge, title: @badge.try(:current_holder_names)
       or
@@ -16,7 +19,7 @@
       will be counted.
     .large-3
     %hr
-      
+    
     .large-4.small-6.columns= f.association :badge_nomination, collection: @badge_nominations, label_method: :short_name_for_badge_level, label: 'Pending Badge Nomination', selected: params[:badge_nomination_id]
     .large-4.small-6.columns= f.input :comment, input_html: {rows: 3}
     - unless @badge_nomination.evidence == ''
@@ -24,7 +27,7 @@
         %strong Evidence submitted:
         %br
         = @badge_nomination.evidence
-    %hri
+    %hr
     - if @badge && @badge.try(:has_levels?)
       .box= f.input :level, collection: [['0: None', 0]] + @badge.detailed_levels, label: 'Level: I have repeatedly demonstrated that…', as: :radio_buttons, input_html: { class: 'radio-input' }
     - else
