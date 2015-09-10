@@ -10,7 +10,10 @@
       .large-3.small-6.columns= f.association :validator, label_method: :short, selected: current_user.try(:id), label: 'Validator or Bootstrapper'
     .large-9.small-6.columns.underline-links
       - whom = @badge_nomination.nominator.name.titlecase rescue 'Admin/Nobody'
-      = "Nominated by #{whom} for Level #{@badge_nomination.level_nominated}"
+      = link_to "Nominated by #{whom} for Level #{@badge_nomination.level_nominated}", @badge_nomination
+      %br
+      = "Already validated/bootstrapped #{@badge_nomination.validators.count} times"
+      %br
       %br
       Only validations by
       = link_to 'current badge holders', @badge, title: @badge.try(:current_holder_names)

@@ -33,7 +33,7 @@
 - if holders_count < 4
   - boostrapper_emails = User.bootstrapper.map(&:mailto).join(' ')
   %button= mail_to boostrapper_emails, "Open e-mail to request grant from #{User.bootstrapper.count} Badge Bootstrappers", title: User.bootstrappers
-
+.clear-both
 - if librarian_or_admin?
   .admin-only
     .row
@@ -52,11 +52,14 @@
         .large-6.columns Pending, i.e. voting takes over
       .large-3.columns
     %button= link_to 'Add Validation', new_nomination_vote_path(badge_nomination_id: @badge_nomination.id)
-    - if @validations.count > 0
-      %h4 Validations
-      = render @validations
-      %hr
+  %h4 Validations
+  %span.admin-only= render @validations
+- else
+  %h4 Validations
+  = "Already nominated/bootstrapped #{@badge_nomination.validators.count} times"
+%hr
 
+- if librarian_or_admin?
   %p
   .admin-only
     %button= link_to 'Edit Nomination', edit_badge_nomination_path(@badge_nomination)

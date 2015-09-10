@@ -29,7 +29,7 @@ class NominationVotesController < ApplicationController
 
     respond_to do |format|
       if @nomination_vote.save
-        format.html { redirect_to @nomination_vote.badge_nomination, notice: 'Validation was successfully created.' }
+        format.html { redirect_to @nomination_vote.badge_nomination, notice: 'Your validation was successfully created.' }
         format.json { render :show, status: :created, location: @nomination_vote }
       else
         @badge_nomination = @nomination_vote.badge_nomination
