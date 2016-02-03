@@ -1,7 +1,13 @@
 %h2= @user.name
 
+%strong Email:
 = @user.email
-
+%br
+%strong Role:
+= @user.role
+%br
+%strong Special Access?
+= librarian_or_admin?(@user)
 %hr
 
 %button= link_to 'All Users', users_path

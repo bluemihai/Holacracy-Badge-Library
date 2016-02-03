@@ -56,6 +56,10 @@ class User < ActiveRecord::Base
     role == 'admin'
   end
 
+  def is_comp_admin?
+    role == 'comp_admin'
+  end
+
   def badge_level(badge)
     bn = BadgeNomination.find_by(user_id: self.id, badge_id: badge.id)
     bn.try(:current_level)

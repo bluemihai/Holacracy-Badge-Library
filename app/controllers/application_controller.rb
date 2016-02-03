@@ -21,8 +21,9 @@ class ApplicationController < ActionController::Base
       return true if current_user
     end
 
-    def librarian_or_admin?
-      user_signed_in? && (current_user.librarian? || current_user.is_admin?)
+    def librarian_or_admin?(user=nil)
+      user ||= current_user
+      user_signed_in? && (user.librarian? || user.is_comp_admin? || user.is_admin?)
     end
 
     def correct_user?
