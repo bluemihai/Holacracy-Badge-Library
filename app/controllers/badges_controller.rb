@@ -133,8 +133,7 @@ class BadgesController < ApplicationController
     end
 
     def check_auth
-      return if current_user.try(:is_admin?)
-      return if current_user.try(:librarian?)
+      return if librarian_or_admin?
       return if @badge.status == 'draft'
       where = request.env["HTTP_REFERER"] || root_path
       redirect_to where, alert: 'Only librarians and admins can take that action.'
